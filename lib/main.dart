@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluru_tools/src/rust/services/api.dart';
+import 'package:fluru_tools/src/rust/frb_generated.dart';
 
-void main() {
+
+Future<void> main() async {
+  await RustLib.init();
   runApp(const MyApp());
 }
 
@@ -43,11 +47,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
+
   var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    Widget page;
+    switch (selectedIndex) {
+      case 0:
+        page = EmptyPage();
+        break;
+      case 1:
+        page = FormatConverterContainer();
+        break;
+      default:
+        page = EmptyPage();
+    }
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
@@ -85,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 child: Container(
                   color: Theme.of(context).colorScheme.primaryContainer,
-                  child: FormatConverterContainer(),
+                  child: page,
                 ),
               ),
             ],
@@ -96,8 +112,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class MyAppState extends ChangeNotifier {
-  var selectedIndex = 0;
+class EmptyPage extends StatelessWidget {
+  const EmptyPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child:SizedBox(
+        child: Center(
+          child: Text(''),
+        ),
+      ),
+    );
+  }
 }
 
 
@@ -114,7 +141,36 @@ class FormatConverterContainer extends StatefulWidget {
 class _FormatConverterContainerState extends State<FormatConverterContainer> {
   var _inputIndex = 0;
   var _outputIndex = 0;
+  late final TextEditingController _inputCtrl;
+  late final TextEditingController _outputCtrl;
 
+  @override
+  void initState() {
+    super.initState();
+    _inputCtrl = TextEditingController();
+    _outputCtrl = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _inputCtrl.dispose();
+    _outputCtrl.dispose();
+    super.dispose();
+  }
+
+  void _convert(){
+    setState(() {
+      try {
+        _outputCtrl.text = convertTextFormat(
+          input: _inputCtrl.text,
+          inputFormat: _inputIndex,
+          outputFormat: _outputIndex,
+        );
+      } catch (e) {
+        _outputCtrl.text = '$e';
+      }
+    });
+  }
 
   void _invert() {
     setState(() {
@@ -132,7 +188,7 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
           children: [
             SizedBox(
               height: 70,
-              child: Padding( 
+              child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child:Row(
                 children: [
@@ -143,7 +199,7 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
                       value: _inputIndex,
                       items: [
                         DropdownMenuItem(value: 0, child: Text('JSON'),),
-                        DropdownMenuItem(value: 1, child: Text('CSV'),), 
+                        DropdownMenuItem(value: 1, child: Text('CSV'),),
                         DropdownMenuItem(value: 2, child: Text('YAML'),),
                         DropdownMenuItem(value: 3, child: Text('XML'),),
                       ],
@@ -172,7 +228,7 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
                       value: _outputIndex,
                       items: [
                         DropdownMenuItem(value: 0, child: Text('JSON'),),
-                        DropdownMenuItem(value: 1, child: Text('CSV'),), 
+                        DropdownMenuItem(value: 1, child: Text('CSV'),),
                         DropdownMenuItem(value: 2, child: Text('YAML'),),
                         DropdownMenuItem(value: 3, child: Text('XML'),),
                       ],
@@ -197,7 +253,7 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
                     child: Padding(
                       padding: EdgeInsets.all(8.0 ),
                       child: TextField(
-                        controller: TextEditingController(text: _inputIndex.toString()),
+                        controller: _inputCtrl,
                         textAlignVertical: TextAlignVertical.top,
                         expands: true,
                         minLines: null,
@@ -214,7 +270,7 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
                     child: Center(
                       child: IconButton(
                         icon: Icon(Icons.arrow_forward),
-                        onPressed: () { },
+                        onPressed: () => _convert(),
                       ),
                     ),
                   ),
@@ -223,7 +279,7 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
                     child: Padding(
                       padding: EdgeInsets.all(8.0 ),
                       child: TextField(
-                        controller: TextEditingController(text: _outputIndex.toString()),
+                        controller: _outputCtrl,
                         textAlignVertical: TextAlignVertical.top,
                         readOnly: true,
                         expands: true,
@@ -245,3 +301,4 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
     );
   }
 }
+
