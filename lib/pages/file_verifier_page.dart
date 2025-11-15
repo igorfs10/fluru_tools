@@ -30,7 +30,10 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
   }
 
   void _fileVerify() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      withData: true,
+      allowMultiple: false,
+    );
     if (result == null || result.files.isEmpty) {
       return;
     }
