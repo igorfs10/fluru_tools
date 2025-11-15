@@ -1,9 +1,40 @@
+use md5::{Digest, Md5};
+use sha1::Sha1;
+use sha2::Sha256;
+
 use crate::{
     enums::format_converter::FormatConverter,
     services::{
         csv_converter::*, hdoc_request::*, json_converter::*, xml_converter::*, yaml_converter::*,
     },
 };
+
+#[flutter_rust_bridge::frb(sync)]
+pub fn file_verify(data: Vec<u8>, selected: i32) -> String {
+    let hash = match selected {
+        0 => {
+            let mut hasher = Md5::new();
+            hasher.update(data);
+            hasher.finalize().to_vec()
+        }
+        1 => {
+            let mut sha1_hasher = Sha1::new();
+            sha1_hasher.update(data);
+            sha1_hasher.finalize().to_vec()
+        }
+        _ => {
+            let mut sha256_hasher = Sha256::new();
+            sha256_hasher.update(data);
+            sha256_hasher.finalize().to_vec()
+        }
+    };
+    let hex: String = hash
+        .iter()
+        .map(|b| format!("{:02x}", b).to_string())
+        .collect::<Vec<String>>()
+        .join("");
+    hex.into()
+}
 
 #[flutter_rust_bridge::frb(dart_async)]
 pub async fn make_request(input: String) -> Result<String, String> {

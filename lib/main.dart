@@ -1,3 +1,4 @@
+import 'package:fluru_tools/pages/file_verifier_page.dart';
 import 'package:fluru_tools/pages/format_converter_page.dart';
 import 'package:fluru_tools/pages/request_tester.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
       case 1:
         page = FormatConverterPage();
+        break;
+      case 2:
+        page = FileVerifierPage();
         break;
       case 3:
         page = RequestTesterPage();
