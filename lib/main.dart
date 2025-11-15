@@ -48,47 +48,50 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          SafeArea(
-            child: NavigationRail(
-              extended: true,
-              destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Scaffold(
+          body: Row(
+            children: [
+              SafeArea(
+                child: NavigationRail(
+                  extended: constraints.maxWidth >= 600,
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: Icon(Icons.home),
+                      label: Text('Home'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.data_object),
+                      label: Text('Text formart converter'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.insert_drive_file),
+                      label: Text('File Verifier'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.integration_instructions),
+                      label: Text('Request Tester'),
+                    ),
+                  ],
+                  selectedIndex: selectedIndex,
+                  onDestinationSelected: (value) {
+                    setState(() {
+                      selectedIndex = value;
+                    });
+                  },
                 ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.data_object),
-                  label: Text('Text formart converter'),
+              ),
+              Expanded(
+                child: Container(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  child: FormatConverterContainer(),
                 ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.insert_drive_file),
-                  label: Text('File Verifier'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.integration_instructions),
-                  label: Text('Request Tester'),
-                ),
-              ],
-              selectedIndex: selectedIndex,
-              onDestinationSelected: (value) {
-                setState(() {
-                  selectedIndex = value;
-                });
-                print(selectedIndex);
-              },
-            ),
+              ),
+            ],
           ),
-          Expanded(
-            child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: FormatConverterContainer(),
-            ),
-          ),
-        ],
-      ),
+        );
+      }
     );
   }
 }
@@ -127,11 +130,10 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
       body: SafeArea(
         child: Column(
           children: [
-            // Linha de formatos: [Dropdown de entrada] [Botão inverter] [Dropdown de saída]
             SizedBox(
               height: 70,
               child: Padding( 
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child:Row(
                 children: [
                   Expanded(
@@ -147,23 +149,22 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
                       ],
                       onChanged: (v) {
                         if (v != null) {
-                          setState(() => _outputIndex = v);
+                          setState(() => _inputIndex = v);
                         }
                       },
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                   Expanded(
                     flex: 10,
                     child: SizedBox(
-                      height: 30,
-                      child: ElevatedButton(
+                      child: IconButton(
                         onPressed: _invert,
-                        child: const Icon(Icons.swap_horiz),
+                        icon: Icon(Icons.swap_horiz),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                   Expanded(
                     flex: 45,
                     child: DropdownButton(
@@ -194,14 +195,15 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
                   Expanded(
                     flex: 45,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0 ),
+                      padding: EdgeInsets.all(8.0 ),
                       child: TextField(
+                        controller: TextEditingController(text: _inputIndex.toString()),
                         textAlignVertical: TextAlignVertical.top,
                         expands: true,
                         minLines: null,
                         maxLines: null,
                         keyboardType: TextInputType.multiline,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -210,8 +212,8 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
                   Expanded(
                     flex: 10,
                     child: Center(
-                      child: ElevatedButton(
-                        child: const Icon(Icons.arrow_forward),
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_forward),
                         onPressed: () { },
                       ),
                     ),
@@ -219,7 +221,7 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
                   Expanded(
                     flex: 45,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0 ),
+                      padding: EdgeInsets.all(8.0 ),
                       child: TextField(
                         controller: TextEditingController(text: _outputIndex.toString()),
                         textAlignVertical: TextAlignVertical.top,
@@ -228,7 +230,7 @@ class _FormatConverterContainerState extends State<FormatConverterContainer> {
                         minLines: null,
                         maxLines: null,
                         keyboardType: TextInputType.multiline,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(),
                         ),
                       ),
