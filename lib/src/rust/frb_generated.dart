@@ -64,7 +64,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.11.1';
 
   @override
-  int get rustContentHash => -1405036690;
+  int get rustContentHash => -91668010;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -80,6 +80,8 @@ abstract class RustLibApi extends BaseApi {
     required int inputFormat,
     required int outputFormat,
   });
+
+  Future<String> crateServicesApiMakeRequest({required String input});
 }
 
 class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
@@ -121,6 +123,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         debugName: "convert_text_format",
         argNames: ["input", "inputFormat", "outputFormat"],
       );
+
+  @override
+  Future<String> crateServicesApiMakeRequest({required String input}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(input, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 2,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateServicesApiMakeRequestConstMeta,
+        argValues: [input],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateServicesApiMakeRequestConstMeta =>
+      const TaskConstMeta(debugName: "make_request", argNames: ["input"]);
 
   @protected
   String dco_decode_String(dynamic raw) {

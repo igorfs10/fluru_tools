@@ -6,6 +6,9 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
+Future<String> makeRequest({required String input}) =>
+    RustLib.instance.api.crateServicesApiMakeRequest(input: input);
+
 String convertTextFormat({
   required String input,
   required int inputFormat,
