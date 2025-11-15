@@ -1,16 +1,44 @@
-# fluru_tools
+# FluRu Tools — Flutter/Rust (desktop + WASM)
 
-A new Flutter project.
+Pequena aplicação rust com interface gráfica FLutter com ferramentas simples para verificação de integridade de arquivos e de formatos de texto json,xml, yaml e csv.
+Versão web: ...
 
-## Getting Started
+## Pré-requisitos
+- Rust estável (via `rustup`)
+- flutter_rust_bridge_codegen (cargo install flutter_rust_bridge_codegen)
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## Executar (Desktop)
+```bash
+flutter run
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Executar-build (WebAssembly)
+```bash
+flutter_rust_bridge_codegen build-web
+# ... or any other standard Flutter ways
+flutter run --web-header=Cross-Origin-Opener-Policy=same-origin --web-header=Cross-Origin-Embedder-Policy=require-corp
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## HDoc request format
+
+```
+<<METHOD
+GET
+METHOD
+<<URL
+https://igorfs10.github.io/PokemonSite/api/1/
+URL
+<<HEADERS
+Content-Type: application/json
+HEADERS
+<<BODY
+{
+	"name": "name",
+	"phone": "1234532"
+}
+BODY
+```
+> METHOD and URL are required
