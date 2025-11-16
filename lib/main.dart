@@ -3,10 +3,8 @@ import 'package:fluru_tools/pages/format_converter_page.dart';
 import 'package:fluru_tools/pages/request_tester.dart';
 import 'package:flutter/material.dart';
 import 'package:fluru_tools/pages/empty_page.dart';
-import 'package:fluru_tools/src/rust/frb_generated.dart';
 
-Future<void> main() async {
-  await RustLib.init();
+void main() {
   runApp(const MyApp());
 }
 

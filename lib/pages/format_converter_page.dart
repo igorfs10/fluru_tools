@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../src/services/text_format_converters.dart';
+import 'package:fluru_tools/services/text_format_converters.dart';
 
 
 class FormatConverterPage extends StatefulWidget {

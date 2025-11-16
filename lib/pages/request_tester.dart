@@ -1,4 +1,4 @@
-import 'package:fluru_tools/src/services/hdoc_request.dart';
+import 'package:fluru_tools/services/hdoc_request.dart';
 import 'package:flutter/material.dart';
 
 

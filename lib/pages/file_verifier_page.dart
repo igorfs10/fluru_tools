@@ -1,5 +1,5 @@
 import 'package:file_picker/file_picker.dart';
-import 'package:fluru_tools/src/services/file_verify.dart';
+import 'package:fluru_tools/services/file_verify.dart';
 import 'package:flutter/material.dart';
 
 
