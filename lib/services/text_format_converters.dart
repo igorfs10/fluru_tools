@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:csv/csv.dart';
-import 'package:json2yaml/json2yaml.dart' as j2y;
 import 'package:xml/xml.dart' as xml;
 import 'package:yaml/yaml.dart' as y;
 
@@ -58,6 +56,59 @@ dynamic _toPlain(dynamic v) {
   return v;
 }
 
+String _formatScalar(dynamic v) {
+  if (v == null) return 'null';
+  if (v is bool) return v ? 'true' : 'false';
+  if (v is num) return v.toString();
+  if (v is String) return jsonEncode(v);
+  return jsonEncode(v);
+}
+
+String _indentOf(int level) => '  ' * level; // 2 espaços
+
+void _writeYaml(dynamic value, StringBuffer buf, int indent) {
+  if (value is Map) {
+    if (value.isEmpty) {
+      buf.writeln('{}');
+      return;
+    }
+    final keys = value.keys.map((e) => e.toString()).toList()..sort();
+    for (final k in keys) {
+      final v = value[k];
+      final keyOut = RegExp(r'^[A-Za-z0-9_\-]+$').hasMatch(k) ? k : jsonEncode(k);
+      if (v is Map || v is List) {
+        buf.writeln('${_indentOf(indent)}$keyOut:');
+        _writeYaml(v, buf, indent + 1);
+      } else {
+        buf.writeln('${_indentOf(indent)}$keyOut: ${_formatScalar(v)}');
+      }
+    }
+    return;
+  }
+  if (value is List) {
+    if (value.isEmpty) {
+      buf.writeln('[]');
+      return;
+    }
+    for (final item in value) {
+      if (item is Map || item is List) {
+        buf.writeln('${_indentOf(indent)}-');
+        _writeYaml(item, buf, indent + 1);
+      } else {
+        buf.writeln('${_indentOf(indent)}- ${_formatScalar(item)}');
+      }
+    }
+    return;
+  }
+  buf.writeln(_formatScalar(value));
+}
+
+String _toYaml(dynamic value) {
+  final buf = StringBuffer();
+  _writeYaml(value, buf, 0);
+  return buf.toString();
+}
+
 // ========= JSON =========
 String prettyJson(String input) {
   final decoded = json.decode(input);
@@ -95,7 +146,7 @@ String jsonToCsv(String input) {
 
 String jsonToYaml(String input) {
   final decoded = json.decode(input);
-  return j2y.json2yaml(decoded);
+  return _toYaml(decoded);
 }
 
 String jsonToXml(String input) {
