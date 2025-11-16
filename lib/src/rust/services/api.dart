@@ -6,11 +6,6 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-String fileVerify({required List<int> data, required int selected}) => RustLib
-    .instance
-    .api
-    .crateServicesApiFileVerify(data: data, selected: selected);
-
 String convertTextFormat({
   required String input,
   required int inputFormat,

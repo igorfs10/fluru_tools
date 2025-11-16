@@ -39,6 +39,7 @@ dependencies:
   flutter_rust_bridge: 2.11.1
   file_picker: 10.3.6 
   http: 1.6.0
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_test:

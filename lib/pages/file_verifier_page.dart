@@ -1,6 +1,6 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:fluru_tools/src/services/file_verify.dart';
 import 'package:flutter/material.dart';
-import 'package:fluru_tools/src/rust/services/api.dart';
 
 
 class FileVerifierPage extends StatefulWidget {
@@ -30,24 +30,28 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
   }
 
   void _fileVerify() async {
+    var txtResult = '';
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      withData: true,
+      withData: false,
       allowMultiple: false,
+      withReadStream: true,
     );
     if (result == null || result.files.isEmpty) {
       return;
     }
-    setState(() {
-      try {
-        PlatformFile file = result.files.first;
-        file.readStream;
-        _outputCtrl.text = fileVerify(
-          data: file.bytes!,
-          selected: _outputIndex
-        );
-      } catch (e) {
-        _outputCtrl.text = '$e';
+    List<int> fileBytes = [];
+    try{
+      PlatformFile file = result.files.first;
+      await for (final chunk in file.readStream!) {
+        fileBytes.addAll(chunk);
       }
+        txtResult = fileVerify(fileBytes, _outputIndex);
+    }catch(e){
+      txtResult = '$e';
+    }
+    
+    setState(() {
+      _outputCtrl.text = txtResult;
     });
   }
   @override
