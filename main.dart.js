@@ -40703,7 +40703,7 @@ $0(){this.a.d=0},
 $S:0}
 A.akw.prototype={
 $2(a,b){var s,r,q=null,p=this.b
-p=A.LU(new A.yY(b.b>=600,A.c([A.a7J(A.lZ(B.ET,q),A.dy("Home",q,q,q,q,q,q)),A.a7J(A.lZ(B.EY,q),A.dy("Text formart converter",q,q,q,q,q,q)),A.a7J(A.lZ(B.EU,q),A.dy("File Verifier",q,q,q,q,q,q)),A.a7J(A.lZ(B.EV,q),A.dy("Request Tester",q,q,q,q,q,q))],t.P2),p.d,new A.akv(p),q),!0,!0,!0)
+p=A.LU(new A.yY(b.b>=700,A.c([A.a7J(A.lZ(B.ET,q),A.dy("Home",q,q,q,q,q,q)),A.a7J(A.lZ(B.EY,q),A.dy("Text formart converter",q,q,q,q,q,q)),A.a7J(A.lZ(B.EU,q),A.dy("File Verifier",q,q,q,q,q,q)),A.a7J(A.lZ(B.EV,q),A.dy("Request Tester",q,q,q,q,q,q))],t.P2),p.d,new A.akv(p),q),!0,!0,!0)
 s=A.a8(a).ax
 r=s.d
 s=r==null?s.b:r
