@@ -1,9 +1,0 @@
-{
-  "name": "rust_lib_fluru_tools",
-  "version": "0.1.0",
-  "files": [
-    "rust_lib_fluru_tools_bg.wasm",
-    "rust_lib_fluru_tools.js"
-  ],
-  "browser": "rust_lib_fluru_tools.js"
-}
