@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fluru_tools/src/rust/services/api.dart';
+
+import '../src/services/text_format_converters.dart';
 
 
 class FormatConverterPage extends StatefulWidget {
@@ -35,11 +36,9 @@ class _FormatConverterPageState extends State<FormatConverterPage> {
   void _convert(){
     setState(() {
       try {
-        _outputCtrl.text = convertTextFormat(
-          input: _inputCtrl.text,
-          inputFormat: _inputIndex,
-          outputFormat: _outputIndex,
-        );
+        _outputCtrl.text = convertTextFormat(_inputCtrl.text,
+          _inputIndex,
+          _outputIndex);
       } catch (e) {
         _outputCtrl.text = '$e';
       }

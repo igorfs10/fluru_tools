@@ -40,6 +40,10 @@ dependencies:
   file_picker: 10.3.6 
   http: 1.6.0
   crypto: ^3.0.3
+  csv: ^5.1.1
+  xml: ^6.5.0
+  yaml: ^3.1.2
+  json2yaml: ^3.0.1
 
 dev_dependencies:
   flutter_test:
