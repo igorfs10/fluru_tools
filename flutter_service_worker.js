@@ -25,7 +25,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "693635b5258fe5f1cda720cf224f158c
 "canvaskit/skwasm_heavy.wasm": "b0be7910760d205ea4e011458df6ee01",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "flutter.js": "24bc71911b75b5f8135c949e27a2984e",
-"flutter_bootstrap.js": "bfcf7fc1dce4b08edde7a3b98fde06b6",
+"flutter_bootstrap.js": "f9ce0611608d059798e68f2595d3d9dc",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
@@ -35,8 +35,8 @@ const RESOURCES = {"assets/AssetManifest.bin": "693635b5258fe5f1cda720cf224f158c
 "main.dart.js": "24b9bbf22849e146c8b395c705a8d128",
 "manifest.json": "15b07b87eea39f298e1d9144f1c02e72",
 "pkg/package.json": "b184ff82bfbf95901655b068f07f2f4a",
-"pkg/rust_lib_fluru_tools.js": "3bff84df5fffee8bd5b5527b109dda0f",
-"pkg/rust_lib_fluru_tools_bg.wasm": "251d029a32e98fc107fd75bbb39446da",
+"pkg/rust_lib_fluru_tools.js": "4b10e2c9fa0256baa0132742a6f26ed5",
+"pkg/rust_lib_fluru_tools_bg.wasm": "9a4c2347cbfbeb5e5374727206b142af",
 "version.json": "6ed3dd6bcd3ddfbf1104b8014ec85022"};
 // The application shell files that are downloaded before a service worker can
 // start.
