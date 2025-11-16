@@ -55,50 +55,63 @@ class _MyHomePageState extends State<MyHomePage> {
         page = EmptyPage();
     }
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Scaffold(
-          body: Row(
-            children: [
-              SafeArea(
-                child: NavigationRail(
-                  extended: constraints.maxWidth >= 600,
-                  destinations: [
-                    NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text('Home'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.data_object),
-                      label: Text('Text formart converter'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.insert_drive_file),
-                      label: Text('File Verifier'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.integration_instructions),
-                      label: Text('Request Tester'),
-                    ),
-                  ],
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
+    return PopScope(
+      canPop: selectedIndex == 0,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop){
+          return;
+        }
+        if(selectedIndex != 0) {
+          setState(() {
+            selectedIndex = 0;
+          });
+        }
+      },
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Scaffold(
+            body: Row(
+              children: [
+                SafeArea(
+                  child: NavigationRail(
+                    extended: constraints.maxWidth >= 600,
+                    destinations: [
+                      NavigationRailDestination(
+                        icon: Icon(Icons.home),
+                        label: Text('Home'),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.data_object),
+                        label: Text('Text formart converter'),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.insert_drive_file),
+                        label: Text('File Verifier'),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.integration_instructions),
+                        label: Text('Request Tester'),
+                      ),
+                    ],
+                    selectedIndex: selectedIndex,
+                    onDestinationSelected: (value) {
+                      setState(() {
+                        selectedIndex = value;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: page,
+                Expanded(
+                  child: Container(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    child: page,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }
+              ],
+            ),
+          );
+        }
+      ),
     );
   }
 }
