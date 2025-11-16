@@ -11,9 +11,6 @@ String fileVerify({required List<int> data, required int selected}) => RustLib
     .api
     .crateServicesApiFileVerify(data: data, selected: selected);
 
-Future<String> makeRequest({required String input}) =>
-    RustLib.instance.api.crateServicesApiMakeRequest(input: input);
-
 String convertTextFormat({
   required String input,
   required int inputFormat,

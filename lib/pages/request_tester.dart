@@ -1,5 +1,5 @@
+import 'package:fluru_tools/src/services/hdoc_request.dart';
 import 'package:flutter/material.dart';
-import 'package:fluru_tools/src/rust/services/api.dart';
 
 
 class RequestTesterPage extends StatefulWidget {
@@ -33,9 +33,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
   void _makeRequest() async {
     var result = "";
     try{
-      result = await makeRequest(
-        input: _inputCtrl.text,
-      );
+      result = await makeRequest(_inputCtrl.text);
     } catch (e) {
       result = '$e';
     }

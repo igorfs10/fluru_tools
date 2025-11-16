@@ -16,15 +16,6 @@ quick-xml = { version = "0.38.4", default-features = false }
 md-5 = { version = "0.10.6", default-features = false }
 sha1 = { version = "0.10.6", default-features = false }
 sha2 = { version = "0.10.9", default-features = false }
-reqwest = { version = "0.12.24" }
-
-[target.'cfg(target_arch = "wasm32")'.dependencies]
-reqwest = { version = "0.12.24", default-features = false}
-
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-reqwest = { version = "0.12.24" }
-wasm-bindgen = {version = "0.2.105", default-features = false}
-wasm-bindgen-futures = { version = "0.4.55", default-features = false }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }

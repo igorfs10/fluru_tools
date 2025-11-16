@@ -5,7 +5,7 @@ use sha2::Sha256;
 use crate::{
     enums::format_converter::FormatConverter,
     services::{
-        csv_converter::*, hdoc_request::*, json_converter::*, xml_converter::*, yaml_converter::*,
+        csv_converter::*,json_converter::*, xml_converter::*, yaml_converter::*,
     },
 };
 
@@ -34,29 +34,6 @@ pub fn file_verify(data: Vec<u8>, selected: i32) -> String {
         .collect::<Vec<String>>()
         .join("");
     hex.into()
-}
-
-#[flutter_rust_bridge::frb(dart_async)]
-pub async fn make_request(input: String) -> Result<String, String> {
-    match parse_heredoc_request(&input) {
-        Ok(request_data) => {
-            let result = send_request(&request_data).await;
-            match result {
-                Ok(result) => {
-                    let mut output = format!("Status Code: {}\n", result.status_code);
-                    output.push_str("Headers:\n");
-                    for (k, v) in result.headers {
-                        output.push_str(&format!("{}: {}\n", k, v));
-                    }
-                    output.push_str("\nBody:\n");
-                    output.push_str(&result.body);
-                    Ok(output)
-                }
-                Err(e) => Err(format!("Error executing request: {}", e)),
-            }
-        }
-        Err(e) => Err(format!("Error parsing request: {}", e)),
-    }
 }
 
 #[flutter_rust_bridge::frb(sync)]
