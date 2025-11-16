@@ -714,8 +714,8 @@ let wasm_bindgen;
             const ret = getStringFromWasm0(arg0, arg1);
             return ret;
         }, arguments) };
-        imports.wbg.__wbindgen_cast_6df3fa0398a3d93f = function() { return logError(function (arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { dtor_idx: 105, function: Function { arguments: [NamedExternref("Event")], shim_idx: 109, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
+        imports.wbg.__wbindgen_cast_90c9f131140513a8 = function() { return logError(function (arg0, arg1) {
+            // Cast intrinsic for `Closure(Closure { dtor_idx: 101, function: Function { arguments: [NamedExternref("Event")], shim_idx: 105, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm.wasm_bindgen__closure__destroy__h968f3593c522e82b, wasm_bindgen__convert__closures_____invoke__h52808c1b56546556);
             return ret;
         }, arguments) };

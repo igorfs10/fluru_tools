@@ -410,6 +410,7 @@ class CompiledApp {
       _1359: f => finalizeWrapper(f, function(x0) { return dartInstance.exports._1359(f,arguments.length,x0) }),
       _1360: (x0,x1) => x0.removeChild(x1),
       _1361: x0 => x0.click(),
+      _1364: (x0,x1,x2) => x0.slice(x1,x2),
       _1365: Date.now,
       _1367: s => new Date(s * 1000).getTimezoneOffset() * 60,
       _1368: s => {
