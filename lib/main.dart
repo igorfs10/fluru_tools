@@ -69,12 +69,54 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       child: LayoutBuilder(
         builder: (context, constraints) {
+          if(constraints.maxWidth < 600){
+            return Scaffold(
+              body: Column(
+                children: [
+                  SafeArea(
+                    child: NavigationBar(
+                      destinations: [
+                        NavigationDestination(
+                          icon: Icon(Icons.home),
+                          label: 'Home',
+                        ),
+                        NavigationDestination(
+                          icon: Icon(Icons.data_object),
+                          label: 'Text formart converter',
+                        ),
+                        NavigationDestination(
+                          icon: Icon(Icons.insert_drive_file),
+                          label: 'File Verifier',
+                        ),
+                        NavigationDestination(
+                          icon: Icon(Icons.integration_instructions),
+                          label: 'Request Tester',
+                        ),
+                      ],
+                      selectedIndex: selectedIndex,
+                      onDestinationSelected: (value) {
+                        setState(() {
+                          selectedIndex = value;
+                        });
+                      },
+                      )
+                    ),
+                    Expanded(
+                      child: Container(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        child: page,
+                      ),
+                    ),
+                ],
+              )
+            );
+          }
           return Scaffold(
             body: Row(
               children: [
                 SafeArea(
                   child: NavigationRail(
-                    extended: constraints.maxWidth >= 700,
+                    extended: constraints.maxWidth >= 900,
                     destinations: [
                       NavigationRailDestination(
                         icon: Icon(Icons.home),
