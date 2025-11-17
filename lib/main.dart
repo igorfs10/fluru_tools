@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         NavigationDestination(
                           icon: Icon(Icons.data_object),
-                          label: 'Text formart converter',
+                          label: 'JSON Converter',
                         ),
                         NavigationDestination(
                           icon: Icon(Icons.insert_drive_file),
@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.data_object),
-                        label: Text('Text formart converter'),
+                        label: Text('JSON Converter'),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.insert_drive_file),
