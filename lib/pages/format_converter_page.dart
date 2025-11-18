@@ -119,7 +119,6 @@ class _FormatConverterPageState extends State<FormatConverterPage> {
                   ),
                 ),
         
-                // Área principal: [TextField entrada] [Executar] [TextField saída (read-only)]
                 Expanded(
                   child: Column(
                     children: [
@@ -235,9 +234,7 @@ class _FormatConverterPageState extends State<FormatConverterPage> {
                     ],
                   ),
                   ),
-                ),
-        
-                // Área principal: [TextField entrada] [Executar] [TextField saída (read-only)]
+                ),        
                 Expanded(
                   child: Row(
                     children: [

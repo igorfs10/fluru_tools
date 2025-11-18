@@ -44,64 +44,127 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Área principal: [TextField entrada] [Executar] [TextField saída (read-only)]
-            Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 45,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0 ),
-                      child: TextField(
-                        controller: _inputCtrl,
-                        textAlignVertical: TextAlignVertical.top,
-                        expands: true,
-                        minLines: null,
-                        maxLines: null,
-                        keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 600) {
+          return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 45,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0 ),
+                          child: TextField(
+                            controller: _inputCtrl,
+                            textAlignVertical: TextAlignVertical.top,
+                            expands: true,
+                            minLines: null,
+                            maxLines: null,
+                            keyboardType: TextInputType.multiline,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 10,
-                    child: Center(
-                      child: IconButton(
-                        icon: Icon(Icons.arrow_forward),
-                        onPressed: () => _makeRequest(),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 45,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0 ),
-                      child: TextField(
-                        controller: _outputCtrl,
-                        textAlignVertical: TextAlignVertical.top,
-                        readOnly: true,
-                        expands: true,
-                        minLines: null,
-                        maxLines: null,
-                        keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                      Expanded(
+                        flex: 10,
+                        child: Center(
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_downward),
+                            onPressed: () => _makeRequest(),
+                          ),
                         ),
                       ),
-                    ),
+                      Expanded(
+                        flex: 45,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0 ),
+                          child: TextField(
+                            controller: _outputCtrl,
+                            textAlignVertical: TextAlignVertical.top,
+                            readOnly: true,
+                            expands: true,
+                            minLines: null,
+                            maxLines: null,
+                            keyboardType: TextInputType.multiline,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+        }
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 45,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0 ),
+                          child: TextField(
+                            controller: _inputCtrl,
+                            textAlignVertical: TextAlignVertical.top,
+                            expands: true,
+                            minLines: null,
+                            maxLines: null,
+                            keyboardType: TextInputType.multiline,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 10,
+                        child: Center(
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_forward),
+                            onPressed: () => _makeRequest(),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 45,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0 ),
+                          child: TextField(
+                            controller: _outputCtrl,
+                            textAlignVertical: TextAlignVertical.top,
+                            readOnly: true,
+                            expands: true,
+                            minLines: null,
+                            maxLines: null,
+                            keyboardType: TextInputType.multiline,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
     );
   }
 }
