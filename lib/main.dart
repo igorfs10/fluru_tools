@@ -40,7 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = EmptyPage();
+        page = EmptyPage(
+          onSelectIndex: (i) => setState(() => selectedIndex = i),
+        );
         break;
       case 1:
         page = FormatConverterPage();
@@ -52,7 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
         page = RequestTesterPage();
         break;
       default:
-        page = EmptyPage();
+        page = EmptyPage(
+          onSelectIndex: (i) => setState(() => selectedIndex = i),
+        );
     }
 
     return PopScope(
