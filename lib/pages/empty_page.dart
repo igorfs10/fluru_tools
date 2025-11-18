@@ -133,14 +133,14 @@ class EmptyPage extends StatelessWidget {
                     _ToolCard(
                       icon: Icons.public,
                       title: 'Versão Web',
-                      subtitle: 'Abrir no navegador (GitHub Pages)',
+                      subtitle: 'Abrir no navegador',
                       color: color.primary,
                       onTap: () => _openExternal('https://igorfs10.github.io/fluru_tools/'),
                     ),
                     _ToolCard(
                       icon: Icons.download,
                       title: 'Download Desktop',
-                      subtitle: 'Último release no GitHub',
+                      subtitle: 'Última versão',
                       color: color.secondary,
                       onTap: () => _openExternal('https://github.com/igorfs10/fluru_tools/releases/latest'),
                     ),
