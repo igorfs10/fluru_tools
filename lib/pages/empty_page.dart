@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EmptyPage extends StatelessWidget {
   final void Function(int) onSelectIndex;
@@ -73,6 +74,17 @@ class EmptyPage extends StatelessWidget {
                             icon: const Icon(Icons.integration_instructions),
                             label: const Text('Abrir Request Tester'),
                           ),
+                          const SizedBox(width: 8),
+                          OutlinedButton.icon(
+                            onPressed: () => _openExternal('https://igorfs10.github.io/fluru_tools/'),
+                            icon: const Icon(Icons.public),
+                            label: const Text('Versão Web'),
+                          ),
+                          OutlinedButton.icon(
+                            onPressed: () => _openExternal('https://github.com/igorfs10/fluru_tools/releases/latest'),
+                            icon: const Icon(Icons.download),
+                            label: const Text('Download Desktop'),
+                          ),
                         ],
                       ),
                     ],
@@ -117,6 +129,20 @@ class EmptyPage extends StatelessWidget {
                       subtitle: 'Monte requisições HTTP com blocos <<METHOD/URL/HEADERS/BODY>>',
                       color: color.tertiary,
                       onTap: () => onSelectIndex(3),
+                    ),
+                    _ToolCard(
+                      icon: Icons.public,
+                      title: 'Versão Web',
+                      subtitle: 'Abrir no navegador (GitHub Pages)',
+                      color: color.primary,
+                      onTap: () => _openExternal('https://igorfs10.github.io/fluru_tools/'),
+                    ),
+                    _ToolCard(
+                      icon: Icons.download,
+                      title: 'Download Desktop',
+                      subtitle: 'Último release no GitHub',
+                      color: color.secondary,
+                      onTap: () => _openExternal('https://github.com/igorfs10/fluru_tools/releases/latest'),
                     ),
                   ],
                 ),
@@ -205,6 +231,12 @@ class _ToolCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _openExternal(String url) async {
+  final uri = Uri.parse(url);
+  // Ignorar resultado; em falha poderia-se mostrar snackbar via global navigator key
+  await launchUrl(uri, mode: LaunchMode.externalApplication);
 }
 
 // (removido _TipTile não utilizado)
