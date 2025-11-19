@@ -13,10 +13,21 @@ Versão web: https://igorfs10.github.io/fluru_tools/
 flutter run
 ```
 
-## Executar-build (WebAssembly)
+## Build (Desktop)
+```bash
+flutter build windows --release
+```
+
+## Executar (WebAssembly)
 ```bash
 flutter run --web-header=Cross-Origin-Opener-Policy=same-origin --web-header=Cross-Origin-Embedder-Policy=require-corp
 ```
+
+## Build (WebAssembly)
+```bash
+flutter build web --release --wasm --base-href /[your-base-url]/
+```
+
 
 ## HDoc request format
 

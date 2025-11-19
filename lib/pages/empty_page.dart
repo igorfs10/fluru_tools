@@ -238,5 +238,3 @@ Future<void> _openExternal(String url) async {
   // Ignorar resultado; em falha poderia-se mostrar snackbar via global navigator key
   await launchUrl(uri, mode: LaunchMode.externalApplication);
 }
-
-// (removido _TipTile não utilizado)
