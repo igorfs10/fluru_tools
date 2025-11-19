@@ -20,7 +20,7 @@ flutter build windows --release
 
 ## Executar (WebAssembly)
 ```bash
-flutter run --web-header=Cross-Origin-Opener-Policy=same-origin --web-header=Cross-Origin-Embedder-Policy=require-corp
+flutter run --wasm --web-header=Cross-Origin-Opener-Policy=same-origin --web-header=Cross-Origin-Embedder-Policy=require-corp
 ```
 
 ## Build (WebAssembly)
