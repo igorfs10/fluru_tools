@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class EmptyPage extends StatelessWidget {
+class StartPage extends StatelessWidget {
   final void Function(int) onSelectIndex;
-  const EmptyPage({super.key, required this.onSelectIndex});
+  const StartPage({super.key, required this.onSelectIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,6 @@ class EmptyPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Icon(
                               Icons.build_circle_outlined,
@@ -42,13 +42,60 @@ class EmptyPage extends StatelessWidget {
                               color: color.onPrimaryContainer,
                             ),
                             const SizedBox(width: 12),
-                            Text(
-                              'Fluru Tools',
-                              style: Theme.of(context).textTheme.headlineSmall
-                                  ?.copyWith(
-                                    color: color.onPrimaryContainer,
-                                    fontWeight: FontWeight.w700,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'Fluru Tools',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall
+                                              ?.copyWith(
+                                                color: color.onPrimaryContainer,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                        ),
+                                      ),
+                                      FutureBuilder<PackageInfo>(
+                                        future: PackageInfo.fromPlatform(),
+                                        builder: (context, snapshot) {
+                                          final version =
+                                              snapshot.data?.version ?? '...';
+                                          final buildNumber =
+                                              snapshot.data?.buildNumber ?? '';
+                                          return Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                              vertical: 4,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: color.onPrimaryContainer
+                                                  .withValues(alpha: .08),
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                            child: Text(
+                                              'v$version+$buildNumber',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium
+                                                  ?.copyWith(
+                                                    color: color
+                                                        .onPrimaryContainer,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
+                                ],
+                              ),
                             ),
                           ],
                         ),

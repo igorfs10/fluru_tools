@@ -2,8 +2,8 @@ import 'package:fluru_tools/pages/base64_page.dart';
 import 'package:fluru_tools/pages/file_verifier_page.dart';
 import 'package:fluru_tools/pages/format_converter_page.dart';
 import 'package:fluru_tools/pages/request_tester.dart';
+import 'package:fluru_tools/pages/start_page.dart';
 import 'package:flutter/material.dart';
-import 'package:fluru_tools/pages/empty_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = EmptyPage(
+        page = StartPage(
           onSelectIndex: (i) => setState(() => selectedIndex = i),
         );
         break;
@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = Base64Page();
         break;
       default:
-        page = EmptyPage(
+        page = StartPage(
           onSelectIndex: (i) => setState(() => selectedIndex = i),
         );
     }
