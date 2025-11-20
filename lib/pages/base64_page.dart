@@ -54,7 +54,7 @@ class _Base64PageState extends State<Base64Page> {
   void _toFile() async {
     final ctx = context;
     try {
-      await saveFile(_outputCtrl.text);
+      await saveBase64File(_outputCtrl.text);
       if (ctx.mounted) {
         showDialog(
           context: ctx,
@@ -86,11 +86,6 @@ class _Base64PageState extends State<Base64Page> {
         );
       }
     }
-  }
-
-  Future saveFile(String base64) async {
-    final bytes = base64ToFile(base64);
-    await saveBase64File(bytes);
   }
 
   @override

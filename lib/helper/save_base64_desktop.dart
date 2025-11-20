@@ -1,7 +1,10 @@
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 
-Future saveBase64File(List<int> bytes) async {
+import 'package:fluru_tools/services/base64_up_down.dart';
+
+Future saveBase64File(String base64) async {
+  final bytes = base64ToFile(base64);
   final path = await FilePicker.platform.saveFile(fileName: "file.bin");
   if (path == null) return false;
   await File(path).writeAsBytes(bytes);
