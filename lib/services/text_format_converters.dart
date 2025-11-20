@@ -3,7 +3,12 @@ import 'package:csv/csv.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:yaml/yaml.dart' as y;
 
-enum FormatConverter { json, csv, yaml, xml_;
+enum FormatConverter {
+  json,
+  csv,
+  yaml,
+  xml_;
+
   static FormatConverter fromInt(int v) {
     switch (v) {
       case 0:
@@ -21,7 +26,8 @@ enum FormatConverter { json, csv, yaml, xml_;
 }
 
 // ========= Helpers =========
-String _prettyJsonEncode(dynamic value) => const JsonEncoder.withIndent('    ').convert(value);
+String _prettyJsonEncode(dynamic value) =>
+    const JsonEncoder.withIndent('    ').convert(value);
 
 String _valueToCell(dynamic v) {
   if (v == null) return '';
@@ -31,7 +37,8 @@ String _valueToCell(dynamic v) {
   return jsonEncode(v);
 }
 
-bool _isPrimitive(dynamic v) => v == null || v is String || v is num || v is bool;
+bool _isPrimitive(dynamic v) =>
+    v == null || v is String || v is num || v is bool;
 
 dynamic _parseTextValue(String s) {
   final t = s.trim();
@@ -46,7 +53,8 @@ dynamic _parseTextValue(String s) {
   return t;
 }
 
-Map<String, dynamic> _toPlainMap(Map src) => src.map((k, v) => MapEntry(k.toString(), _toPlain(v)));
+Map<String, dynamic> _toPlainMap(Map src) =>
+    src.map((k, v) => MapEntry(k.toString(), _toPlain(v)));
 List _toPlainList(List src) => src.map(_toPlain).toList();
 dynamic _toPlain(dynamic v) {
   if (v is y.YamlMap) return _toPlainMap(v);
@@ -75,7 +83,9 @@ void _writeYaml(dynamic value, StringBuffer buf, int indent) {
     final keys = value.keys.map((e) => e.toString()).toList()..sort();
     for (final k in keys) {
       final v = value[k];
-      final keyOut = RegExp(r'^[A-Za-z0-9_\-]+$').hasMatch(k) ? k : jsonEncode(k);
+      final keyOut = RegExp(r'^[A-Za-z0-9_\-]+$').hasMatch(k)
+          ? k
+          : jsonEncode(k);
       if (v is Map || v is List) {
         buf.writeln('${_indentOf(indent)}$keyOut:');
         _writeYaml(v, buf, indent + 1);
@@ -153,27 +163,30 @@ String jsonToXml(String input) {
   final decoded = json.decode(input);
   final b = xml.XmlBuilder();
   void write(String tag, dynamic v) {
-    b.element(tag, nest: () {
-      if (v == null) return;
-      if (_isPrimitive(v)) {
+    b.element(
+      tag,
+      nest: () {
+        if (v == null) return;
+        if (_isPrimitive(v)) {
+          b.text(v.toString());
+          return;
+        }
+        if (v is List) {
+          for (final item in v) {
+            write('item', item);
+          }
+          return;
+        }
+        if (v is Map) {
+          final keys = v.keys.map((e) => e.toString()).toList()..sort();
+          for (final k in keys) {
+            write(k, v[k]);
+          }
+          return;
+        }
         b.text(v.toString());
-        return;
-      }
-      if (v is List) {
-        for (final item in v) {
-          write('item', item);
-        }
-        return;
-      }
-      if (v is Map) {
-        final keys = v.keys.map((e) => e.toString()).toList()..sort();
-        for (final k in keys) {
-          write(k, v[k]);
-        }
-        return;
-      }
-      b.text(v.toString());
-    });
+      },
+    );
   }
 
   write('root', decoded);
@@ -258,7 +271,10 @@ String xmlToJson(String input) {
 
   final rootObj = nodeToJson(document.rootElement);
   // Normaliza caso root tenha apenas <item>...
-  if (rootObj is Map && rootObj.length == 1 && rootObj.containsKey('item') && rootObj['item'] is List) {
+  if (rootObj is Map &&
+      rootObj.length == 1 &&
+      rootObj.containsKey('item') &&
+      rootObj['item'] is List) {
     return _prettyJsonEncode(rootObj['item']);
   }
   return _prettyJsonEncode(rootObj);

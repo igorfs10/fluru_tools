@@ -1,16 +1,16 @@
 import 'package:file_picker/file_picker.dart';
-import 'package:fluru_tools/services/file_verify.dart';
+import 'package:fluru_tools/services/base64_up_down.dart';
 import 'package:flutter/material.dart';
+import 'package:fluru_tools/helper/save_base64_file.dart';
 
-class FileVerifierPage extends StatefulWidget {
-  const FileVerifierPage({super.key});
+class Base64Page extends StatefulWidget {
+  const Base64Page({super.key});
 
   @override
-  State<FileVerifierPage> createState() => _FileVerifierPageState();
+  State<Base64Page> createState() => _Base64PageState();
 }
 
-class _FileVerifierPageState extends State<FileVerifierPage> {
-  var _outputIndex = 0;
+class _Base64PageState extends State<Base64Page> {
   late final TextEditingController _outputCtrl;
 
   @override
@@ -25,7 +25,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
     super.dispose();
   }
 
-  void _fileVerify() async {
+  void _toBase64() async {
     var txtResult = '';
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       withData: false,
@@ -41,7 +41,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
       await for (final chunk in file.readStream!) {
         fileBytes.addAll(chunk);
       }
-      txtResult = fileVerify(fileBytes, _outputIndex);
+      txtResult = fileToBase64(fileBytes);
     } catch (e) {
       txtResult = '$e';
     }
@@ -49,6 +49,48 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
     setState(() {
       _outputCtrl.text = txtResult;
     });
+  }
+
+  void _toFile() async {
+    final ctx = context;
+    try {
+      await saveFile(_outputCtrl.text);
+      if (ctx.mounted) {
+        showDialog(
+          context: ctx,
+          builder: (dialogContext) => AlertDialog(
+            title: Text('✓'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      if (ctx.mounted) {
+        showDialog(
+          context: ctx,
+          builder: (dialogContext) => AlertDialog(
+            title: Text('X'),
+            content: Text('$e'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+  }
+
+  Future saveFile(String base64) async {
+    final bytes = base64ToFile(base64);
+    await saveBase64File(bytes);
   }
 
   @override
@@ -64,26 +106,8 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 85,
-                      child: DropdownButton(
-                        isExpanded: true,
-                        value: _outputIndex,
-                        items: [
-                          DropdownMenuItem(value: 0, child: Text('MD5')),
-                          DropdownMenuItem(value: 1, child: Text('SHA1')),
-                          DropdownMenuItem(value: 2, child: Text('SHA256')),
-                        ],
-                        onChanged: (v) {
-                          if (v != null) {
-                            setState(() => _outputIndex = v);
-                          }
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      flex: 15,
                       child: IconButton(
-                        onPressed: _fileVerify,
+                        onPressed: _toBase64,
                         icon: Icon(Icons.file_upload),
                       ),
                     ),
@@ -95,6 +119,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
               child: Row(
                 children: [
                   Expanded(
+                    flex: 45,
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
                       child: TextField(
@@ -112,6 +137,22 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            SizedBox(
+              height: 70,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: IconButton(
+                        onPressed: _toFile,
+                        icon: Icon(Icons.file_download),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

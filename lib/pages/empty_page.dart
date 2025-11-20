@@ -20,134 +20,161 @@ class EmptyPage extends StatelessWidget {
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Header
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    color: color.primaryContainer,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.build_circle_outlined, size: 40, color: color.onPrimaryContainer),
-                          const SizedBox(width: 12),
-                          Text(
-                            'Fluru Tools',
-                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  color: color.onPrimaryContainer,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Utilitários para conversão de formatos, verificação de arquivos e testes de requisições.',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: color.primaryContainer,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.build_circle_outlined,
+                              size: 40,
                               color: color.onPrimaryContainer,
                             ),
+                            const SizedBox(width: 12),
+                            Text(
+                              'Fluru Tools',
+                              style: Theme.of(context).textTheme.headlineSmall
+                                  ?.copyWith(
+                                    color: color.onPrimaryContainer,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Utilitários para conversão de formatos, verificação de arquivos e testes de requisições.',
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(color: color.onPrimaryContainer),
+                        ),
+                        const SizedBox(height: 16),
+                        Wrap(
+                          spacing: 12,
+                          runSpacing: 8,
+                          children: [
+                            FilledButton.icon(
+                              onPressed: () => onSelectIndex(1),
+                              icon: const Icon(Icons.data_object),
+                              label: const Text('Abrir JSON Converter'),
+                            ),
+                            OutlinedButton.icon(
+                              onPressed: () => onSelectIndex(2),
+                              icon: const Icon(Icons.insert_drive_file),
+                              label: const Text('Abrir File Verifier'),
+                            ),
+                            OutlinedButton.icon(
+                              onPressed: () => onSelectIndex(3),
+                              icon: const Icon(Icons.integration_instructions),
+                              label: const Text('Abrir Request Tester'),
+                            ),
+                            OutlinedButton.icon(
+                              onPressed: () => onSelectIndex(4),
+                              icon: const Icon(Icons.transform),
+                              label: const Text('Abrir Base64 Encoder/Decoder'),
+                            ),
+                            const SizedBox(width: 8),
+                            OutlinedButton.icon(
+                              onPressed: () => _openExternal(
+                                'https://igorfs10.github.io/fluru_tools/',
+                              ),
+                              icon: const Icon(Icons.public),
+                              label: const Text('Versão Web'),
+                            ),
+                            OutlinedButton.icon(
+                              onPressed: () => _openExternal(
+                                'https://github.com/igorfs10/fluru_tools/releases/latest',
+                              ),
+                              icon: const Icon(Icons.download),
+                              label: const Text('Download Desktop'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Grid de atalhos
+                  Text(
+                    'Acessos rápidos',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  GridView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: crossAxisCount,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      mainAxisExtent: 140,
+                    ),
+                    children: [
+                      _ToolCard(
+                        icon: Icons.data_object,
+                        title: 'JSON / CSV / YAML / XML',
+                        subtitle: 'Converter e "pretty print" entre formatos',
+                        color: color.primary,
+                        onTap: () => onSelectIndex(1),
                       ),
-                      const SizedBox(height: 16),
-                      Wrap(
-                        spacing: 12,
-                        runSpacing: 8,
-                        children: [
-                          FilledButton.icon(
-                            onPressed: () => onSelectIndex(1),
-                            icon: const Icon(Icons.data_object),
-                            label: const Text('Abrir JSON Converter'),
-                          ),
-                          OutlinedButton.icon(
-                            onPressed: () => onSelectIndex(2),
-                            icon: const Icon(Icons.insert_drive_file),
-                            label: const Text('Abrir File Verifier'),
-                          ),
-                          OutlinedButton.icon(
-                            onPressed: () => onSelectIndex(3),
-                            icon: const Icon(Icons.integration_instructions),
-                            label: const Text('Abrir Request Tester'),
-                          ),
-                          const SizedBox(width: 8),
-                          OutlinedButton.icon(
-                            onPressed: () => _openExternal('https://igorfs10.github.io/fluru_tools/'),
-                            icon: const Icon(Icons.public),
-                            label: const Text('Versão Web'),
-                          ),
-                          OutlinedButton.icon(
-                            onPressed: () => _openExternal('https://github.com/igorfs10/fluru_tools/releases/latest'),
-                            icon: const Icon(Icons.download),
-                            label: const Text('Download Desktop'),
-                          ),
-                        ],
+                      _ToolCard(
+                        icon: Icons.insert_drive_file,
+                        title: 'Verificador de Arquivos',
+                        subtitle: 'MD5, SHA-1, SHA-256 de arquivos locais',
+                        color: color.secondary,
+                        onTap: () => onSelectIndex(2),
+                      ),
+                      _ToolCard(
+                        icon: Icons.integration_instructions,
+                        title: 'Request Tester (Heredoc)',
+                        subtitle:
+                            'Monte requisições HTTP com blocos <<METHOD/URL/HEADERS/BODY>>',
+                        color: color.tertiary,
+                        onTap: () => onSelectIndex(3),
+                      ),
+                      _ToolCard(
+                        icon: Icons.transform,
+                        title: 'Base64 Encoder/Decoder',
+                        subtitle: 'Converter arquivos para e de Base64',
+                        color: color.error,
+                        onTap: () => onSelectIndex(4),
+                      ),
+                      _ToolCard(
+                        icon: Icons.public,
+                        title: 'Versão Web',
+                        subtitle: 'Abrir no navegador',
+                        color: color.primary,
+                        onTap: () => _openExternal(
+                          'https://igorfs10.github.io/fluru_tools/',
+                        ),
+                      ),
+                      _ToolCard(
+                        icon: Icons.download,
+                        title: 'Download Desktop',
+                        subtitle: 'Última versão',
+                        color: color.secondary,
+                        onTap: () => _openExternal(
+                          'https://github.com/igorfs10/fluru_tools/releases/latest',
+                        ),
                       ),
                     ],
                   ),
-                ),
-
-                const SizedBox(height: 24),
-
-                // Grid de atalhos
-                Text(
-                  'Acessos rápidos',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 12),
-                GridView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    mainAxisExtent: 140,
-                  ),
-                  children: [
-                    _ToolCard(
-                      icon: Icons.data_object,
-                      title: 'JSON / CSV / YAML / XML',
-                      subtitle: 'Converter e "pretty print" entre formatos',
-                      color: color.primary,
-                      onTap: () => onSelectIndex(1),
-                    ),
-                    _ToolCard(
-                      icon: Icons.insert_drive_file,
-                      title: 'Verificador de Arquivos',
-                      subtitle: 'MD5, SHA-1, SHA-256 de arquivos locais',
-                      color: color.secondary,
-                      onTap: () => onSelectIndex(2),
-                    ),
-                    _ToolCard(
-                      icon: Icons.integration_instructions,
-                      title: 'Request Tester (Heredoc)',
-                      subtitle: 'Monte requisições HTTP com blocos <<METHOD/URL/HEADERS/BODY>>',
-                      color: color.tertiary,
-                      onTap: () => onSelectIndex(3),
-                    ),
-                    _ToolCard(
-                      icon: Icons.public,
-                      title: 'Versão Web',
-                      subtitle: 'Abrir no navegador',
-                      color: color.primary,
-                      onTap: () => _openExternal('https://igorfs10.github.io/fluru_tools/'),
-                    ),
-                    _ToolCard(
-                      icon: Icons.download,
-                      title: 'Download Desktop',
-                      subtitle: 'Última versão',
-                      color: color.secondary,
-                      onTap: () => _openExternal('https://github.com/igorfs10/fluru_tools/releases/latest'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                ],
+              ),
             ),
           );
         },
@@ -211,20 +238,24 @@ class _ToolCard extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 6),
                     Text(
                       subtitle,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).hintColor),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).hintColor,
+                      ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

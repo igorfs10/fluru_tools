@@ -1,3 +1,4 @@
+import 'package:fluru_tools/pages/base64_page.dart';
 import 'package:fluru_tools/pages/file_verifier_page.dart';
 import 'package:fluru_tools/pages/format_converter_page.dart';
 import 'package:fluru_tools/pages/request_tester.dart';
@@ -32,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   var selectedIndex = 0;
 
   @override
@@ -53,6 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 3:
         page = RequestTesterPage();
         break;
+      case 4:
+        page = Base64Page();
+        break;
       default:
         page = EmptyPage(
           onSelectIndex: (i) => setState(() => selectedIndex = i),
@@ -62,10 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return PopScope(
       canPop: selectedIndex == 0,
       onPopInvokedWithResult: (didPop, result) {
-        if (didPop){
+        if (didPop) {
           return;
         }
-        if(selectedIndex != 0) {
+        if (selectedIndex != 0) {
           setState(() {
             selectedIndex = 0;
           });
@@ -73,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       child: LayoutBuilder(
         builder: (context, constraints) {
-          if(constraints.maxWidth < 600){
+          if (constraints.maxWidth < 600) {
             return Scaffold(
               body: Column(
                 children: [
@@ -96,6 +99,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           icon: Icon(Icons.integration_instructions),
                           label: 'Request Tester',
                         ),
+                        NavigationDestination(
+                          icon: Icon(Icons.transform),
+                          label: 'Base64 Encoder/Decoder',
+                        ),
                       ],
                       selectedIndex: selectedIndex,
                       onDestinationSelected: (value) {
@@ -103,16 +110,16 @@ class _MyHomePageState extends State<MyHomePage> {
                           selectedIndex = value;
                         });
                       },
-                      )
                     ),
-                    Expanded(
-                      child: Container(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        child: page,
-                      ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      child: page,
                     ),
+                  ),
                 ],
-              )
+              ),
             );
           }
           return Scaffold(
@@ -138,6 +145,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: Icon(Icons.integration_instructions),
                         label: Text('Request Tester'),
                       ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.transform),
+                        label: Text('Base64 Encoder/Decoder'),
+                      ),
                     ],
                     selectedIndex: selectedIndex,
                     onDestinationSelected: (value) {
@@ -156,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           );
-        }
+        },
       ),
     );
   }

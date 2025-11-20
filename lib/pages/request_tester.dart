@@ -1,15 +1,11 @@
 import 'package:fluru_tools/services/hdoc_request.dart';
 import 'package:flutter/material.dart';
 
-
 class RequestTesterPage extends StatefulWidget {
-  const RequestTesterPage({
-    super.key,
-  });
+  const RequestTesterPage({super.key});
 
   @override
-  State<RequestTesterPage> createState() =>
-      _RequestTesterPageState();
+  State<RequestTesterPage> createState() => _RequestTesterPageState();
 }
 
 class _RequestTesterPageState extends State<RequestTesterPage> {
@@ -32,7 +28,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
 
   void _makeRequest() async {
     var result = "";
-    try{
+    try {
       result = await makeRequest(_inputCtrl.text);
     } catch (e) {
       result = '$e';
@@ -48,63 +44,63 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
       builder: (context, constraints) {
         if (constraints.maxWidth < 600) {
           return Scaffold(
-          body: SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 45,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0 ),
-                          child: TextField(
-                            controller: _inputCtrl,
-                            textAlignVertical: TextAlignVertical.top,
-                            expands: true,
-                            minLines: null,
-                            maxLines: null,
-                            keyboardType: TextInputType.multiline,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
+            body: SafeArea(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: 45,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: TextField(
+                              controller: _inputCtrl,
+                              textAlignVertical: TextAlignVertical.top,
+                              expands: true,
+                              minLines: null,
+                              maxLines: null,
+                              keyboardType: TextInputType.multiline,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 10,
-                        child: Center(
-                          child: IconButton(
-                            icon: Icon(Icons.arrow_downward),
-                            onPressed: () => _makeRequest(),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 45,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0 ),
-                          child: TextField(
-                            controller: _outputCtrl,
-                            textAlignVertical: TextAlignVertical.top,
-                            readOnly: true,
-                            expands: true,
-                            minLines: null,
-                            maxLines: null,
-                            keyboardType: TextInputType.multiline,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
+                        Expanded(
+                          flex: 10,
+                          child: Center(
+                            child: IconButton(
+                              icon: Icon(Icons.arrow_downward),
+                              onPressed: () => _makeRequest(),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          flex: 45,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: TextField(
+                              controller: _outputCtrl,
+                              textAlignVertical: TextAlignVertical.top,
+                              readOnly: true,
+                              expands: true,
+                              minLines: null,
+                              maxLines: null,
+                              keyboardType: TextInputType.multiline,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
+          );
         }
         return Scaffold(
           body: SafeArea(
@@ -116,7 +112,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                       Expanded(
                         flex: 45,
                         child: Padding(
-                          padding: EdgeInsets.all(8.0 ),
+                          padding: EdgeInsets.all(8.0),
                           child: TextField(
                             controller: _inputCtrl,
                             textAlignVertical: TextAlignVertical.top,
@@ -142,7 +138,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                       Expanded(
                         flex: 45,
                         child: Padding(
-                          padding: EdgeInsets.all(8.0 ),
+                          padding: EdgeInsets.all(8.0),
                           child: TextField(
                             controller: _outputCtrl,
                             textAlignVertical: TextAlignVertical.top,
@@ -164,7 +160,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
             ),
           ),
         );
-      }
+      },
     );
   }
 }

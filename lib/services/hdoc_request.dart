@@ -66,7 +66,9 @@ RequestData parseHeredocRequest(String input) {
             final parts = headerLine.split(':');
             if (parts.length >= 2) {
               final k = parts.first.trim();
-              final v = headerLine.substring(headerLine.indexOf(':') + 1).trim();
+              final v = headerLine
+                  .substring(headerLine.indexOf(':') + 1)
+                  .trim();
               if (k.isNotEmpty) headers[k] = v;
             }
           }
