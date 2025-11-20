@@ -120,7 +120,7 @@ class _Base64PageState extends State<Base64Page> {
                       child: TextField(
                         controller: _outputCtrl,
                         textAlignVertical: TextAlignVertical.top,
-                        readOnly: true,
+                        readOnly: false,
                         expands: true,
                         minLines: null,
                         maxLines: null,
