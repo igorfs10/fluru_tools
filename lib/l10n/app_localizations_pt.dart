@@ -79,6 +79,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get hereDocRequestExample => 'Exemplo de requisição HDOC:';
 
   @override
+  String get hereDocRequestInfo =>
+      'Blocos obrigatórios: METHOD, URL. Blocos suportados: HEADERS, BODY.';
+
+  @override
   String get openFile => 'Abrir Arquivo';
 
   @override
@@ -158,6 +162,10 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get hereDocRequestExample => 'Exemplo de requisição HDOC:';
+
+  @override
+  String get hereDocRequestInfo =>
+      'Blocos obrigatórios: METHOD, URL. Blocos suportados: HEADERS, BODY.';
 
   @override
   String get openFile => 'Abrir Arquivo';

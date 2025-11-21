@@ -219,6 +219,12 @@ abstract class AppLocalizations {
   /// **'HDOC request example:'**
   String get hereDocRequestExample;
 
+  /// No description provided for @hereDocRequestInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Required blocks: METHOD, URL. Supported blocks: HEADERS, BODY.'**
+  String get hereDocRequestInfo;
+
   /// No description provided for @openFile.
   ///
   /// In en, this message translates to:

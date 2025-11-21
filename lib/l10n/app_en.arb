@@ -69,6 +69,9 @@
   "hereDocRequestExample": "HDOC request example:",
   "@hereDocRequestExample": {},
 
+  "hereDocRequestInfo": "Required blocks: METHOD, URL. Supported blocks: HEADERS, BODY.",
+  "@hereDocRequestInfo": {},
+
   "openFile": "Open File",
   "@openFile": {},
 

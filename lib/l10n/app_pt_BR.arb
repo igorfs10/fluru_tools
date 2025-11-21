@@ -68,6 +68,9 @@
   "hereDocRequestExample": "Exemplo de requisição HDOC:",
   "@hereDocRequestExample": {},
 
+  "hereDocRequestInfo": "Blocos obrigatórios: METHOD, URL. Blocos suportados: HEADERS, BODY.",
+  "@hereDocRequestInfo": {},
+
   "openFile": "Abrir Arquivo",
   "@openFile": {},
 

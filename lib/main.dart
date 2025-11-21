@@ -4,6 +4,7 @@ import 'package:fluru_tools/pages/format_converter_page.dart';
 import 'package:fluru_tools/pages/request_tester.dart';
 import 'package:fluru_tools/pages/start_page.dart';
 import 'package:flutter/material.dart';
+import 'locale_state.dart';
 import 'l10n/app_localizations.dart';
 
 
@@ -14,17 +15,22 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fluru Tools',
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.lightBlueAccent),
-      ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: MyHomePage(),
+    return ValueListenableBuilder<Locale?>(
+      valueListenable: appLocale,
+      builder: (context, locale, _) {
+        return MaterialApp(
+          title: 'Fluru Tools',
+            theme: ThemeData(
+              colorScheme: .fromSeed(seedColor: Colors.lightBlueAccent),
+            ),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: locale,
+          home: MyHomePage(),
+        );
+      },
     );
   }
 }

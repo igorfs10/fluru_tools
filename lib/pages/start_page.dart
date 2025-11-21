@@ -1,4 +1,5 @@
 import 'package:fluru_tools/l10n/app_localizations.dart';
+import 'package:fluru_tools/locale_state.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -90,6 +91,8 @@ class StartPage extends StatelessWidget {
                                               ),
                                         ),
                                       ),
+                                      // Seletor de idioma
+                                      _LocaleSelector(),
                                       FutureBuilder<PackageInfo>(
                                         future: PackageInfo.fromPlatform(),
                                         builder: (context, snapshot) {
@@ -231,9 +234,9 @@ class StartPage extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 28),
+                  SizedBox(height: 28),
                   Text(
-                    'Exemplo de requisição Heredoc',
+                    AppLocalizations.of(context)!.hereDocRequestExample,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -260,6 +263,58 @@ class StartPage extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _LocaleSelector extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme;
+    final supported = AppLocalizations.supportedLocales;
+    final current = Localizations.localeOf(context);
+    // Encontrar locale efetivo na lista suportada
+    Locale effective = supported.firstWhere(
+      (l) => l.languageCode == current.languageCode &&
+          (l.countryCode == current.countryCode || l.countryCode == null || current.countryCode == null),
+      orElse: () => supported.first,
+    );
+
+    String labelFor(Locale locale) {
+      if (locale.languageCode == 'en') return 'English';
+      if (locale.languageCode == 'pt' && locale.countryCode == 'BR') return 'Português (Brasil)';
+      if (locale.languageCode == 'pt') return 'Português';
+      return locale.toString();
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 6),
+      decoration: BoxDecoration(
+        color: color.onPrimaryContainer.withValues(alpha: .08),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<Locale>(
+          value: effective,
+            alignment: Alignment.centerLeft,
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: color.onPrimaryContainer,
+                fontWeight: FontWeight.w600,
+              ),
+          items: supported.map((loc) {
+            return DropdownMenuItem<Locale>(
+              value: loc,
+              child: Text(labelFor(loc)),
+            );
+          }).toList(),
+          onChanged: (loc) {
+            if (loc != null) {
+              setAppLocale(loc);
+            }
+          },
+        ),
       ),
     );
   }
@@ -390,7 +445,7 @@ BODY''';
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'Blocos suportados: METHOD, URL, HEADERS, BODY',
+                    AppLocalizations.of(context)!.hereDocRequestInfo,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),

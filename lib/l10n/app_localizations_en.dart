@@ -80,6 +80,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hereDocRequestExample => 'HDOC request example:';
 
   @override
+  String get hereDocRequestInfo =>
+      'Required blocks: METHOD, URL. Supported blocks: HEADERS, BODY.';
+
+  @override
   String get openFile => 'Open File';
 
   @override
