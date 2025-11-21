@@ -21,6 +21,9 @@
   "downloadAppTitle": "Download Versão Desktop",
   "@downloadAppTitle": {},
 
+  "sourceCodeTitle": "Código Fonte",
+  "@sourceCodeTitle": {},
+
   "jsonConverterDescription": "Converte e formata dados JSON/CSV/YAML/XML facilmente.",
   "@jsonConverterDescription": {},
 
@@ -39,11 +42,31 @@
   "downloadAppDescription": "Baixe a versão desktop do Fluru Tools.",
   "@downloadAppDescription": {},
 
+  "sourceCodeDescription": "Explore o código fonte do Fluru Tools no GitHub.",
+  "@sourceCodeDescription": {},
+
+  "by": "Por {author}",
+  "@by": {
+    "placeholders": {
+      "author": {}
+    }
+  },
+
+  "developedBy": "Desenvolvido por {author}",
+  "@developedBy": {
+    "placeholders": {
+      "author": {}
+    }
+  },
+
   "quickAccess": "Acesso Rápido",
   "@quickAccess": {},
 
   "appDescription": "Um conjunto de ferramentas para ajudar desenvolvedores e entusiastas de tecnologia com tarefas diárias.",
   "@appDescription": {},
+
+  "hereDocRequestExample": "Exemplo de requisição HDOC:",
+  "@hereDocRequestExample": {},
 
   "openFile": "Abrir Arquivo",
   "@openFile": {},

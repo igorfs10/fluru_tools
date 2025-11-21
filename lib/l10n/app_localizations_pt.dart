@@ -30,6 +30,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get downloadAppTitle => 'Download Versão Desktop';
 
   @override
+  String get sourceCodeTitle => 'Código Fonte';
+
+  @override
   String get jsonConverterDescription =>
       'Converte e formata dados JSON/CSV/YAML/XML facilmente.';
 
@@ -52,11 +55,28 @@ class AppLocalizationsPt extends AppLocalizations {
   String get downloadAppDescription => 'Baixe a versão desktop do Fluru Tools.';
 
   @override
+  String get sourceCodeDescription =>
+      'Explore o código fonte do Fluru Tools no GitHub.';
+
+  @override
+  String by(Object author) {
+    return 'Por $author';
+  }
+
+  @override
+  String developedBy(Object author) {
+    return 'Desenvolvido por $author';
+  }
+
+  @override
   String get quickAccess => 'Acesso Rápido';
 
   @override
   String get appDescription =>
       'Um conjunto de ferramentas para ajudar desenvolvedores e entusiastas de tecnologia com tarefas diárias.';
+
+  @override
+  String get hereDocRequestExample => 'Exemplo de requisição HDOC:';
 
   @override
   String get openFile => 'Abrir Arquivo';
@@ -91,6 +111,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get downloadAppTitle => 'Download Versão Desktop';
 
   @override
+  String get sourceCodeTitle => 'Código Fonte';
+
+  @override
   String get jsonConverterDescription =>
       'Converte e formata dados JSON/CSV/YAML/XML facilmente.';
 
@@ -113,11 +136,28 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get downloadAppDescription => 'Baixe a versão desktop do Fluru Tools.';
 
   @override
+  String get sourceCodeDescription =>
+      'Explore o código fonte do Fluru Tools no GitHub.';
+
+  @override
+  String by(Object author) {
+    return 'Por $author';
+  }
+
+  @override
+  String developedBy(Object author) {
+    return 'Desenvolvido por $author';
+  }
+
+  @override
   String get quickAccess => 'Acesso Rápido';
 
   @override
   String get appDescription =>
       'Um conjunto de ferramentas para ajudar desenvolvedores e entusiastas de tecnologia com tarefas diárias.';
+
+  @override
+  String get hereDocRequestExample => 'Exemplo de requisição HDOC:';
 
   @override
   String get openFile => 'Abrir Arquivo';

@@ -22,6 +22,9 @@
   "downloadAppTitle": "Download Desktop App",
   "@downloadAppTitle": {},
 
+  "sourceCodeTitle": "Source Code",
+  "@sourceCodeTitle": {},
+
   "jsonConverterDescription": "Convert and format JSON/CSV/YAML/XML data easily.",
   "@jsonConverterDescription": {},
 
@@ -40,11 +43,31 @@
   "downloadAppDescription": "Download the desktop application for Fluru Tools.",
   "@downloadAppDescription": {},
 
+  "sourceCodeDescription": "Explore the source code of Fluru Tools on GitHub.",
+  "@sourceCodeDescription": {},
+
+  "by": "By {author}",
+  "@by": {
+    "placeholders": {
+      "author": {}
+    }
+  },
+
+  "developedBy": "Developed by {author}",
+  "@developedBy": {
+    "placeholders": {
+      "author": {}
+    }
+  },
+
   "quickAccess": "Quick Access",
   "@quickAccess": {},
 
   "appDescription": "A set of tools to help developers and tech enthusiasts with everyday tasks.",
   "@appDescription": {},
+
+  "hereDocRequestExample": "HDOC request example:",
+  "@hereDocRequestExample": {},
 
   "openFile": "Open File",
   "@openFile": {},

@@ -141,6 +141,12 @@ abstract class AppLocalizations {
   /// **'Download Desktop App'**
   String get downloadAppTitle;
 
+  /// No description provided for @sourceCodeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Source Code'**
+  String get sourceCodeTitle;
+
   /// No description provided for @jsonConverterDescription.
   ///
   /// In en, this message translates to:
@@ -177,6 +183,24 @@ abstract class AppLocalizations {
   /// **'Download the desktop application for Fluru Tools.'**
   String get downloadAppDescription;
 
+  /// No description provided for @sourceCodeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore the source code of Fluru Tools on GitHub.'**
+  String get sourceCodeDescription;
+
+  /// No description provided for @by.
+  ///
+  /// In en, this message translates to:
+  /// **'By {author}'**
+  String by(Object author);
+
+  /// No description provided for @developedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Developed by {author}'**
+  String developedBy(Object author);
+
   /// No description provided for @quickAccess.
   ///
   /// In en, this message translates to:
@@ -188,6 +212,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A set of tools to help developers and tech enthusiasts with everyday tasks.'**
   String get appDescription;
+
+  /// No description provided for @hereDocRequestExample.
+  ///
+  /// In en, this message translates to:
+  /// **'HDOC request example:'**
+  String get hereDocRequestExample;
 
   /// No description provided for @openFile.
   ///

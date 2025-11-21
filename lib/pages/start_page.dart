@@ -2,6 +2,7 @@ import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:flutter/services.dart';
 
 class StartPage extends StatelessWidget {
   final void Function(int) onSelectIndex;
@@ -61,6 +62,34 @@ class StartPage extends StatelessWidget {
                                               ),
                                         ),
                                       ),
+                                      // Autor pill
+                                      Container(
+                                        margin: const EdgeInsets.only(right: 8),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 4,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: color.onPrimaryContainer
+                                              .withValues(alpha: .08),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          Localizations.of<AppLocalizations>(
+                                            context,
+                                            AppLocalizations,
+                                          )!.by('igorfs10'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium
+                                              ?.copyWith(
+                                                color: color.onPrimaryContainer,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
+                                      ),
                                       FutureBuilder<PackageInfo>(
                                         future: PackageInfo.fromPlatform(),
                                         builder: (context, snapshot) {
@@ -102,8 +131,7 @@ class StartPage extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         Text(
-                          AppLocalizations.of(context)!
-                              .appDescription,
+                          AppLocalizations.of(context)!.appDescription,
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(color: color.onPrimaryContainer),
                         ),
@@ -134,40 +162,45 @@ class StartPage extends StatelessWidget {
                       _ToolCard(
                         icon: Icons.data_object,
                         title: AppLocalizations.of(context)!.jsonConverterTitle,
-                        subtitle: AppLocalizations.of(context)!
-                            .jsonConverterDescription,
+                        subtitle: AppLocalizations.of(
+                          context,
+                        )!.jsonConverterDescription,
                         color: color.primary,
                         onTap: () => onSelectIndex(1),
                       ),
                       _ToolCard(
                         icon: Icons.insert_drive_file,
                         title: AppLocalizations.of(context)!.fileVerifierTitle,
-                        subtitle: AppLocalizations.of(context)!
-                            .fileVerifierDescription,
+                        subtitle: AppLocalizations.of(
+                          context,
+                        )!.fileVerifierDescription,
                         color: color.secondary,
                         onTap: () => onSelectIndex(2),
                       ),
                       _ToolCard(
                         icon: Icons.integration_instructions,
                         title: AppLocalizations.of(context)!.requesterTitle,
-                        subtitle: AppLocalizations.of(context)!
-                            .requesterDescription,
+                        subtitle: AppLocalizations.of(
+                          context,
+                        )!.requesterDescription,
                         color: color.tertiary,
                         onTap: () => onSelectIndex(3),
                       ),
                       _ToolCard(
                         icon: Icons.transform,
                         title: AppLocalizations.of(context)!.base64EncoderTitle,
-                        subtitle: AppLocalizations.of(context)!
-                            .base64EncoderDescription,
+                        subtitle: AppLocalizations.of(
+                          context,
+                        )!.base64EncoderDescription,
                         color: color.error,
                         onTap: () => onSelectIndex(4),
                       ),
                       _ToolCard(
                         icon: Icons.public,
                         title: AppLocalizations.of(context)!.webVersionTitle,
-                        subtitle: AppLocalizations.of(context)!
-                            .webVersionDescription,
+                        subtitle: AppLocalizations.of(
+                          context,
+                        )!.webVersionDescription,
                         color: color.primary,
                         onTap: () => _openExternal(
                           'https://igorfs10.github.io/fluru_tools/',
@@ -176,14 +209,51 @@ class StartPage extends StatelessWidget {
                       _ToolCard(
                         icon: Icons.download,
                         title: AppLocalizations.of(context)!.downloadAppTitle,
-                        subtitle: AppLocalizations.of(context)!
-                            .downloadAppDescription,
+                        subtitle: AppLocalizations.of(
+                          context,
+                        )!.downloadAppDescription,
                         color: color.secondary,
                         onTap: () => _openExternal(
                           'https://github.com/igorfs10/fluru_tools/releases/latest',
                         ),
                       ),
+                      _ToolCard(
+                        icon: Icons.code,
+                        title: AppLocalizations.of(context)!.sourceCodeTitle,
+                        subtitle: AppLocalizations.of(
+                          context,
+                        )!.sourceCodeDescription,
+                        color: color.primary,
+                        onTap: () => _openExternal(
+                          'https://github.com/igorfs10/fluru_tools',
+                        ),
+                      ),
                     ],
+                  ),
+
+                  const SizedBox(height: 28),
+                  Text(
+                    'Exemplo de requisição Heredoc',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  _HeredocExample(),
+
+                  const SizedBox(height: 32),
+                  Center(
+                    child: Text(
+                      Localizations.of<AppLocalizations>(
+                        context,
+                        AppLocalizations,
+                      )!.developedBy('igorfs10'),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: .6),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -280,4 +350,83 @@ Future<void> _openExternal(String url) async {
   final uri = Uri.parse(url);
   // Ignorar resultado; em falha poderia-se mostrar snackbar via global navigator key
   await launchUrl(uri, mode: LaunchMode.externalApplication);
+}
+
+class _HeredocExample extends StatelessWidget {
+  const _HeredocExample();
+
+  final String _example = '''<<METHOD
+POST
+METHOD
+<<URL
+https://httpbin.org/post
+URL
+<<HEADERS
+Content-Type: application/json
+X-Token: abc123
+HEADERS
+<<BODY
+{
+  "nome": "Fluru",
+  "mensagem": "Olá!"
+}
+BODY''';
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      color: scheme.surfaceContainerHighest,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.integration_instructions, color: scheme.primary),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Blocos suportados: METHOD, URL, HEADERS, BODY',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  tooltip: 'Copiar exemplo',
+                  icon: const Icon(Icons.copy),
+                  onPressed: () async {
+                    await Clipboard.setData(ClipboardData(text: _example));
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Exemplo copiado!')),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: scheme.surface,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: scheme.outlineVariant),
+              ),
+              padding: const EdgeInsets.all(12),
+              child: SelectableText(
+                _example,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

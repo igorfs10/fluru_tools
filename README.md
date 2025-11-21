@@ -33,18 +33,19 @@ flutter build web --release --wasm --base-href /[your-base-url]/
 
 ```
 <<METHOD
-GET
+POST
 METHOD
 <<URL
-https://igorfs10.github.io/PokemonSite/api/1/
+https://httpbin.org/post
 URL
 <<HEADERS
 Content-Type: application/json
+X-Token: abc123
 HEADERS
 <<BODY
 {
-	"name": "name",
-	"phone": "1234532"
+  "nome": "Fluru",
+  "mensagem": "Olá!"
 }
 BODY
 ```

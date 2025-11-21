@@ -30,6 +30,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get downloadAppTitle => 'Download Desktop App';
 
   @override
+  String get sourceCodeTitle => 'Source Code';
+
+  @override
   String get jsonConverterDescription =>
       'Convert and format JSON/CSV/YAML/XML data easily.';
 
@@ -53,11 +56,28 @@ class AppLocalizationsEn extends AppLocalizations {
       'Download the desktop application for Fluru Tools.';
 
   @override
+  String get sourceCodeDescription =>
+      'Explore the source code of Fluru Tools on GitHub.';
+
+  @override
+  String by(Object author) {
+    return 'By $author';
+  }
+
+  @override
+  String developedBy(Object author) {
+    return 'Developed by $author';
+  }
+
+  @override
   String get quickAccess => 'Quick Access';
 
   @override
   String get appDescription =>
       'A set of tools to help developers and tech enthusiasts with everyday tasks.';
+
+  @override
+  String get hereDocRequestExample => 'HDOC request example:';
 
   @override
   String get openFile => 'Open File';
