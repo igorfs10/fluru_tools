@@ -274,18 +274,27 @@ class StartPage extends StatelessWidget {
 class _LocaleSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme;
+    final scheme = Theme.of(context).colorScheme;
     final supported = AppLocalizations.supportedLocales;
     final current = Localizations.localeOf(context);
-    // Encontrar locale efetivo na lista suportada
-    Locale effective = supported.firstWhere(
-      (l) =>
-          l.languageCode == current.languageCode &&
-          (l.countryCode == current.countryCode ||
-              l.countryCode == null ||
-              current.countryCode == null),
-      orElse: () => supported.first,
-    );
+    Locale? exact;
+    for (final l in supported) {
+      if (l.languageCode == current.languageCode &&
+          l.countryCode == current.countryCode) {
+        exact = l;
+        break;
+      }
+    }
+    Locale? languageOnly;
+    if (exact == null) {
+      for (final l in supported) {
+        if (l.languageCode == current.languageCode && l.countryCode == null) {
+          languageOnly = l;
+          break;
+        }
+      }
+    }
+    final effective = exact ?? languageOnly ?? supported.first;
 
     String labelFor(Locale locale) {
       if (locale.languageCode == 'en') return 'English';
@@ -297,18 +306,16 @@ class _LocaleSelector extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.only(right: 8),
-      padding: EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(
-        color: color.onPrimaryContainer.withValues(alpha: .08),
+        color: scheme.onPrimaryContainer.withValues(alpha: .08),
         borderRadius: BorderRadius.circular(12),
       ),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<Locale>(
           value: effective,
-          alignment: Alignment.centerLeft,
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
-            color: color.onPrimaryContainer,
+            color: scheme.onPrimaryContainer,
             fontWeight: FontWeight.w600,
           ),
           items: supported.map((loc) {
@@ -318,9 +325,7 @@ class _LocaleSelector extends StatelessWidget {
             );
           }).toList(),
           onChanged: (loc) {
-            if (loc != null) {
-              setAppLocale(loc);
-            }
+            if (loc != null) setAppLocale(loc);
           },
         ),
       ),
@@ -411,7 +416,6 @@ class _ToolCard extends StatelessWidget {
 
 Future<void> _openExternal(String url) async {
   final uri = Uri.parse(url);
-  // Ignorar resultado; em falha poderia-se mostrar snackbar via global navigator key
   await launchUrl(uri, mode: LaunchMode.externalApplication);
 }
 
