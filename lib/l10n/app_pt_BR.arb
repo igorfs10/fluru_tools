@@ -81,5 +81,11 @@
   "@openFile": {},
 
   "saveFile": "Salvar Arquivo",
-  "@saveFile": {}
+  "@saveFile": {},
+
+  "success": "Sucesso",
+  "@success": {},
+
+  "error": "Erro",
+  "@error": {}
 }

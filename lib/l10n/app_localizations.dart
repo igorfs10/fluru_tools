@@ -248,6 +248,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save File'**
   String get saveFile;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get success;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
 }
 
 class _AppLocalizationsDelegate

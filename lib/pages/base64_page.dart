@@ -60,7 +60,8 @@ class _Base64PageState extends State<Base64Page> {
         showDialog(
           context: ctx,
           builder: (dialogContext) => AlertDialog(
-            title: Text('✓'),
+            title: Text(AppLocalizations.of(context)!.success),
+            icon: Icon(Icons.check_circle, color: Colors.green),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(dialogContext).pop(),
@@ -75,7 +76,8 @@ class _Base64PageState extends State<Base64Page> {
         showDialog(
           context: ctx,
           builder: (dialogContext) => AlertDialog(
-            title: Text('X'),
+            title: Text(AppLocalizations.of(context)!.error),
+            icon: Icon(Icons.error, color: Colors.red),
             content: Text('$e'),
             actions: [
               TextButton(

@@ -94,4 +94,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveFile => 'Save File';
+
+  @override
+  String get success => 'Success';
+
+  @override
+  String get error => 'Error';
 }

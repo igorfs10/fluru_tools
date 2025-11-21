@@ -95,7 +95,8 @@ class StartPage extends StatelessWidget {
                                   context,
                                   AppLocalizations,
                                 )!.by('igorfs10'),
-                                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                                style: Theme.of(context).textTheme.labelMedium
+                                    ?.copyWith(
                                       color: color.onPrimaryContainer,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -105,19 +106,25 @@ class StartPage extends StatelessWidget {
                               future: PackageInfo.fromPlatform(),
                               builder: (context, snapshot) {
                                 final version = snapshot.data?.version ?? '...';
-                                final buildNumber = snapshot.data?.buildNumber ?? '';
+                                final buildNumber =
+                                    snapshot.data?.buildNumber ?? '';
                                 return Container(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 10,
                                     vertical: 4,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: color.onPrimaryContainer.withValues(alpha: .08),
+                                    color: color.onPrimaryContainer.withValues(
+                                      alpha: .08,
+                                    ),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Text(
                                     'v$version+$buildNumber',
-                                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(
                                           color: color.onPrimaryContainer,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -301,15 +308,18 @@ class _LocaleSelector extends StatelessWidget {
         color: scheme.onPrimaryContainer.withValues(alpha: .08),
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4), // mesma altura das pílulas
+      padding: EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 4,
+      ), // mesma altura das pílulas
       child: DropdownButtonHideUnderline(
         child: DropdownButton<Locale>(
           isDense: true,
           value: effective,
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: scheme.onPrimaryContainer,
-                fontWeight: FontWeight.w600,
-              ),
+            color: scheme.onPrimaryContainer,
+            fontWeight: FontWeight.w600,
+          ),
           items: supported.map((loc) {
             return DropdownMenuItem<Locale>(
               value: loc,

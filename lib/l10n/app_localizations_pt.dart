@@ -94,6 +94,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get saveFile => 'Salvar Arquivo';
+
+  @override
+  String get success => 'Sucesso';
+
+  @override
+  String get error => 'Erro';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -186,4 +192,10 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get saveFile => 'Salvar Arquivo';
+
+  @override
+  String get success => 'Sucesso';
+
+  @override
+  String get error => 'Erro';
 }
