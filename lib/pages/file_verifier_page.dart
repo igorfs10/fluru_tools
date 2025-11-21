@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:fluru_tools/custom_alert_dialog.dart';
 import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/services/file_verify.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,8 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
       return;
     }
     List<int> fileBytes = [];
+    if (!mounted) return;
+    showLoadingDialog(context, AppLocalizations.of(context)!.processing);
     try {
       PlatformFile file = result.files.first;
       await for (final chunk in file.readStream!) {
@@ -45,11 +48,15 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
       txtResult = fileVerify(fileBytes, _outputIndex);
     } catch (e) {
       txtResult = '$e';
+    } finally {
+      if (mounted) Navigator.of(context).pop(); // fecha loading
     }
 
-    setState(() {
-      _outputCtrl.text = txtResult;
-    });
+    if (mounted) {
+      setState(() {
+        _outputCtrl.text = txtResult;
+      });
+    }
   }
 
   @override

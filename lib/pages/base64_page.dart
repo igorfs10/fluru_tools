@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:fluru_tools/custom_alert_dialog.dart';
 import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/services/base64_up_down.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,8 @@ class _Base64PageState extends State<Base64Page> {
       return;
     }
     List<int> fileBytes = [];
+    if (!mounted) return;
+    showLoadingDialog(context, AppLocalizations.of(context)!.processing);
     try {
       PlatformFile file = result.files.first;
       await for (final chunk in file.readStream!) {
@@ -45,18 +48,25 @@ class _Base64PageState extends State<Base64Page> {
       txtResult = fileToBase64(fileBytes);
     } catch (e) {
       txtResult = '$e';
+    } finally {
+      if (mounted) Navigator.of(context).pop();
     }
 
-    setState(() {
-      _outputCtrl.text = txtResult;
-    });
+    if (mounted) {
+      setState(() {
+        _outputCtrl.text = txtResult;
+      });
+    }
   }
 
   void _toFile() async {
     final ctx = context;
+    if (!ctx.mounted) return;
+    showLoadingDialog(ctx, AppLocalizations.of(ctx)!.processing);
     try {
       await saveBase64File(_outputCtrl.text);
       if (ctx.mounted) {
+        Navigator.of(ctx).pop(); // fecha loading
         showDialog(
           context: ctx,
           builder: (dialogContext) => AlertDialog(
@@ -73,6 +83,7 @@ class _Base64PageState extends State<Base64Page> {
       }
     } catch (e) {
       if (ctx.mounted) {
+        Navigator.of(ctx).pop(); // fecha loading
         showDialog(
           context: ctx,
           builder: (dialogContext) => AlertDialog(
@@ -81,7 +92,7 @@ class _Base64PageState extends State<Base64Page> {
             content: Text('$e'),
             actions: [
               TextButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => Navigator.of(dialogContext).pop(),
                 child: Text('OK'),
               ),
             ],

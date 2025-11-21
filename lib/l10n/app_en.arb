@@ -88,5 +88,8 @@
   "@success": {},
 
   "error": "Error",
-  "@error": {}
+  "@error": {},
+
+  "processing": "Processing...",
+  "@processing": {}
 }

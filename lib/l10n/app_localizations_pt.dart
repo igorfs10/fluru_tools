@@ -100,6 +100,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get error => 'Erro';
+
+  @override
+  String get processing => 'Processando...';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -198,4 +201,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get error => 'Erro';
+
+  @override
+  String get processing => 'Processando...';
 }
