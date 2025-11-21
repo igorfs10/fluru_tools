@@ -130,7 +130,7 @@ class StartPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 8),
+                        SizedBox(height: 10),
                         Text(
                           AppLocalizations.of(context)!.appDescription,
                           style: Theme.of(context).textTheme.bodyMedium
@@ -139,8 +139,6 @@ class StartPage extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  SizedBox(height: 24),
                   // Seletor de idioma reposicionado
                   Align(
                     alignment: Alignment.centerRight,
@@ -310,7 +308,7 @@ class _LocaleSelector extends StatelessWidget {
         color: scheme.onPrimaryContainer.withValues(alpha: .08),
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<Locale>(
           value: effective,
