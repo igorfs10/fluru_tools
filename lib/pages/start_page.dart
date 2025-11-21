@@ -205,7 +205,7 @@ class StartPage extends StatelessWidget {
                         subtitle: AppLocalizations.of(
                           context,
                         )!.webVersionDescription,
-                        color: color.primary,
+                        color: color.secondary,
                         onTap: () => _openExternal(
                           'https://igorfs10.github.io/fluru_tools/',
                         ),
@@ -216,7 +216,7 @@ class StartPage extends StatelessWidget {
                         subtitle: AppLocalizations.of(
                           context,
                         )!.downloadAppDescription,
-                        color: color.primary,
+                        color: color.secondary,
                         onTap: () => _openExternal(
                           'https://github.com/igorfs10/fluru_tools/releases/latest',
                         ),
@@ -227,7 +227,7 @@ class StartPage extends StatelessWidget {
                         subtitle: AppLocalizations.of(
                           context,
                         )!.sourceCodeDescription,
-                        color: color.primary,
+                        color: color.secondary,
                         onTap: () => _openExternal(
                           'https://github.com/igorfs10/fluru_tools',
                         ),
