@@ -103,6 +103,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get processing => 'Processando...';
+
+  @override
+  String get base64FileSizeError =>
+      'O tamanho do arquivo excede o limite de 20MB.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -204,4 +208,8 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get processing => 'Processando...';
+
+  @override
+  String get base64FileSizeError =>
+      'O tamanho do arquivo excede o limite de 20MB.';
 }

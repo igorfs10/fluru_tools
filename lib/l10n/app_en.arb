@@ -91,5 +91,8 @@
   "@error": {},
 
   "processing": "Processing...",
-  "@processing": {}
+  "@processing": {},
+
+  "base64FileSizeError": "File size exceeds 20MB limit.",
+  "@base64FileSizeError": {}
 }

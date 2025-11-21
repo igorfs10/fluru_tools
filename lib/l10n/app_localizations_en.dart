@@ -103,4 +103,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get processing => 'Processing...';
+
+  @override
+  String get base64FileSizeError => 'File size exceeds 20MB limit.';
 }

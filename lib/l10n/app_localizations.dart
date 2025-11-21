@@ -266,6 +266,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Processing...'**
   String get processing;
+
+  /// No description provided for @base64FileSizeError.
+  ///
+  /// In en, this message translates to:
+  /// **'File size exceeds 20MB limit.'**
+  String get base64FileSizeError;
 }
 
 class _AppLocalizationsDelegate
