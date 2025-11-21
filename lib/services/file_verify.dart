@@ -1,5 +1,13 @@
 import 'package:crypto/crypto.dart' as c;
 
+/// Wrapper para uso em isolate via `compute`.
+/// Espera um Map com chaves 'data' (List) e 'selected' (int).
+String fileVerifyIsolate(Map<String, dynamic> args) {
+  final data = args['data'] as List<int>;
+  final selected = args['selected'] as int;
+  return fileVerify(data, selected);
+}
+
 /// selected: 0 = MD5, 1 = SHA1, qualquer outro = SHA256.
 String fileVerify(List<int> data, int selected) {
   final digest = switch (selected) {

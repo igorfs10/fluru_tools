@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:fluru_tools/custom_alert_dialog.dart';
 import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/services/base64_up_down.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluru_tools/helper/save_base64_file.dart';
 
@@ -45,7 +46,8 @@ class _Base64PageState extends State<Base64Page> {
       await for (final chunk in file.readStream!) {
         fileBytes.addAll(chunk);
       }
-      txtResult = fileToBase64(fileBytes);
+      // Base64 em isolate para não travar UI
+      txtResult = await compute(fileToBase64, fileBytes);
     } catch (e) {
       txtResult = '$e';
     } finally {

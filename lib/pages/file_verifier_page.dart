@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:fluru_tools/custom_alert_dialog.dart';
 import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/services/file_verify.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FileVerifierPage extends StatefulWidget {
@@ -45,7 +46,11 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
       await for (final chunk in file.readStream!) {
         fileBytes.addAll(chunk);
       }
-      txtResult = fileVerify(fileBytes, _outputIndex);
+      // processamento pesado em isolate
+      txtResult = await compute(
+        fileVerifyIsolate,
+        {'data': fileBytes, 'selected': _outputIndex},
+      );
     } catch (e) {
       txtResult = '$e';
     } finally {
