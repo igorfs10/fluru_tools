@@ -71,6 +71,12 @@
   "hereDocRequestInfo": "Blocos obrigatórios: METHOD, URL. Blocos suportados: HEADERS, BODY.",
   "@hereDocRequestInfo": {},
 
+  "hereDocRequestCopy": "Copiar Exemplo HDOC",
+  "@hereDocRequestCopy": {},
+
+  "hereDocRequestCopied": "Exemplo HDOC copiado para a área de transferência",
+  "@hereDocRequestCopied": {},
+
   "openFile": "Abrir Arquivo",
   "@openFile": {},
 

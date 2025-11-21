@@ -63,72 +63,70 @@ class StartPage extends StatelessWidget {
                                               ),
                                         ),
                                       ),
-                                      // Autor pill
-                                      Container(
-                                        margin: const EdgeInsets.only(right: 8),
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 4,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: color.onPrimaryContainer
-                                              .withValues(alpha: .08),
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          Localizations.of<AppLocalizations>(
-                                            context,
-                                            AppLocalizations,
-                                          )!.by('igorfs10'),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelMedium
-                                              ?.copyWith(
-                                                color: color.onPrimaryContainer,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                      // Seletor de idioma
-                                      _LocaleSelector(),
-                                      FutureBuilder<PackageInfo>(
-                                        future: PackageInfo.fromPlatform(),
-                                        builder: (context, snapshot) {
-                                          final version =
-                                              snapshot.data?.version ?? '...';
-                                          final buildNumber =
-                                              snapshot.data?.buildNumber ?? '';
-                                          return Container(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                              vertical: 4,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: color.onPrimaryContainer
-                                                  .withValues(alpha: .08),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            child: Text(
-                                              'v$version+$buildNumber',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelMedium
-                                                  ?.copyWith(
-                                                    color: color
-                                                        .onPrimaryContainer,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                            ),
-                                          );
-                                        },
-                                      ),
                                     ],
                                   ),
                                 ],
                               ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            // Autor pill
+                            Container(
+                              margin: EdgeInsets.only(right: 8),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: color.onPrimaryContainer.withValues(
+                                  alpha: .08,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                Localizations.of<AppLocalizations>(
+                                  context,
+                                  AppLocalizations,
+                                )!.by('igorfs10'),
+                                style: Theme.of(context).textTheme.labelMedium
+                                    ?.copyWith(
+                                      color: color.onPrimaryContainer,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
+                            ),
+                            FutureBuilder<PackageInfo>(
+                              future: PackageInfo.fromPlatform(),
+                              builder: (context, snapshot) {
+                                final version = snapshot.data?.version ?? '...';
+                                final buildNumber =
+                                    snapshot.data?.buildNumber ?? '';
+                                return Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: color.onPrimaryContainer.withValues(
+                                      alpha: .08,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    'v$version+$buildNumber',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(
+                                          color: color.onPrimaryContainer,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -143,7 +141,12 @@ class StartPage extends StatelessWidget {
                   ),
 
                   SizedBox(height: 24),
-
+                  // Seletor de idioma reposicionado
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: _LocaleSelector(),
+                  ),
+                  SizedBox(height: 8),
                   // Grid de atalhos
                   Text(
                     AppLocalizations.of(context)!.quickAccess,
@@ -241,10 +244,10 @@ class StartPage extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   _HeredocExample(),
 
-                  const SizedBox(height: 32),
+                  SizedBox(height: 32),
                   Center(
                     child: Text(
                       Localizations.of<AppLocalizations>(
@@ -294,8 +297,8 @@ class _LocaleSelector extends StatelessWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.only(right: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 6),
+      margin: EdgeInsets.only(right: 8),
+      padding: EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(
         color: color.onPrimaryContainer.withValues(alpha: .08),
         borderRadius: BorderRadius.circular(12),
@@ -440,14 +443,14 @@ BODY''';
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       color: scheme.surfaceContainerHighest,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Icon(Icons.integration_instructions, color: scheme.primary),
-                const SizedBox(width: 8),
+                SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     AppLocalizations.of(context)!.hereDocRequestInfo,
@@ -457,20 +460,24 @@ BODY''';
                   ),
                 ),
                 IconButton(
-                  tooltip: 'Copiar exemplo',
-                  icon: const Icon(Icons.copy),
+                  tooltip: AppLocalizations.of(context)!.hereDocRequestCopy,
+                  icon: Icon(Icons.copy),
                   onPressed: () async {
                     await Clipboard.setData(ClipboardData(text: _example));
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Exemplo copiado!')),
+                        SnackBar(
+                          content: Text(
+                            AppLocalizations.of(context)!.hereDocRequestCopied,
+                          ),
+                        ),
                       );
                     }
                   },
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -478,10 +485,10 @@ BODY''';
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: scheme.outlineVariant),
               ),
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(12),
               child: SelectableText(
                 _example,
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+                style: TextStyle(fontFamily: 'monospace', fontSize: 13),
               ),
             ),
           ],

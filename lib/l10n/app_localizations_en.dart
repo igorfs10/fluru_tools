@@ -84,6 +84,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Required blocks: METHOD, URL. Supported blocks: HEADERS, BODY.';
 
   @override
+  String get hereDocRequestCopy => 'Copy HDOC Example';
+
+  @override
+  String get hereDocRequestCopied => 'HDOC Example Copied to Clipboard';
+
+  @override
   String get openFile => 'Open File';
 
   @override

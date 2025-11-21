@@ -72,6 +72,12 @@
   "hereDocRequestInfo": "Required blocks: METHOD, URL. Supported blocks: HEADERS, BODY.",
   "@hereDocRequestInfo": {},
 
+  "hereDocRequestCopy": "Copy HDOC Example",
+  "@hereDocRequestCopy": {},
+
+  "hereDocRequestCopied": "HDOC Example Copied to Clipboard",
+  "@hereDocRequestCopied": {},
+
   "openFile": "Open File",
   "@openFile": {},
 

@@ -83,6 +83,13 @@ class AppLocalizationsPt extends AppLocalizations {
       'Blocos obrigatórios: METHOD, URL. Blocos suportados: HEADERS, BODY.';
 
   @override
+  String get hereDocRequestCopy => 'Copiar Exemplo HDOC';
+
+  @override
+  String get hereDocRequestCopied =>
+      'Exemplo HDOC copiado para a área de transferência';
+
+  @override
   String get openFile => 'Abrir Arquivo';
 
   @override
@@ -166,6 +173,13 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get hereDocRequestInfo =>
       'Blocos obrigatórios: METHOD, URL. Blocos suportados: HEADERS, BODY.';
+
+  @override
+  String get hereDocRequestCopy => 'Copiar Exemplo HDOC';
+
+  @override
+  String get hereDocRequestCopied =>
+      'Exemplo HDOC copiado para a área de transferência';
 
   @override
   String get openFile => 'Abrir Arquivo';

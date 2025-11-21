@@ -225,6 +225,18 @@ abstract class AppLocalizations {
   /// **'Required blocks: METHOD, URL. Supported blocks: HEADERS, BODY.'**
   String get hereDocRequestInfo;
 
+  /// No description provided for @hereDocRequestCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy HDOC Example'**
+  String get hereDocRequestCopy;
+
+  /// No description provided for @hereDocRequestCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'HDOC Example Copied to Clipboard'**
+  String get hereDocRequestCopied;
+
   /// No description provided for @openFile.
   ///
   /// In en, this message translates to:
