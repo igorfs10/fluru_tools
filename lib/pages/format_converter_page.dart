@@ -1,3 +1,4 @@
+import 'package:fluru_tools/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluru_tools/services/text_format_converters.dart';
 
@@ -37,7 +38,10 @@ class _FormatConverterPageState extends State<FormatConverterPage> {
           _outputIndex,
         );
       } catch (e) {
-        _outputCtrl.text = '$e';
+        if (mounted) {
+          showErrorDialog(context, '$e');
+          return;
+        }
       }
     });
   }

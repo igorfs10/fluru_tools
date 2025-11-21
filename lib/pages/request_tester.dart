@@ -1,3 +1,4 @@
+import 'package:fluru_tools/custom_alert_dialog.dart';
 import 'package:fluru_tools/services/hdoc_request.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,10 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
     try {
       result = await makeRequest(_inputCtrl.text);
     } catch (e) {
-      result = '$e';
+      if (mounted) {
+        showErrorDialog(context, '$e');
+        return;
+      }
     }
     setState(() {
       _outputCtrl.text = result;

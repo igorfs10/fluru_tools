@@ -44,16 +44,18 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
       final stream = result.files.first.readStream!;
       txtResult = await fileVerifyStream(stream, _outputIndex);
     } catch (e) {
-      txtResult = '$e';
+      if (mounted) {
+        Navigator.of(context).pop(); // fecha loading
+        showErrorDialog(context, '$e');
+        return;
+      }
     } finally {
       if (mounted) Navigator.of(context).pop(); // fecha loading
     }
 
-    if (mounted) {
-      setState(() {
-        _outputCtrl.text = txtResult;
-      });
-    }
+    setState(() {
+      _outputCtrl.text = txtResult;
+    });
   }
 
   @override

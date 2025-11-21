@@ -38,8 +38,14 @@ class _Base64PageState extends State<Base64Page> {
       return;
     }
     // se for maior que 20Mb estoura error
-    if(result.files.first.size > 20000000){
-      throw Exception(AppLocalizations.of(context)!.base64FileSizeError);
+    if (result.files.first.size > 20000000) {
+      if (mounted) {
+        showErrorDialog(
+          context,
+          AppLocalizations.of(context)!.base64FileSizeError,
+        );
+        return;
+      }
     }
     if (!mounted) return;
     showLoadingDialog(context, AppLocalizations.of(context)!.processing);
@@ -48,7 +54,10 @@ class _Base64PageState extends State<Base64Page> {
       final stream = result.files.first.readStream!;
       txtResult = await fileToBase64Stream(stream);
     } catch (e) {
-      txtResult = '$e';
+      if (mounted) {
+        showErrorDialog(context, '$e');
+        return;
+      }
     } finally {
       if (mounted) Navigator.of(context).pop();
     }
@@ -61,44 +70,18 @@ class _Base64PageState extends State<Base64Page> {
   }
 
   void _toFile() async {
-    final ctx = context;
-    if (!ctx.mounted) return;
-    showLoadingDialog(ctx, AppLocalizations.of(ctx)!.processing);
+    if (mounted) return;
+    showLoadingDialog(context, AppLocalizations.of(context)!.processing);
     try {
       await saveBase64File(_outputCtrl.text);
-      if (ctx.mounted) {
-        Navigator.of(ctx).pop(); // fecha loading
-        showDialog(
-          context: ctx,
-          builder: (dialogContext) => AlertDialog(
-            title: Text(AppLocalizations.of(context)!.success),
-            icon: Icon(Icons.check_circle, color: Colors.green),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(dialogContext).pop(),
-                child: Text('OK'),
-              ),
-            ],
-          ),
-        );
+      if (mounted) {
+        Navigator.of(context).pop(); // fecha loading
+        showSuccessDialog(context, '');
       }
     } catch (e) {
-      if (ctx.mounted) {
-        Navigator.of(ctx).pop(); // fecha loading
-        showDialog(
-          context: ctx,
-          builder: (dialogContext) => AlertDialog(
-            title: Text(AppLocalizations.of(context)!.error),
-            icon: Icon(Icons.error, color: Colors.red),
-            content: Text('$e'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(dialogContext).pop(),
-                child: Text('OK'),
-              ),
-            ],
-          ),
-        );
+      if (mounted) {
+        Navigator.of(context).pop(); // fecha loading
+        showErrorDialog(context, '$e');
       }
     }
   }
