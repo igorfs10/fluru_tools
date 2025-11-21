@@ -110,7 +110,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String latestVersion(Object version) {
-    return 'Última: $version';
+    return 'Última: v$version';
   }
 }
 
@@ -220,6 +220,6 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String latestVersion(Object version) {
-    return 'Última: $version';
+    return 'Última: v$version';
   }
 }

@@ -109,6 +109,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String latestVersion(Object version) {
-    return 'Latest: $version';
+    return 'Latest: v$version';
   }
 }

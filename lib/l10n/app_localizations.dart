@@ -276,7 +276,7 @@ abstract class AppLocalizations {
   /// No description provided for @latestVersion.
   ///
   /// In en, this message translates to:
-  /// **'Latest: {version}'**
+  /// **'Latest: v{version}'**
   String latestVersion(Object version);
 }
 
