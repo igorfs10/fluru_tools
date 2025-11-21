@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/services/file_verify.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +65,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 85,
+                      flex: 65,
                       child: DropdownButton(
                         isExpanded: true,
                         value: _outputIndex,
@@ -81,10 +82,11 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                       ),
                     ),
                     Expanded(
-                      flex: 15,
-                      child: IconButton(
+                      flex: 45,
+                      child: TextButton.icon(
                         onPressed: _fileVerify,
-                        icon: Icon(Icons.file_upload),
+                        icon: Icon(Icons.folder_open),
+                        label: Text(AppLocalizations.of(context)!.openFile),
                       ),
                     ),
                   ],

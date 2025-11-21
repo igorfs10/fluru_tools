@@ -1,0 +1,53 @@
+{
+  "@@locale": "pt",
+  "homeTitle": "Início",
+  "@homeTitle": {},
+
+  "jsonConverterTitle": "Conversor de texto",
+  "@jsonConverterTitle": {},
+
+  "fileVerifierTitle": "Verificador de Arquivos",
+  "@fileVerifierTitle": {},
+
+  "requesterTitle": "Requisitador HTTP",
+  "@requesterTitle": {},
+
+  "base64EncoderTitle": "Base64 En/Decoder",
+  "@base64EncoderTitle": {},
+
+  "webVersionTitle": "Versão Web",
+  "@webVersionTitle": {},
+
+  "downloadAppTitle": "Download Versão Desktop",
+  "@downloadAppTitle": {},
+
+  "jsonConverterDescription": "Converte e formata dados JSON/CSV/YAML/XML facilmente.",
+  "@jsonConverterDescription": {},
+
+  "fileVerifierDescription": "Verifique a integridade dos seus arquivos usando MD5, SHA-1 ou SHA-256.",
+  "@fileVerifierDescription": {},
+
+  "requesterDescription": "Envie e teste requisições HTTP facilmente usando o formato HDOC.",
+  "@requesterDescription": {},
+
+  "base64EncoderDescription": "Codifique e decodifique strings e arquivos Base64 rapidamente.",
+  "@base64EncoderDescription": {},
+
+  "webVersionDescription": "Acesse a versão web do Fluru Tools.",
+  "@webVersionDescription": {},
+
+  "downloadAppDescription": "Baixe a versão desktop do Fluru Tools.",
+  "@downloadAppDescription": {},
+
+  "quickAccess": "Acesso Rápido",
+  "@quickAccess": {},
+
+  "appDescription": "Um conjunto de ferramentas para ajudar desenvolvedores e entusiastas de tecnologia com tarefas diárias.",
+  "@appDescription": {},
+
+  "openFile": "Abrir Arquivo",
+  "@openFile": {},
+
+  "saveFile": "Salvar Arquivo",
+  "@saveFile": {}
+}

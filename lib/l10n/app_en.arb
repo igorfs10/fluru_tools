@@ -1,0 +1,54 @@
+{
+  "@@locale": "en",
+
+  "homeTitle": "Home",
+  "@homeTitle": {},
+
+  "jsonConverterTitle": "Text type Convert",
+  "@jsonConverterTitle": {},
+
+  "fileVerifierTitle": "File Verifier",
+  "@fileVerifierTitle": {},
+
+  "requesterTitle": "HTTP Requester",
+  "@requesterTitle": {},
+
+  "base64EncoderTitle": "Base64 En/Decoder",
+  "@base64EncoderTitle": {},
+
+  "webVersionTitle": "Web Version",
+  "@webVersionTitle": {},
+
+  "downloadAppTitle": "Download Desktop App",
+  "@downloadAppTitle": {},
+
+  "jsonConverterDescription": "Convert and format JSON/CSV/YAML/XML data easily.",
+  "@jsonConverterDescription": {},
+
+  "fileVerifierDescription": "Verify the integrity of your files using MD5, SHA-1 or SHA-256.",
+  "@fileVerifierDescription": {},
+
+  "requesterDescription": "Send and test HTTP requests with ease using HDOC format.",
+  "@requesterDescription": {},
+
+  "base64EncoderDescription": "Encode and decode Base64 strings and files quickly.",
+  "@base64EncoderDescription": {},
+
+  "webVersionDescription": "Access the web version of Fluru Tools.",
+  "@webVersionDescription": {},
+
+  "downloadAppDescription": "Download the desktop application for Fluru Tools.",
+  "@downloadAppDescription": {},
+
+  "quickAccess": "Quick Access",
+  "@quickAccess": {},
+
+  "appDescription": "A set of tools to help developers and tech enthusiasts with everyday tasks.",
+  "@appDescription": {},
+
+  "openFile": "Open File",
+  "@openFile": {},
+
+  "saveFile": "Save File",
+  "@saveFile": {}
+}

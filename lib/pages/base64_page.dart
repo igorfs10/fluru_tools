@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/services/base64_up_down.dart';
 import 'package:flutter/material.dart';
 import 'package:fluru_tools/helper/save_base64_file.dart';
@@ -101,9 +102,10 @@ class _Base64PageState extends State<Base64Page> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: IconButton(
+                      child: TextButton.icon(
                         onPressed: _toBase64,
-                        icon: Icon(Icons.file_upload),
+                        icon: Icon(Icons.folder_open),
+                        label: Text(AppLocalizations.of(context)!.openFile),
                       ),
                     ),
                   ],
@@ -141,9 +143,10 @@ class _Base64PageState extends State<Base64Page> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: IconButton(
+                      child: TextButton.icon(
                         onPressed: _toFile,
-                        icon: Icon(Icons.file_download),
+                        icon: Icon(Icons.save),
+                        label: Text(AppLocalizations.of(context)!.saveFile),
                       ),
                     ),
                   ],

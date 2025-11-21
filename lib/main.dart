@@ -4,6 +4,8 @@ import 'package:fluru_tools/pages/format_converter_page.dart';
 import 'package:fluru_tools/pages/request_tester.dart';
 import 'package:fluru_tools/pages/start_page.dart';
 import 'package:flutter/material.dart';
+import 'l10n/app_localizations.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.lightBlueAccent),
       ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: MyHomePage(),
     );
   }
@@ -85,23 +89,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       destinations: [
                         NavigationDestination(
                           icon: Icon(Icons.home),
-                          label: 'Home',
+                          label: AppLocalizations.of(context)!.homeTitle,
                         ),
                         NavigationDestination(
                           icon: Icon(Icons.data_object),
-                          label: 'JSON Converter',
+                          label: AppLocalizations.of(context)!.jsonConverterTitle,
                         ),
                         NavigationDestination(
                           icon: Icon(Icons.insert_drive_file),
-                          label: 'File Verifier',
+                          label: AppLocalizations.of(context)!.fileVerifierTitle,
                         ),
                         NavigationDestination(
                           icon: Icon(Icons.integration_instructions),
-                          label: 'Request Tester',
+                          label: AppLocalizations.of(context)!.requesterTitle,
                         ),
                         NavigationDestination(
                           icon: Icon(Icons.transform),
-                          label: 'Base64 Encoder/Decoder',
+                          label: AppLocalizations.of(context)!.base64EncoderTitle,
                         ),
                       ],
                       selectedIndex: selectedIndex,
@@ -131,23 +135,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     destinations: [
                       NavigationRailDestination(
                         icon: Icon(Icons.home),
-                        label: Text('Home'),
+                        label: Text(AppLocalizations.of(context)!.homeTitle),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.data_object),
-                        label: Text('JSON Converter'),
+                        label: Text(AppLocalizations.of(context)!.jsonConverterTitle),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.insert_drive_file),
-                        label: Text('File Verifier'),
+                        label: Text(AppLocalizations.of(context)!.fileVerifierTitle),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.integration_instructions),
-                        label: Text('Request Tester'),
+                        label: Text(AppLocalizations.of(context)!.requesterTitle),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.transform),
-                        label: Text('Base64 Encoder/Decoder'),
+                        label: Text(AppLocalizations.of(context)!.base64EncoderTitle),
                       ),
                     ],
                     selectedIndex: selectedIndex,
