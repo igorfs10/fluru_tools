@@ -106,4 +106,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get base64FileSizeError => 'File size exceeds 20MB limit.';
+
+  @override
+  String latestVersion(Object version) {
+    return 'Latest: $version';
+  }
 }

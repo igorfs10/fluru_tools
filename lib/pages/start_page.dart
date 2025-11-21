@@ -3,6 +3,8 @@ import 'package:fluru_tools/locale_state.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:flutter/services.dart';
 
 class StartPage extends StatelessWidget {
@@ -72,66 +74,12 @@ class StartPage extends StatelessWidget {
                         SizedBox(height: 8),
                         Row(
                           children: [
-                            // Dropdown de idioma à esquerda
                             _LocaleSelector(),
                             SizedBox(width: 8),
-                            // Empurra as pílulas para a direita
                             Spacer(),
-                            // Autor pill
-                            Container(
-                              margin: EdgeInsets.only(right: 8),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: color.onPrimaryContainer.withValues(
-                                  alpha: .08,
-                                ),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(
-                                Localizations.of<AppLocalizations>(
-                                  context,
-                                  AppLocalizations,
-                                )!.by('igorfs10'),
-                                style: Theme.of(context).textTheme.labelMedium
-                                    ?.copyWith(
-                                      color: color.onPrimaryContainer,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                            ),
-                            FutureBuilder<PackageInfo>(
-                              future: PackageInfo.fromPlatform(),
-                              builder: (context, snapshot) {
-                                final version = snapshot.data?.version ?? '...';
-                                final buildNumber =
-                                    snapshot.data?.buildNumber ?? '';
-                                return Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: color.onPrimaryContainer.withValues(
-                                      alpha: .08,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Text(
-                                    'v$version+$buildNumber',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium
-                                        ?.copyWith(
-                                          color: color.onPrimaryContainer,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                  ),
-                                );
-                              },
-                            ),
+                            _AuthorPill(scheme: color),
+                            _CurrentVersionPill(scheme: color),
+                            _LatestVersionPill(scheme: color),
                           ],
                         ),
                         SizedBox(height: 10),
@@ -419,6 +367,154 @@ class _ToolCard extends StatelessWidget {
 Future<void> _openExternal(String url) async {
   final uri = Uri.parse(url);
   await launchUrl(uri, mode: LaunchMode.externalApplication);
+}
+
+class _AuthorPill extends StatelessWidget {
+  final ColorScheme scheme;
+  const _AuthorPill({required this.scheme});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 8),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: scheme.onPrimaryContainer.withValues(alpha: .08),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        Localizations.of<AppLocalizations>(
+          context,
+          AppLocalizations,
+        )!.by('igorfs10'),
+        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+          color: scheme.onPrimaryContainer,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+}
+
+class _CurrentVersionPill extends StatelessWidget {
+  final ColorScheme scheme;
+  const _CurrentVersionPill({required this.scheme});
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<PackageInfo>(
+      future: PackageInfo.fromPlatform(),
+      builder: (context, snapshot) {
+        final version = snapshot.data?.version ?? '...';
+        final buildNumber = snapshot.data?.buildNumber ?? '';
+        return Container(
+          margin: EdgeInsets.only(right: 8),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: scheme.onPrimaryContainer.withValues(alpha: .08),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            'v$version${buildNumber.isNotEmpty ? '+$buildNumber' : ''}',
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              color: scheme.onPrimaryContainer,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+Future<String?> _getLatestVersion() => _LatestVersionCache.instance.load();
+
+class _LatestVersionCache {
+  _LatestVersionCache._();
+  static final instance = _LatestVersionCache._();
+  String? _cached;
+  Future<String?>? _future;
+
+  Future<String?> load() {
+    if (_cached != null) return Future.value(_cached);
+    if (_future != null) return _future!;
+    final uri = Uri.parse(
+      'https://api.github.com/repos/igorfs10/fluru_tools/releases/latest',
+    );
+    _future = () async {
+      try {
+        final resp = await http.get(uri);
+        if (resp.statusCode == 200) {
+          final data = jsonDecode(resp.body);
+          if (data.isNotEmpty) {
+            final tag = data['tag_name'];
+            if (tag is String) {
+              _cached = tag.trim();
+              return _cached;
+            }
+          }
+        }
+      } catch (_) {}
+      return null;
+    }();
+    return _future!;
+  }
+}
+
+class _LatestVersionPill extends StatelessWidget {
+  final ColorScheme scheme;
+  const _LatestVersionPill({required this.scheme});
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Object?>>(
+      future: Future.wait([PackageInfo.fromPlatform(), _getLatestVersion()]),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: scheme.onPrimaryContainer.withValues(alpha: .04),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          );
+        }
+        final pkg = snapshot.data![0] as PackageInfo;
+        final latest = snapshot.data![1] as String?;
+        final currentVersion = pkg.version.trim();
+        final different = latest != null && latest != currentVersion;
+        final bgColor = different
+            ? Colors.red.withValues(alpha: .14)
+            : scheme.onPrimaryContainer.withValues(alpha: .08);
+        final textColor = different
+            ? Colors.red.shade700
+            : scheme.onPrimaryContainer;
+        return Container(
+          margin: EdgeInsets.only(right: 0),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: bgColor,
+            borderRadius: BorderRadius.circular(12),
+            border: different ? Border.all(color: Colors.red.shade400) : null,
+          ),
+          child: Text(
+            latest == null
+                ? ''
+                : Localizations.of<AppLocalizations>(
+                    context,
+                    AppLocalizations,
+                  )!.latestVersion(latest),
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              color: textColor,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 class _HeredocExample extends StatelessWidget {

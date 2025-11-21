@@ -107,6 +107,11 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get base64FileSizeError =>
       'O tamanho do arquivo excede o limite de 20MB.';
+
+  @override
+  String latestVersion(Object version) {
+    return 'Última: $version';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -212,4 +217,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get base64FileSizeError =>
       'O tamanho do arquivo excede o limite de 20MB.';
+
+  @override
+  String latestVersion(Object version) {
+    return 'Última: $version';
+  }
 }

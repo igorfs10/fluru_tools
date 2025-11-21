@@ -272,6 +272,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'File size exceeds 20MB limit.'**
   String get base64FileSizeError;
+
+  /// No description provided for @latestVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest: {version}'**
+  String latestVersion(Object version);
 }
 
 class _AppLocalizationsDelegate
