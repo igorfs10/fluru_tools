@@ -22,3 +22,29 @@ String fileVerify(List<int> data, int selected) {
   }
   return buffer.toString();
 }
+
+/// Versão streaming que não precisa manter todos os bytes em memória.
+/// Recebe um stream de chunks (List) e calcula o hash incremental.
+class _SingleDigestSink implements Sink<c.Digest> {
+  c.Digest? value;
+  @override
+  void add(c.Digest data) => value = data;
+  @override
+  void close() {}
+}
+
+Future<String> fileVerifyStream(Stream<List<int>> stream, int selected) async {
+  final digestSink = _SingleDigestSink();
+  final algo = switch (selected) { 0 => c.md5, 1 => c.sha1, _ => c.sha256 };
+  final byteSink = algo.startChunkedConversion(digestSink);
+  await for (final chunk in stream) {
+    byteSink.add(chunk);
+  }
+  byteSink.close();
+  final digest = digestSink.value!;
+  final buffer = StringBuffer();
+  for (final b in digest.bytes) {
+    buffer.write(b.toRadixString(16).padLeft(2, '0'));
+  }
+  return buffer.toString();
+}
