@@ -178,7 +178,7 @@ class StartPage extends StatelessWidget {
                         subtitle: AppLocalizations.of(
                           context,
                         )!.fileVerifierDescription,
-                        color: color.secondary,
+                        color: color.primary,
                         onTap: () => onSelectIndex(2),
                       ),
                       _ToolCard(
@@ -187,7 +187,7 @@ class StartPage extends StatelessWidget {
                         subtitle: AppLocalizations.of(
                           context,
                         )!.requesterDescription,
-                        color: color.tertiary,
+                        color: color.primary,
                         onTap: () => onSelectIndex(3),
                       ),
                       _ToolCard(
@@ -196,7 +196,7 @@ class StartPage extends StatelessWidget {
                         subtitle: AppLocalizations.of(
                           context,
                         )!.base64EncoderDescription,
-                        color: color.error,
+                        color: color.primary,
                         onTap: () => onSelectIndex(4),
                       ),
                       _ToolCard(
@@ -216,7 +216,7 @@ class StartPage extends StatelessWidget {
                         subtitle: AppLocalizations.of(
                           context,
                         )!.downloadAppDescription,
-                        color: color.secondary,
+                        color: color.primary,
                         onTap: () => _openExternal(
                           'https://github.com/igorfs10/fluru_tools/releases/latest',
                         ),
