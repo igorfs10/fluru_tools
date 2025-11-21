@@ -276,14 +276,19 @@ class _LocaleSelector extends StatelessWidget {
     final current = Localizations.localeOf(context);
     // Encontrar locale efetivo na lista suportada
     Locale effective = supported.firstWhere(
-      (l) => l.languageCode == current.languageCode &&
-          (l.countryCode == current.countryCode || l.countryCode == null || current.countryCode == null),
+      (l) =>
+          l.languageCode == current.languageCode &&
+          (l.countryCode == current.countryCode ||
+              l.countryCode == null ||
+              current.countryCode == null),
       orElse: () => supported.first,
     );
 
     String labelFor(Locale locale) {
       if (locale.languageCode == 'en') return 'English';
-      if (locale.languageCode == 'pt' && locale.countryCode == 'BR') return 'Português (Brasil)';
+      if (locale.languageCode == 'pt' && locale.countryCode == 'BR') {
+        return 'Português (Brasil)';
+      }
       if (locale.languageCode == 'pt') return 'Português';
       return locale.toString();
     }
@@ -298,11 +303,11 @@ class _LocaleSelector extends StatelessWidget {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<Locale>(
           value: effective,
-            alignment: Alignment.centerLeft,
+          alignment: Alignment.centerLeft,
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: color.onPrimaryContainer,
-                fontWeight: FontWeight.w600,
-              ),
+            color: color.onPrimaryContainer,
+            fontWeight: FontWeight.w600,
+          ),
           items: supported.map((loc) {
             return DropdownMenuItem<Locale>(
               value: loc,
