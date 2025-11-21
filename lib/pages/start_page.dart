@@ -107,64 +107,6 @@ class StartPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(color: color.onPrimaryContainer),
                         ),
-                        SizedBox(height: 16),
-                        Wrap(
-                          spacing: 12,
-                          runSpacing: 8,
-                          children: [
-                            FilledButton.icon(
-                              onPressed: () => onSelectIndex(1),
-                              icon: Icon(Icons.data_object),
-                              label: Text(
-                                AppLocalizations.of(
-                                  context,
-                                )!.jsonConverterTitle,
-                              ),
-                            ),
-                            OutlinedButton.icon(
-                              onPressed: () => onSelectIndex(2),
-                              icon: Icon(Icons.insert_drive_file),
-                              label: Text(
-                                AppLocalizations.of(context)!.fileVerifierTitle,
-                              ),
-                            ),
-                            OutlinedButton.icon(
-                              onPressed: () => onSelectIndex(3),
-                              icon: Icon(Icons.integration_instructions),
-                              label: Text(
-                                AppLocalizations.of(context)!.requesterTitle,
-                              ),
-                            ),
-                            OutlinedButton.icon(
-                              onPressed: () => onSelectIndex(4),
-                              icon: Icon(Icons.transform),
-                              label: Text(
-                                AppLocalizations.of(
-                                  context,
-                                )!.base64EncoderTitle,
-                              ),
-                            ),
-                            SizedBox(width: 8),
-                            OutlinedButton.icon(
-                              onPressed: () => _openExternal(
-                                'https://igorfs10.github.io/fluru_tools/',
-                              ),
-                              icon: Icon(Icons.public),
-                              label: Text(
-                                AppLocalizations.of(context)!.webVersionTitle,
-                              ),
-                            ),
-                            OutlinedButton.icon(
-                              onPressed: () => _openExternal(
-                                'https://github.com/igorfs10/fluru_tools/releases/latest',
-                              ),
-                              icon: Icon(Icons.download),
-                              label: Text(
-                                AppLocalizations.of(context)!.downloadAppTitle,
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
@@ -320,7 +262,7 @@ class _ToolCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).hintColor,
                       ),
-                      maxLines: 2,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
