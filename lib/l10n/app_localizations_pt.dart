@@ -59,11 +59,6 @@ class AppLocalizationsPt extends AppLocalizations {
       'Explore o código fonte do Fluru Tools no GitHub.';
 
   @override
-  String by(Object author) {
-    return 'Por $author';
-  }
-
-  @override
   String developedBy(Object author) {
     return 'Desenvolvido por $author';
   }
@@ -167,11 +162,6 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get sourceCodeDescription =>
       'Explore o código fonte do Fluru Tools no GitHub.';
-
-  @override
-  String by(Object author) {
-    return 'Por $author';
-  }
 
   @override
   String developedBy(Object author) {

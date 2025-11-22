@@ -77,7 +77,6 @@ class StartPage extends StatelessWidget {
                             _LocaleSelector(),
                             SizedBox(width: 8),
                             Spacer(),
-                            _AuthorPill(scheme: color),
                             _CurrentVersionPill(scheme: color),
                             _LatestVersionPill(scheme: color),
                           ],
@@ -367,32 +366,6 @@ class _ToolCard extends StatelessWidget {
 Future<void> _openExternal(String url) async {
   final uri = Uri.parse(url);
   await launchUrl(uri, mode: LaunchMode.externalApplication);
-}
-
-class _AuthorPill extends StatelessWidget {
-  final ColorScheme scheme;
-  const _AuthorPill({required this.scheme});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 8),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: scheme.onPrimaryContainer.withValues(alpha: .08),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Text(
-        Localizations.of<AppLocalizations>(
-          context,
-          AppLocalizations,
-        )!.by('igorfs10'),
-        style: Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: scheme.onPrimaryContainer,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
 }
 
 class _CurrentVersionPill extends StatelessWidget {

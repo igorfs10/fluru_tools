@@ -46,13 +46,6 @@
   "sourceCodeDescription": "Explore the source code of Fluru Tools on GitHub.",
   "@sourceCodeDescription": {},
 
-  "by": "By {author}",
-  "@by": {
-    "placeholders": {
-      "author": {}
-    }
-  },
-
   "developedBy": "Developed by {author}",
   "@developedBy": {
     "placeholders": {

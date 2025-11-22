@@ -60,11 +60,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Explore the source code of Fluru Tools on GitHub.';
 
   @override
-  String by(Object author) {
-    return 'By $author';
-  }
-
-  @override
   String developedBy(Object author) {
     return 'Developed by $author';
   }

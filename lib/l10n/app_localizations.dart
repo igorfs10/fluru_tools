@@ -189,12 +189,6 @@ abstract class AppLocalizations {
   /// **'Explore the source code of Fluru Tools on GitHub.'**
   String get sourceCodeDescription;
 
-  /// No description provided for @by.
-  ///
-  /// In en, this message translates to:
-  /// **'By {author}'**
-  String by(Object author);
-
   /// No description provided for @developedBy.
   ///
   /// In en, this message translates to:
