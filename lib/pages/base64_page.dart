@@ -51,13 +51,13 @@ class _Base64PageState extends State<Base64Page> {
       // Encoding streaming sem acumular todos os bytes.
       final stream = result.files.first.readStream!;
       txtResult = await fileToBase64Stream(stream);
+      if (mounted) Navigator.of(context).pop();
     } catch (e) {
       if (mounted) {
+        Navigator.of(context).pop();
         showErrorDialog(context, '$e');
         return;
       }
-    } finally {
-      if (mounted) Navigator.of(context).pop();
     }
 
     if (mounted) {

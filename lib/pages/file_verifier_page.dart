@@ -43,14 +43,15 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
       // Hash streaming sem acumular todos os bytes.
       final stream = result.files.first.readStream!;
       txtResult = await fileVerifyStream(stream, _outputIndex);
+      if(mounted){
+        Navigator.of(context).pop();
+      }  
     } catch (e) {
       if (mounted) {
-        Navigator.of(context).pop(); // fecha loading
+        Navigator.of(context).pop();
         showErrorDialog(context, '$e');
         return;
       }
-    } finally {
-      if (mounted) Navigator.of(context).pop(); // fecha loading
     }
 
     setState(() {
