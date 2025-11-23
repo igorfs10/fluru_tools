@@ -410,7 +410,7 @@ class _LatestVersionCache {
     if (_cached != null) return Future.value(_cached);
     if (_future != null) return _future!;
     final uri = Uri.parse(
-      'https://api.github.com/repos/igorfs10/fluru_tools/releases/latest',
+      'https://igorfs10.github.io/fluru_tools/version.json',
     );
     _future = () async {
       try {
@@ -418,7 +418,7 @@ class _LatestVersionCache {
         if (resp.statusCode == 200) {
           final data = jsonDecode(resp.body);
           if (data.isNotEmpty) {
-            final tag = data['tag_name'];
+            final tag = data['version'];
             if (tag is String) {
               _cached = tag.trim();
               return _cached;
