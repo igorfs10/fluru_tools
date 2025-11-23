@@ -72,19 +72,34 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                   children: [
                     Expanded(
                       flex: 65,
-                      child: DropdownButton(
-                        isExpanded: true,
-                        value: _outputIndex,
-                        items: [
-                          DropdownMenuItem(value: 0, child: Text('MD5')),
-                          DropdownMenuItem(value: 1, child: Text('SHA1')),
-                          DropdownMenuItem(value: 2, child: Text('SHA256')),
-                        ],
-                        onChanged: (v) {
-                          if (v != null) {
-                            setState(() => _outputIndex = v);
-                          }
-                        },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: ColorScheme.of(
+                            context,
+                          ).onPrimaryContainer.withValues(alpha: .08),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            isExpanded: true,
+                            isDense: true,
+                            value: _outputIndex,
+                            items: [
+                              DropdownMenuItem(value: 0, child: Text('MD5')),
+                              DropdownMenuItem(value: 1, child: Text('SHA1')),
+                              DropdownMenuItem(value: 2, child: Text('SHA256')),
+                            ],
+                            onChanged: (v) {
+                              if (v != null) {
+                                setState(() => _outputIndex = v);
+                              }
+                            },
+                          ),
+                        ),
                       ),
                     ),
                     Expanded(

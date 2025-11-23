@@ -71,20 +71,47 @@ class _FormatConverterPageState extends State<FormatConverterPage> {
                         children: [
                           Expanded(
                             flex: 45,
-                            child: DropdownButton(
-                              isExpanded: true,
-                              value: _inputIndex,
-                              items: [
-                                DropdownMenuItem(value: 0, child: Text('JSON')),
-                                DropdownMenuItem(value: 1, child: Text('CSV')),
-                                DropdownMenuItem(value: 2, child: Text('YAML')),
-                                DropdownMenuItem(value: 3, child: Text('XML')),
-                              ],
-                              onChanged: (v) {
-                                if (v != null) {
-                                  setState(() => _inputIndex = v);
-                                }
-                              },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ColorScheme.of(
+                                  context,
+                                ).onPrimaryContainer.withValues(alpha: .08),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  isExpanded: true,
+                                  isDense: true,
+                                  value: _inputIndex,
+                                  items: [
+                                    DropdownMenuItem(
+                                      value: 0,
+                                      child: Text('JSON'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 1,
+                                      child: Text('CSV'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 2,
+                                      child: Text('YAML'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 3,
+                                      child: Text('XML'),
+                                    ),
+                                  ],
+                                  onChanged: (v) {
+                                    if (v != null) {
+                                      setState(() => _inputIndex = v);
+                                    }
+                                  },
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(width: 8),
@@ -100,20 +127,47 @@ class _FormatConverterPageState extends State<FormatConverterPage> {
                           SizedBox(width: 8),
                           Expanded(
                             flex: 45,
-                            child: DropdownButton(
-                              isExpanded: true,
-                              value: _outputIndex,
-                              items: [
-                                DropdownMenuItem(value: 0, child: Text('JSON')),
-                                DropdownMenuItem(value: 1, child: Text('CSV')),
-                                DropdownMenuItem(value: 2, child: Text('YAML')),
-                                DropdownMenuItem(value: 3, child: Text('XML')),
-                              ],
-                              onChanged: (v) {
-                                if (v != null) {
-                                  setState(() => _outputIndex = v);
-                                }
-                              },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ColorScheme.of(
+                                  context,
+                                ).onPrimaryContainer.withValues(alpha: .08),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  isExpanded: true,
+                                  isDense: true,
+                                  value: _outputIndex,
+                                  items: [
+                                    DropdownMenuItem(
+                                      value: 0,
+                                      child: Text('JSON'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 1,
+                                      child: Text('CSV'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 2,
+                                      child: Text('YAML'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 3,
+                                      child: Text('XML'),
+                                    ),
+                                  ],
+                                  onChanged: (v) {
+                                    if (v != null) {
+                                      setState(() => _outputIndex = v);
+                                    }
+                                  },
+                                ),
+                              ),
                             ),
                           ),
                         ],
