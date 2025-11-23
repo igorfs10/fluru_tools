@@ -129,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             drawer: Drawer(
+              child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
                   SizedBox(
