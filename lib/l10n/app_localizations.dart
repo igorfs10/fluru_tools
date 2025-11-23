@@ -129,6 +129,12 @@ abstract class AppLocalizations {
   /// **'Base64 En/Decoder'**
   String get base64EncoderTitle;
 
+  /// No description provided for @csvVisualizerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'CSV Visualizer'**
+  String get csvVisualizerTitle;
+
   /// No description provided for @webVersionTitle.
   ///
   /// In en, this message translates to:
@@ -170,6 +176,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Encode and decode Base64 strings and files quickly.'**
   String get base64EncoderDescription;
+
+  /// No description provided for @csvVisualizerDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Visualize and analyze CSV data with customizable delimiters.'**
+  String get csvVisualizerDescription;
 
   /// No description provided for @webVersionDescription.
   ///
@@ -290,6 +302,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Invalid URL format. {url}'**
   String hdocExceptionInvalidUrl(Object url);
+
+  /// No description provided for @delimiter.
+  ///
+  /// In en, this message translates to:
+  /// **'Delimiter'**
+  String get delimiter;
 }
 
 class _AppLocalizationsDelegate

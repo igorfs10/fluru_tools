@@ -24,6 +24,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get base64EncoderTitle => 'Base64 En/Decoder';
 
   @override
+  String get csvVisualizerTitle => 'CSV Visualizer';
+
+  @override
   String get webVersionTitle => 'Web Version';
 
   @override
@@ -47,6 +50,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get base64EncoderDescription =>
       'Encode and decode Base64 strings and files quickly.';
+
+  @override
+  String get csvVisualizerDescription =>
+      'Visualize and analyze CSV data with customizable delimiters.';
 
   @override
   String get webVersionDescription => 'Access the web version of Fluru Tools.';
@@ -121,4 +128,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String hdocExceptionInvalidUrl(Object url) {
     return 'Invalid URL format. $url';
   }
+
+  @override
+  String get delimiter => 'Delimiter';
 }

@@ -147,6 +147,15 @@ class StartPage extends StatelessWidget {
                         onTap: () => onSelectIndex(4),
                       ),
                       _ToolCard(
+                        icon: Icons.table_chart,
+                        title: AppLocalizations.of(context)!.csvVisualizerTitle,
+                        subtitle: AppLocalizations.of(
+                          context,
+                        )!.csvVisualizerDescription,
+                        color: color.primary,
+                        onTap: () => onSelectIndex(5),
+                      ),
+                      _ToolCard(
                         icon: Icons.public,
                         title: AppLocalizations.of(context)!.webVersionTitle,
                         subtitle: AppLocalizations.of(

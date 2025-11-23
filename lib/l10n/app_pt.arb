@@ -1,5 +1,6 @@
 {
   "@@locale": "pt",
+  
   "homeTitle": "Início",
   "@homeTitle": {},
 
@@ -14,6 +15,9 @@
 
   "base64EncoderTitle": "Base64 En/Decoder",
   "@base64EncoderTitle": {},
+
+  "csvVisualizerTitle": "Visualizador CSV",
+  "@csvVisualizerTitle": {},
 
   "webVersionTitle": "Versão Web",
   "@webVersionTitle": {},
@@ -35,6 +39,9 @@
 
   "base64EncoderDescription": "Codifique e decodifique strings e arquivos Base64 rapidamente.",
   "@base64EncoderDescription": {},
+
+  "csvVisualizerDescription": "Visualize e analise dados CSV com delimitadores personalizáveis.",
+  "@csvVisualizerDescription": {},
 
   "webVersionDescription": "Acesse a versão web do Fluru Tools.",
   "@webVersionDescription": {},
@@ -114,5 +121,8 @@
     "placeholders": {
       "url": {}
     }
-  }
+  },
+
+  "delimiter": "Delimitador",
+  "@delimiter": {}
 }

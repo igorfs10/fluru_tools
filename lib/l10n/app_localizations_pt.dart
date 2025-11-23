@@ -24,6 +24,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get base64EncoderTitle => 'Base64 En/Decoder';
 
   @override
+  String get csvVisualizerTitle => 'Visualizador CSV';
+
+  @override
   String get webVersionTitle => 'Versão Web';
 
   @override
@@ -47,6 +50,10 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get base64EncoderDescription =>
       'Codifique e decodifique strings e arquivos Base64 rapidamente.';
+
+  @override
+  String get csvVisualizerDescription =>
+      'Visualize e analise dados CSV com delimitadores personalizáveis.';
 
   @override
   String get webVersionDescription => 'Acesse a versão web do Fluru Tools.';
@@ -122,6 +129,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String hdocExceptionInvalidUrl(Object url) {
     return 'Formato de URL inválido. $url';
   }
+
+  @override
+  String get delimiter => 'Delimitador';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -144,6 +154,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get base64EncoderTitle => 'Base64 En/Decoder';
 
   @override
+  String get csvVisualizerTitle => 'Visualizador CSV';
+
+  @override
   String get webVersionTitle => 'Versão Web';
 
   @override
@@ -167,6 +180,10 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get base64EncoderDescription =>
       'Codifique e decodifique strings e arquivos Base64 rapidamente.';
+
+  @override
+  String get csvVisualizerDescription =>
+      'Visualize e analise dados CSV com delimitadores personalizáveis.';
 
   @override
   String get webVersionDescription => 'Acesse a versão web do Fluru Tools.';
@@ -242,4 +259,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String hdocExceptionInvalidUrl(Object url) {
     return 'Formato de URL inválido. $url';
   }
+
+  @override
+  String get delimiter => 'Delimitador';
 }

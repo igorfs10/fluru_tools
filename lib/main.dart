@@ -1,4 +1,5 @@
 import 'package:fluru_tools/pages/base64_page.dart';
+import 'package:fluru_tools/pages/csv_visualizer_page.dart';
 import 'package:fluru_tools/pages/file_verifier_page.dart';
 import 'package:fluru_tools/pages/format_converter_page.dart';
 import 'package:fluru_tools/pages/request_tester.dart';
@@ -62,6 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
       Icons.transform,
       (ctx) => AppLocalizations.of(ctx)!.base64EncoderTitle,
     ),
+    _NavItem(
+      Icons.table_chart,
+      (ctx) => AppLocalizations.of(ctx)!.csvVisualizerTitle,
+    ),
   ];
 
   @override
@@ -84,6 +89,9 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
       case 4:
         page = Base64Page();
+        break;
+      case 5:
+        page = CsvVisualizerPage();
         break;
       default:
         page = StartPage(
