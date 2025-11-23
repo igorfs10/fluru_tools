@@ -3,11 +3,6 @@ import 'dart:typed_data';
 
 import 'package:csv/csv.dart';
 
-/// Lê um CSV a partir de um [Stream] de chunks de bytes.
-/// Usa a biblioteca `csv` para tratar corretamente delimitadores dentro de aspas
-/// e quebras de linha. Retorna todas as linhas como lista de listas de String.
-///
-/// [delimiter] pode ser ',', ';', '|', etc. [textDelimiter] por padrão é '"'.
 Future<List<List<String>>> loadCsvFromStream(
   Stream<List<int>> stream, {
   String delimiter = ',',

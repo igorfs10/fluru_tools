@@ -162,6 +162,7 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
   late _CsvDataSource _source;
   int _maxColumns = 0;
   int _rowsPerPage = 50;
+  final ScrollController _vController = ScrollController();
 
   @override
   void initState() {
@@ -207,7 +208,7 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
       ),
     );
 
-    return LayoutBuilder(
+    final content = LayoutBuilder(
       builder: (context, constraints) {
         final table = PaginatedDataTable(
           header: null,
@@ -254,6 +255,15 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
           child: scrollable,
         );
       },
+    );
+
+    return Scrollbar(
+      controller: _vController,
+      thumbVisibility: true,
+      child: SingleChildScrollView(
+        controller: _vController,
+        child: content,
+      ),
     );
   }
 }
