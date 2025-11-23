@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:file_picker/file_picker.dart';
 import 'package:fluru_tools/custom_alert_dialog.dart';
 import 'package:fluru_tools/l10n/app_localizations.dart';
@@ -14,6 +15,7 @@ class CsvVisualizerPage extends StatefulWidget {
 class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
   int _delimiterIndex = 0; // 0 , | 1 ; | 2 |
   List<List<String>> _rows = [];
+  final ScrollController _hScrollController = ScrollController();
 
   String get _delimiter => switch (_delimiterIndex) {
     0 => ',',
@@ -124,24 +126,9 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             )
-                          : Scrollbar(
-                              thumbVisibility: true,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: SingleChildScrollView(
-                                  child: Table(
-                                    defaultColumnWidth:
-                                        const IntrinsicColumnWidth(),
-                                    border: TableBorder.all(
-                                      color: Theme.of(
-                                        context,
-                                      ).dividerColor.withValues(alpha: .4),
-                                      width: .5,
-                                    ),
-                                    children: _buildTableRows(),
-                                  ),
-                                ),
-                              ),
+                          : _CsvPaginatedTable(
+                              rows: _rows,
+                              hController: _hScrollController,
                             ),
                     ),
                   ),
@@ -154,38 +141,158 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
     );
   }
 
-  List<TableRow> _buildTableRows() {
-    final theme = Theme.of(context);
-    if (_rows.isEmpty) return [];
-    final maxColumns = _rows
+  @override
+  void dispose() {
+    _hScrollController.dispose();
+    super.dispose();
+  }
+}
+
+class _CsvPaginatedTable extends StatefulWidget {
+  final List<List<String>> rows;
+  final ScrollController hController;
+
+  const _CsvPaginatedTable({required this.rows, required this.hController});
+
+  @override
+  State<_CsvPaginatedTable> createState() => _CsvPaginatedTableState();
+}
+
+class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
+  late _CsvDataSource _source;
+  int _maxColumns = 0;
+  int _rowsPerPage = 50;
+
+  @override
+  void initState() {
+    super.initState();
+    _maxColumns = widget.rows
         .map((r) => r.length)
         .fold<int>(0, (p, c) => c > p ? c : p);
-
-    return [
-      for (int i = 0; i < _rows.length; i++)
-        TableRow(
-          decoration: i == 0
-              ? BoxDecoration(
-                  color: theme.colorScheme.primary.withValues(alpha: .08),
-                )
-              : null,
-          children: [
-            for (int col = 0; col < maxColumns; col++)
-              Padding(
-                padding: const EdgeInsets.all(6),
-                child: Text(
-                  col < _rows[i].length ? _rows[i][col] : '',
-                  style:
-                      (i == 0
-                          ? theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            )
-                          : theme.textTheme.bodyMedium) ??
-                      const TextStyle(),
-                ),
-              ),
-          ],
-        ),
-    ];
+    // Evitar acessar Theme.of(context) em initState
+    _source = _CsvDataSource(widget.rows, _maxColumns);
   }
+
+  @override
+  void didUpdateWidget(covariant _CsvPaginatedTable oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!identical(oldWidget.rows, widget.rows)) {
+      _maxColumns = widget.rows
+          .map((r) => r.length)
+          .fold<int>(0, (p, c) => c > p ? c : p);
+      _source = _CsvDataSource(widget.rows, _maxColumns);
+      setState(() {});
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final hasHeader = widget.rows.isNotEmpty;
+    final header = hasHeader ? widget.rows.first : const <String>[];
+
+    final columns = List.generate(
+      _maxColumns,
+      (i) => DataColumn(
+        label: Padding(
+          padding: const EdgeInsets.all(6),
+          child: Text(
+            i < header.length ? header[i] : 'Col ${i + 1}',
+            style: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ) ??
+                const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final table = PaginatedDataTable(
+          header: null,
+          columns: columns,
+          source: _source,
+          rowsPerPage: _rowsPerPage,
+          availableRowsPerPage: const [10, 25, 50, 100, 200],
+          onRowsPerPageChanged: (v) {
+            if (v != null) setState(() => _rowsPerPage = v);
+          },
+          showFirstLastButtons: true,
+          horizontalMargin: 12,
+          columnSpacing: 24,
+          dataRowMinHeight: 40,
+          dataRowMaxHeight: 56,
+          headingRowColor: WidgetStatePropertyAll(
+            theme.colorScheme.primary.withValues(alpha: .08),
+          ),
+        );
+
+        // Largura finita estimada para evitar BoxConstraints infinitos.
+        // Se o conteúdo for maior que a viewport, o scroll horizontal entra em ação.
+        final estimatedPerColumn = 160.0; // padding + texto médio + spacing
+        final contentWidth = math.max(
+          constraints.maxWidth,
+          _maxColumns * estimatedPerColumn,
+        );
+
+        final scrollable = Scrollbar(
+          controller: widget.hController,
+          thumbVisibility: true,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            controller: widget.hController,
+            child: SizedBox(
+              width: contentWidth,
+              child: table,
+            ),
+          ),
+        );
+
+        return Material(
+          type: MaterialType.transparency,
+          child: scrollable,
+        );
+      },
+    );
+  }
+}
+
+class _CsvDataSource extends DataTableSource {
+  final List<List<String>> rows;
+  final int maxColumns;
+  _CsvDataSource(this.rows, this.maxColumns);
+
+  @override
+  DataRow? getRow(int index) {
+    // pula a linha de header (index 0) no corpo
+    final rowIndex = index + 1;
+    if (rowIndex >= rows.length) return null;
+    final row = rows[rowIndex];
+    return DataRow.byIndex(
+      index: index,
+      cells: List.generate(
+        maxColumns,
+        (col) => DataCell(
+          Padding(
+            padding: const EdgeInsets.all(6),
+            child: Text(
+              col < row.length ? row[col] : '',
+              softWrap: false,
+              overflow: TextOverflow.fade,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => rows.isEmpty ? 0 : rows.length - 1; // sem header
+
+  @override
+  int get selectedRowCount => 0;
 }
