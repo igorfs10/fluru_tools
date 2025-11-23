@@ -94,5 +94,26 @@
     "placeholders": {
       "version": {}
     }
+  },
+
+  "hdocExceptionInvalidgMethod": "Invalid HTTP Method. {method}",
+  "@hdocExceptionInvalidgMethod": {
+    "placeholders": {
+      "method": {}
+    }
+  },
+
+  "hdocExceptionMissingBlock": "Missing {blockName} block.",
+  "@hdocExceptionMissingBlock": {
+    "placeholders": {
+      "blockName": {}
+    }
+  },
+
+  "hdocExceptionInvalidUrl": "Invalid URL format. {url}",
+  "@hdocExceptionInvalidUrl": {
+    "placeholders": {
+      "url": {}
+    }
   }
 }

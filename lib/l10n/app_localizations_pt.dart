@@ -107,6 +107,21 @@ class AppLocalizationsPt extends AppLocalizations {
   String latestVersion(Object version) {
     return 'Última: v$version';
   }
+
+  @override
+  String hdocExceptionInvalidgMethod(Object method) {
+    return 'Método HTTP inválido. $method';
+  }
+
+  @override
+  String hdocExceptionMissingBlock(Object blockName) {
+    return 'Bloco $blockName ausente.';
+  }
+
+  @override
+  String hdocExceptionInvalidUrl(Object url) {
+    return 'Formato de URL inválido. $url';
+  }
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -211,5 +226,20 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String latestVersion(Object version) {
     return 'Última: v$version';
+  }
+
+  @override
+  String hdocExceptionInvalidgMethod(Object method) {
+    return 'Método HTTP inválido. $method';
+  }
+
+  @override
+  String hdocExceptionMissingBlock(Object blockName) {
+    return 'Bloco $blockName ausente.';
+  }
+
+  @override
+  String hdocExceptionInvalidUrl(Object url) {
+    return 'Formato de URL inválido. $url';
   }
 }

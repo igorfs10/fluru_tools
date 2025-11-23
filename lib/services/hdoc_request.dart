@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:fluru_tools/helper/exceptions/requester_exceptions.dart';
 import 'package:http/http.dart' as http;
 
 /// Representa os dados de uma requisição preparados a partir de um heredoc.
@@ -86,22 +87,18 @@ RequestData parseHeredocRequest(String input) {
 
   // validações obrigatórias
   if (method == null) {
-    throw FormatException('Bloco obrigatório <<METHOD ... METHOD>> ausente');
+    throw MissingBlockException('METHOD');
   }
   if (url == null) {
-    throw FormatException('Bloco obrigatório <<URL ... URL>> ausente');
+    throw MissingBlockException('URL');
   }
   final normalizedMethod = method.toUpperCase();
   const validMethods = {'GET', 'POST', 'PUT', 'DELETE', 'PATCH'};
   if (!validMethods.contains(normalizedMethod)) {
-    throw FormatException(
-      "Método HTTP inválido: '$method' (válidos: GET, POST, PUT, DELETE, PATCH)",
-    );
+    throw InvalidMethodException(normalizedMethod);
   }
   if (!(url.startsWith('http://') || url.startsWith('https://'))) {
-    throw FormatException(
-      "URL inválida: '$url' (deve começar com http:// ou https://)",
-    );
+    throw InvalidUrlException(url);
   }
 
   return RequestData(
@@ -130,8 +127,7 @@ Future<RequestResult> sendRequest(RequestData req) async {
 
   final body = (allowBody ? req.body : null);
 
-  try {
-    switch (method) {
+  switch (method) {
       case 'POST':
         response = await http.post(uri, headers: req.headers, body: body);
         break;
@@ -148,9 +144,6 @@ Future<RequestResult> sendRequest(RequestData req) async {
       default:
         response = await http.get(uri, headers: req.headers);
         break;
-    }
-  } catch (e) {
-    throw Exception('$e');
   }
 
   final headerMap = <String, String>{};
@@ -164,8 +157,7 @@ Future<RequestResult> sendRequest(RequestData req) async {
 }
 
 Future<String> makeRequest(String input) async {
-  try {
-    final requestData = parseHeredocRequest(input);
+  final requestData = parseHeredocRequest(input);
     final result = await sendRequest(requestData);
 
     final buffer = StringBuffer();
@@ -176,9 +168,4 @@ Future<String> makeRequest(String input) async {
     buffer.writeln('Body:');
     buffer.write(result.body);
     return buffer.toString();
-  } on FormatException catch (e) {
-    throw Exception(e.message);
-  } catch (e) {
-    throw Exception('$e');
-  }
 }

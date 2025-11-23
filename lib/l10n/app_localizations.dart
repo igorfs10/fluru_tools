@@ -272,6 +272,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Latest: v{version}'**
   String latestVersion(Object version);
+
+  /// No description provided for @hdocExceptionInvalidgMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid HTTP Method. {method}'**
+  String hdocExceptionInvalidgMethod(Object method);
+
+  /// No description provided for @hdocExceptionMissingBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Missing {blockName} block.'**
+  String hdocExceptionMissingBlock(Object blockName);
+
+  /// No description provided for @hdocExceptionInvalidUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid URL format. {url}'**
+  String hdocExceptionInvalidUrl(Object url);
 }
 
 class _AppLocalizationsDelegate

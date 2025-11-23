@@ -1,4 +1,6 @@
 import 'package:fluru_tools/custom_alert_dialog.dart';
+import 'package:fluru_tools/helper/exceptions/requester_exceptions.dart';
+import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/services/hdoc_request.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +33,30 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
     var result = "";
     try {
       result = await makeRequest(_inputCtrl.text);
+    } on MissingBlockException catch (e) {
+      if (mounted) {
+        showErrorDialog(
+          context,
+          AppLocalizations.of(context)!.hdocExceptionMissingBlock(e.blockName),
+        );
+        return;
+      }
+    } on InvalidUrlException catch (e) {
+      if (mounted) {
+        showErrorDialog(
+          context,
+          AppLocalizations.of(context)!.hdocExceptionInvalidUrl(e.url),
+        );
+        return;
+      }
+    } on InvalidMethodException catch (e) {
+      if (mounted) {
+        showErrorDialog(
+          context,
+          AppLocalizations.of(context)!.hdocExceptionInvalidgMethod(e.method),
+        );
+        return;
+      }
     } catch (e) {
       if (mounted) {
         showErrorDialog(context, '$e');

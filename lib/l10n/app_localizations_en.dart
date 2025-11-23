@@ -106,4 +106,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String latestVersion(Object version) {
     return 'Latest: v$version';
   }
+
+  @override
+  String hdocExceptionInvalidgMethod(Object method) {
+    return 'Invalid HTTP Method. $method';
+  }
+
+  @override
+  String hdocExceptionMissingBlock(Object blockName) {
+    return 'Missing $blockName block.';
+  }
+
+  @override
+  String hdocExceptionInvalidUrl(Object url) {
+    return 'Invalid URL format. $url';
+  }
 }
