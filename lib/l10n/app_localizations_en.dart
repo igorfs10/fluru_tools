@@ -130,5 +130,5 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get delimiter => 'Delimiter';
+  String get delimiter => 'Delimiter:';
 }

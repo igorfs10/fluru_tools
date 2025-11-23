@@ -1,7 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:fluru_tools/custom_alert_dialog.dart';
 import 'package:fluru_tools/l10n/app_localizations.dart';
-import 'package:fluru_tools/services/file_verify.dart';
+import 'package:fluru_tools/services/csv_loader.dart';
 import 'package:flutter/material.dart';
 
 class CsvVisualizerPage extends StatefulWidget {
@@ -12,36 +12,38 @@ class CsvVisualizerPage extends StatefulWidget {
 }
 
 class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
-  var _outputIndex = 0;
+  int _delimiterIndex = 0; // 0 , | 1 ; | 2 |
+  List<List<String>> _rows = [];
 
-  void _fileVerify() async {
-    var txtResult = '';
+  String get _delimiter => switch (_delimiterIndex) {
+    0 => ',',
+    1 => ';',
+    2 => '|',
+    _ => ',',
+  };
+
+  Future<void> _pickAndLoadCsv() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       withData: false,
       allowMultiple: false,
       withReadStream: true,
     );
-    if (result == null || result.files.isEmpty) {
-      return;
-    }
+    if (result == null || result.files.isEmpty) return;
     if (!mounted) return;
+
     showLoadingDialog(context, AppLocalizations.of(context)!.processing);
     try {
-      // Hash streaming sem acumular todos os bytes.
-      final stream = result.files.first.readStream!;
-      txtResult = await fileVerifyStream(stream, _outputIndex);
+      final readStream = result.files.first.readStream!;
+      final data = await loadCsvFromStream(readStream, delimiter: _delimiter);
+      if (!mounted) return;
+      setState(() => _rows = data);
     } catch (e) {
+      if (mounted) showErrorDialog(context, '$e');
+    } finally {
       if (mounted) {
         Navigator.of(context).pop(); // fecha loading
-        showErrorDialog(context, '$e');
-        return;
       }
-    } finally {
-      if (mounted) Navigator.of(context).pop(); // fecha loading
     }
-
-    setState(() {
-    });
   }
 
   @override
@@ -64,7 +66,7 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                       ),
                     ),
                     Expanded(
-                      flex: 30,
+                      flex: 20,
                       child: Container(
                         decoration: BoxDecoration(
                           color: ColorScheme.of(
@@ -80,7 +82,7 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                           child: DropdownButton(
                             isExpanded: true,
                             isDense: true,
-                            value: _outputIndex,
+                            value: _delimiterIndex,
                             items: [
                               DropdownMenuItem(value: 0, child: Text(',')),
                               DropdownMenuItem(value: 1, child: Text(';')),
@@ -88,7 +90,7 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                             ],
                             onChanged: (v) {
                               if (v != null) {
-                                setState(() => _outputIndex = v);
+                                setState(() => _delimiterIndex = v);
                               }
                             },
                           ),
@@ -96,9 +98,9 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                       ),
                     ),
                     Expanded(
-                      flex: 20,
+                      flex: 30,
                       child: TextButton.icon(
-                        onPressed: _fileVerify,
+                        onPressed: _pickAndLoadCsv,
                         icon: Icon(Icons.folder_open),
                         label: Text(AppLocalizations.of(context)!.openFile),
                       ),
@@ -113,7 +115,32 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Table()
+                      child: _rows.isEmpty
+                          ? Center(
+                              child: Text(
+                                '',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            )
+                          : Scrollbar(
+                              thumbVisibility: true,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: SingleChildScrollView(
+                                  child: Table(
+                                    defaultColumnWidth:
+                                        const IntrinsicColumnWidth(),
+                                    border: TableBorder.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).dividerColor.withValues(alpha: .4),
+                                      width: .5,
+                                    ),
+                                    children: _buildTableRows(),
+                                  ),
+                                ),
+                              ),
+                            ),
                     ),
                   ),
                 ],
@@ -123,5 +150,40 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
         ),
       ),
     );
+  }
+
+  List<TableRow> _buildTableRows() {
+    final theme = Theme.of(context);
+    if (_rows.isEmpty) return [];
+    final maxColumns = _rows
+        .map((r) => r.length)
+        .fold<int>(0, (p, c) => c > p ? c : p);
+
+    return [
+      for (int i = 0; i < _rows.length; i++)
+        TableRow(
+          decoration: i == 0
+              ? BoxDecoration(
+                  color: theme.colorScheme.primary.withValues(alpha: .08),
+                )
+              : null,
+          children: [
+            for (int col = 0; col < maxColumns; col++)
+              Padding(
+                padding: const EdgeInsets.all(6),
+                child: Text(
+                  col < _rows[i].length ? _rows[i][col] : '',
+                  style:
+                      (i == 0
+                          ? theme.textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            )
+                          : theme.textTheme.bodyMedium) ??
+                      const TextStyle(),
+                ),
+              ),
+          ],
+        ),
+    ];
   }
 }

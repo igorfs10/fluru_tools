@@ -306,7 +306,7 @@ abstract class AppLocalizations {
   /// No description provided for @delimiter.
   ///
   /// In en, this message translates to:
-  /// **'Delimiter'**
+  /// **'Delimiter:'**
   String get delimiter;
 }
 

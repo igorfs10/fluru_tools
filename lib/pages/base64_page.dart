@@ -34,9 +34,7 @@ class _Base64PageState extends State<Base64Page> {
       allowMultiple: false,
       withReadStream: true,
     );
-    if (result == null || result.files.isEmpty) {
-      return;
-    }
+    if (result == null || result.files.isEmpty) return;
     // se for maior que 20Mb estoura error
     if (result.files.first.size > 20000000) {
       if (mounted) {

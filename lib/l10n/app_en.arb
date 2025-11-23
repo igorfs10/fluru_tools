@@ -123,6 +123,6 @@
     }
   },
 
-  "delimiter": "Delimiter",
+  "delimiter": "Delimiter:",
   "@delimiter": {}
 }
