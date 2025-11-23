@@ -105,22 +105,35 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       child: LayoutBuilder(
         builder: (context, constraints) {
-          if (constraints.maxWidth < 600) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(_navItems[selectedIndex].label(context)),
-                leading: Builder(
-                  builder: (context) => IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                  ),
-                ),
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(_navItems[selectedIndex].label(context)),
+              leading: Builder(
+                builder: (context) {
+                  if (selectedIndex == 0) {
+                    return IconButton(
+                      icon: const Icon(Icons.menu),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    );
+                  } else {
+                    return IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () {
+                        setState(() {
+                          selectedIndex = 0;
+                        });
+                      },
+                    );
+                  }
+                },
               ),
-              drawer: Drawer(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    DrawerHeader(
+            ),
+            drawer: Drawer(
+                padding: EdgeInsets.zero,
+                children: [
+                  SizedBox(
+                    height: 65,
+                    child: DrawerHeader(
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primaryContainer,
                       ),
@@ -131,77 +144,24 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                    for (int i = 0; i < _navItems.length; i++)
-                      ListTile(
-                        leading: Icon(_navItems[i].icon),
-                        title: Text(_navItems[i].label(context)),
-                        selected: selectedIndex == i,
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = i;
-                          });
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                  ],
-                ),
-              ),
-              body: Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: Theme.of(context).colorScheme.primaryContainer,
-                      child: page,
-                    ),
                   ),
+                  for (int i = 0; i < _navItems.length; i++)
+                    ListTile(
+                      leading: Icon(_navItems[i].icon),
+                      title: Text(_navItems[i].label(context)),
+                      selected: selectedIndex == i,
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = i;
+                        });
+                        Navigator.of(context).pop();
+                      },
+                    ),
                 ],
               ),
-            );
-          }
-          return Scaffold(
-            body: Row(
+            ),
+            body: Column(
               children: [
-                SafeArea(
-                  child: NavigationRail(
-                    extended: constraints.maxWidth >= 900,
-                    destinations: [
-                      NavigationRailDestination(
-                        icon: Icon(Icons.home),
-                        label: Text(AppLocalizations.of(context)!.homeTitle),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.data_object),
-                        label: Text(
-                          AppLocalizations.of(context)!.jsonConverterTitle,
-                        ),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.insert_drive_file),
-                        label: Text(
-                          AppLocalizations.of(context)!.fileVerifierTitle,
-                        ),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.integration_instructions),
-                        label: Text(
-                          AppLocalizations.of(context)!.requesterTitle,
-                        ),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.transform),
-                        label: Text(
-                          AppLocalizations.of(context)!.base64EncoderTitle,
-                        ),
-                      ),
-                    ],
-                    selectedIndex: selectedIndex,
-                    onDestinationSelected: (value) {
-                      setState(() {
-                        selectedIndex = value;
-                      });
-                    },
-                  ),
-                ),
                 Expanded(
                   child: Container(
                     color: Theme.of(context).colorScheme.primaryContainer,
