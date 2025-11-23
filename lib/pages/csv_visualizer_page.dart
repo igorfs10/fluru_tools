@@ -39,9 +39,9 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
       final data = await loadCsvFromStream(readStream, delimiter: _delimiter);
       if (!mounted) return;
       setState(() => _rows = data);
-      if(mounted){
+      if (mounted) {
         Navigator.of(context).pop();
-      }  
+      }
     } catch (e) {
       if (mounted) {
         Navigator.of(context).pop();
@@ -62,15 +62,11 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                 padding: EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Expanded(
-                      flex: 50,
-                      child: Text(
-                        AppLocalizations.of(context)!.delimiter,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
+                    Text(
+                      AppLocalizations.of(context)!.delimiter,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     Expanded(
-                      flex: 20,
                       child: Container(
                         decoration: BoxDecoration(
                           color: ColorScheme.of(
@@ -101,8 +97,16 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                         ),
                       ),
                     ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  children: [
                     Expanded(
-                      flex: 30,
                       child: TextButton.icon(
                         onPressed: _pickAndLoadCsv,
                         icon: Icon(Icons.folder_open),
@@ -161,7 +165,7 @@ class _CsvPaginatedTable extends StatefulWidget {
 class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
   late _CsvDataSource _source;
   int _maxColumns = 0;
-  int _rowsPerPage = 50;
+  int _rowsPerPage = 10;
   final ScrollController _vController = ScrollController();
 
   @override
@@ -199,7 +203,8 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
           padding: const EdgeInsets.all(6),
           child: Text(
             i < header.length ? header[i] : 'Col ${i + 1}',
-            style: theme.textTheme.bodyMedium?.copyWith(
+            style:
+                theme.textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ) ??
                 const TextStyle(fontWeight: FontWeight.bold),
@@ -243,27 +248,18 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             controller: widget.hController,
-            child: SizedBox(
-              width: contentWidth,
-              child: table,
-            ),
+            child: SizedBox(width: contentWidth, child: table),
           ),
         );
 
-        return Material(
-          type: MaterialType.transparency,
-          child: scrollable,
-        );
+        return Material(type: MaterialType.transparency, child: scrollable);
       },
     );
 
     return Scrollbar(
       controller: _vController,
       thumbVisibility: true,
-      child: SingleChildScrollView(
-        controller: _vController,
-        child: content,
-      ),
+      child: SingleChildScrollView(controller: _vController, child: content),
     );
   }
 }
