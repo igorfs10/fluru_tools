@@ -116,23 +116,30 @@ class _MyHomePageState extends State<MyHomePage> {
           return Scaffold(
             appBar: AppBar(
               title: Text(_navItems[selectedIndex].label(context)),
+              actions: [
+                Builder(
+                  builder: (context) {
+                    if (selectedIndex != 0) {
+                      return IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () {
+                          setState(() {
+                            selectedIndex = 0;
+                          });
+                        },
+                      );
+                    } else {
+                      return SizedBox.shrink();
+                    }
+                  },
+                ),
+              ],
               leading: Builder(
                 builder: (context) {
-                  if (selectedIndex == 0) {
-                    return IconButton(
-                      icon: const Icon(Icons.menu),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                    );
-                  } else {
-                    return IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = 0;
-                        });
-                      },
-                    );
-                  }
+                  return IconButton(
+                    icon: const Icon(Icons.menu),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  );
                 },
               ),
             ),
