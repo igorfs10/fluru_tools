@@ -41,6 +41,7 @@ URL
 <<HEADERS
 Content-Type: application/json
 X-Token: abc123
+Access-Control-Allow-Origin:*
 HEADERS
 <<BODY
 {
