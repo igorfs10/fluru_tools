@@ -31,10 +31,18 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
 
   void _makeRequest() async {
     var result = "";
+    showLoadingDialog(context, AppLocalizations.of(context)!.processing);
     try {
       result = await makeRequest(_inputCtrl.text);
+      setState(() {
+        _outputCtrl.text = result;
+      });
+      if (mounted){
+        Navigator.of(context).pop();
+      }
     } on MissingBlockException catch (e) {
       if (mounted) {
+        Navigator.of(context).pop();
         showErrorDialog(
           context,
           AppLocalizations.of(context)!.hdocExceptionMissingBlock(e.blockName),
@@ -43,6 +51,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
       }
     } on InvalidUrlException catch (e) {
       if (mounted) {
+        Navigator.of(context).pop();
         showErrorDialog(
           context,
           AppLocalizations.of(context)!.hdocExceptionInvalidUrl(e.url),
@@ -51,6 +60,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
       }
     } on InvalidMethodException catch (e) {
       if (mounted) {
+        Navigator.of(context).pop();
         showErrorDialog(
           context,
           AppLocalizations.of(context)!.hdocExceptionInvalidgMethod(e.method),
@@ -59,13 +69,11 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
       }
     } catch (e) {
       if (mounted) {
+        Navigator.of(context).pop();
         showErrorDialog(context, '$e');
         return;
       }
     }
-    setState(() {
-      _outputCtrl.text = result;
-    });
   }
 
   @override
