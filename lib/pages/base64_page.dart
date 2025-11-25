@@ -68,7 +68,7 @@ class _Base64PageState extends State<Base64Page> {
   }
 
   void _toFile() async {
-    if (mounted) return;
+    if (!mounted) return;
     showLoadingDialog(context, AppLocalizations.of(context)!.processing);
     try {
       await saveBase64File(_outputCtrl.text);
