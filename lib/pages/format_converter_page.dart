@@ -31,20 +31,16 @@ class _FormatConverterPageState extends State<FormatConverterPage> {
   }
 
   void _convert() {
-    setState(() {
-      try {
-        _outputCtrl.text = convertTextFormat(
-          _inputCtrl.text,
-          _inputIndex,
-          _outputIndex,
-        );
-      } catch (e) {
-        if (mounted) {
-          showErrorDialog(context, '$e');
-          return;
-        }
-      }
-    });
+    try {
+      final result = convertTextFormat(
+        _inputCtrl.text,
+        _inputIndex,
+        _outputIndex,
+      );
+      setState(() => _outputCtrl.text = result);
+    } catch (e) {
+      showErrorDialog(context, '$e');
+    }
   }
 
   void _invert() {

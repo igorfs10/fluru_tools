@@ -29,42 +29,37 @@ class _Base64PageState extends State<Base64Page> {
   }
 
   void _toBase64() async {
-    var txtResult = '';
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       withData: false,
       allowMultiple: false,
       withReadStream: true,
     );
     if (result == null || result.files.isEmpty) return;
+    
     // se for maior que 20Mb estoura error
     if (result.files.first.size > 20000000) {
-      if (mounted) {
-        showErrorDialog(
-          context,
-          AppLocalizations.of(context)!.base64FileSizeError,
-        );
-        return;
-      }
+      if (!mounted) return;
+      showErrorDialog(
+        context,
+        AppLocalizations.of(context)!.base64FileSizeError,
+      );
+      return;
     }
+    
     if (!mounted) return;
     showLoadingDialog(context, AppLocalizations.of(context)!.processing);
+    
     try {
       // Encoding streaming sem acumular todos os bytes.
       final stream = result.files.first.readStream!;
-      txtResult = await fileToBase64Stream(stream);
-      if (mounted) Navigator.of(context).pop();
+      final txtResult = await fileToBase64Stream(stream);
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      setState(() => _outputCtrl.text = txtResult);
     } catch (e) {
-      if (mounted) {
-        Navigator.of(context).pop();
-        showErrorDialog(context, '$e');
-        return;
-      }
-    }
-
-    if (mounted) {
-      setState(() {
-        _outputCtrl.text = txtResult;
-      });
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      showErrorDialog(context, '$e');
     }
   }
 
@@ -73,15 +68,13 @@ class _Base64PageState extends State<Base64Page> {
     showLoadingDialog(context, AppLocalizations.of(context)!.processing);
     try {
       await saveBase64File(_outputCtrl.text);
-      if (mounted) {
-        Navigator.of(context).pop(); // fecha loading
-        showSuccessDialog(context, '');
-      }
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      showSuccessDialog(context, '');
     } catch (e) {
-      if (mounted) {
-        Navigator.of(context).pop(); // fecha loading
-        showErrorDialog(context, '$e');
-      }
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      showErrorDialog(context, '$e');
     }
   }
 

@@ -31,43 +31,37 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
   }
 
   void _makeRequest() async {
-    var result = "";
     showLoadingDialog(context, AppLocalizations.of(context)!.processing);
     try {
-      result = await makeRequest(_inputCtrl.text);
-      if (mounted) {
-        setState(() => _outputCtrl.text = result);
-        Navigator.of(context).pop();
-      }
+      final result = await makeRequest(_inputCtrl.text);
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      setState(() => _outputCtrl.text = result);
     } on MissingBlockException catch (e) {
-      if (mounted) {
-        Navigator.of(context).pop();
-        showErrorDialog(
-          context,
-          AppLocalizations.of(context)!.hdocExceptionMissingBlock(e.blockName),
-        );
-      }
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      showErrorDialog(
+        context,
+        AppLocalizations.of(context)!.hdocExceptionMissingBlock(e.blockName),
+      );
     } on InvalidUrlException catch (e) {
-      if (mounted) {
-        Navigator.of(context).pop();
-        showErrorDialog(
-          context,
-          AppLocalizations.of(context)!.hdocExceptionInvalidUrl(e.url),
-        );
-      }
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      showErrorDialog(
+        context,
+        AppLocalizations.of(context)!.hdocExceptionInvalidUrl(e.url),
+      );
     } on InvalidMethodException catch (e) {
-      if (mounted) {
-        Navigator.of(context).pop();
-        showErrorDialog(
-          context,
-          AppLocalizations.of(context)!.hdocExceptionInvalidgMethod(e.method),
-        );
-      }
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      showErrorDialog(
+        context,
+        AppLocalizations.of(context)!.hdocExceptionInvalidgMethod(e.method),
+      );
     } catch (e) {
-      if (mounted) {
-        Navigator.of(context).pop();
-        showErrorDialog(context, '$e');
-      }
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      showErrorDialog(context, '$e');
     }
   }
 

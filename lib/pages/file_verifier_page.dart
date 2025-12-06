@@ -29,35 +29,27 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
   }
 
   void _fileVerify() async {
-    var txtResult = '';
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       withData: false,
       allowMultiple: false,
       withReadStream: true,
     );
-    if (result == null || result.files.isEmpty) {
-      return;
-    }
+    if (result == null || result.files.isEmpty) return;
     if (!mounted) return;
+    
     showLoadingDialog(context, AppLocalizations.of(context)!.processing);
     try {
       // Hash streaming sem acumular todos os bytes.
       final stream = result.files.first.readStream!;
-      txtResult = await fileVerifyStream(stream, _outputIndex);
-      if (mounted) {
-        Navigator.of(context).pop();
-      }
+      final txtResult = await fileVerifyStream(stream, _outputIndex);
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      setState(() => _outputCtrl.text = txtResult);
     } catch (e) {
-      if (mounted) {
-        Navigator.of(context).pop();
-        showErrorDialog(context, '$e');
-        return;
-      }
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      showErrorDialog(context, '$e');
     }
-
-    setState(() {
-      _outputCtrl.text = txtResult;
-    });
   }
 
   @override

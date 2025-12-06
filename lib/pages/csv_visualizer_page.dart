@@ -38,15 +38,12 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
       final readStream = result.files.first.readStream!;
       final data = await loadCsvFromStream(readStream, delimiter: _delimiter);
       if (!mounted) return;
+      Navigator.of(context).pop();
       setState(() => _rows = data);
-      if (mounted) {
-        Navigator.of(context).pop();
-      }
     } catch (e) {
-      if (mounted) {
-        Navigator.of(context).pop();
-        showErrorDialog(context, '$e');
-      }
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      showErrorDialog(context, '$e');
     }
   }
 
