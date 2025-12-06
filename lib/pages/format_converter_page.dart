@@ -54,346 +54,148 @@ class _FormatConverterPageState extends State<FormatConverterPage> {
     });
   }
 
+  Widget _buildFormatDropdown(int value, ValueChanged<int?> onChanged) {
+    return Container(
+      decoration: BoxDecoration(
+        color: ColorScheme.of(
+          context,
+        ).onPrimaryContainer.withValues(alpha: .08),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+          isExpanded: true,
+          isDense: true,
+          value: value,
+          items: const [
+            DropdownMenuItem(value: 0, child: Text('JSON')),
+            DropdownMenuItem(value: 1, child: Text('CSV')),
+            DropdownMenuItem(value: 2, child: Text('YAML')),
+            DropdownMenuItem(value: 3, child: Text('XML')),
+          ],
+          onChanged: onChanged,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    bool readOnly = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: controller,
+        textAlignVertical: TextAlignVertical.top,
+        readOnly: readOnly,
+        expands: true,
+        minLines: null,
+        maxLines: null,
+        keyboardType: TextInputType.multiline,
+        decoration: const InputDecoration(border: OutlineInputBorder()),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth < 600) {
-          return Scaffold(
-            body: SafeArea(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 70,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 45,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: ColorScheme.of(
-                                  context,
-                                ).onPrimaryContainer.withValues(alpha: .08),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
-                              ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  isExpanded: true,
-                                  isDense: true,
-                                  value: _inputIndex,
-                                  items: [
-                                    DropdownMenuItem(
-                                      value: 0,
-                                      child: Text('JSON'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 1,
-                                      child: Text('CSV'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 2,
-                                      child: Text('YAML'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 3,
-                                      child: Text('XML'),
-                                    ),
-                                  ],
-                                  onChanged: (v) {
-                                    if (v != null) {
-                                      setState(() => _inputIndex = v);
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Expanded(
-                            flex: 10,
-                            child: SizedBox(
-                              child: IconButton(
-                                onPressed: _invert,
-                                icon: Icon(Icons.swap_horiz),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Expanded(
-                            flex: 45,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: ColorScheme.of(
-                                  context,
-                                ).onPrimaryContainer.withValues(alpha: .08),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
-                              ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  isExpanded: true,
-                                  isDense: true,
-                                  value: _outputIndex,
-                                  items: [
-                                    DropdownMenuItem(
-                                      value: 0,
-                                      child: Text('JSON'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 1,
-                                      child: Text('CSV'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 2,
-                                      child: Text('YAML'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 3,
-                                      child: Text('XML'),
-                                    ),
-                                  ],
-                                  onChanged: (v) {
-                                    if (v != null) {
-                                      setState(() => _outputIndex = v);
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+        final isWide = constraints.maxWidth >= 600;
 
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 45,
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: TextField(
-                              controller: _inputCtrl,
-                              textAlignVertical: TextAlignVertical.top,
-                              expands: true,
-                              minLines: null,
-                              maxLines: null,
-                              keyboardType: TextInputType.multiline,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 10,
-                          child: Center(
-                            child: IconButton(
-                              icon: Icon(Icons.arrow_downward),
-                              onPressed: () => _convert(),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 45,
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: TextField(
-                              controller: _outputCtrl,
-                              textAlignVertical: TextAlignVertical.top,
-                              readOnly: true,
-                              expands: true,
-                              minLines: null,
-                              maxLines: null,
-                              keyboardType: TextInputType.multiline,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
         return Scaffold(
           body: SafeArea(
             child: Column(
               children: [
+                // Header com dropdowns
                 SizedBox(
                   height: 70,
                   child: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
                         Expanded(
                           flex: 45,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: ColorScheme.of(
-                                context,
-                              ).onPrimaryContainer.withValues(alpha: .08),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                isExpanded: true,
-                                isDense: true,
-                                value: _inputIndex,
-                                items: [
-                                  DropdownMenuItem(
-                                    value: 0,
-                                    child: Text('JSON'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 1,
-                                    child: Text('CSV'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 2,
-                                    child: Text('YAML'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 3,
-                                    child: Text('XML'),
-                                  ),
-                                ],
-                                onChanged: (v) {
-                                  if (v != null) {
-                                    setState(() => _inputIndex = v);
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
+                          child: _buildFormatDropdown(_inputIndex, (v) {
+                            if (v != null) {
+                              setState(() => _inputIndex = v);
+                            }
+                          }),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Expanded(
                           flex: 10,
-                          child: SizedBox(
-                            child: IconButton(
-                              onPressed: _invert,
-                              icon: Icon(Icons.swap_horiz),
-                            ),
+                          child: IconButton(
+                            onPressed: _invert,
+                            icon: const Icon(Icons.swap_horiz),
                           ),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Expanded(
                           flex: 45,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: ColorScheme.of(
-                                context,
-                              ).onPrimaryContainer.withValues(alpha: .08),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                isExpanded: true,
-                                isDense: true,
-                                value: _outputIndex,
-                                items: [
-                                  DropdownMenuItem(
-                                    value: 0,
-                                    child: Text('JSON'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 1,
-                                    child: Text('CSV'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 2,
-                                    child: Text('YAML'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 3,
-                                    child: Text('XML'),
-                                  ),
-                                ],
-                                onChanged: (v) {
-                                  if (v != null) {
-                                    setState(() => _outputIndex = v);
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
+                          child: _buildFormatDropdown(_outputIndex, (v) {
+                            if (v != null) {
+                              setState(() => _outputIndex = v);
+                            }
+                          }),
                         ),
                       ],
                     ),
                   ),
                 ),
+                // Área de conversão (Column para mobile, Row para desktop)
                 Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 45,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: TextField(
-                            controller: _inputCtrl,
-                            textAlignVertical: TextAlignVertical.top,
-                            expands: true,
-                            minLines: null,
-                            maxLines: null,
-                            keyboardType: TextInputType.multiline,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
+                  child: isWide
+                      ? Row(
+                          children: [
+                            Expanded(
+                              flex: 45,
+                              child: _buildTextField(controller: _inputCtrl),
                             ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 10,
-                        child: Center(
-                          child: IconButton(
-                            icon: Icon(Icons.arrow_forward),
-                            onPressed: () => _convert(),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 45,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: TextField(
-                            controller: _outputCtrl,
-                            textAlignVertical: TextAlignVertical.top,
-                            readOnly: true,
-                            expands: true,
-                            minLines: null,
-                            maxLines: null,
-                            keyboardType: TextInputType.multiline,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
+                            Expanded(
+                              flex: 10,
+                              child: Center(
+                                child: IconButton(
+                                  icon: const Icon(Icons.arrow_forward),
+                                  onPressed: _convert,
+                                ),
+                              ),
                             ),
-                          ),
+                            Expanded(
+                              flex: 45,
+                              child: _buildTextField(
+                                controller: _outputCtrl,
+                                readOnly: true,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            Expanded(
+                              flex: 45,
+                              child: _buildTextField(controller: _inputCtrl),
+                            ),
+                            Expanded(
+                              flex: 10,
+                              child: Center(
+                                child: IconButton(
+                                  icon: const Icon(Icons.arrow_downward),
+                                  onPressed: _convert,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 45,
+                              child: _buildTextField(
+                                controller: _outputCtrl,
+                                readOnly: true,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                 ),
               ],
             ),

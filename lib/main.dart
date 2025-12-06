@@ -71,33 +71,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = StartPage(
-          onSelectIndex: (i) => setState(() => selectedIndex = i),
-        );
-        break;
-      case 1:
-        page = FormatConverterPage();
-        break;
-      case 2:
-        page = FileVerifierPage();
-        break;
-      case 3:
-        page = RequestTesterPage();
-        break;
-      case 4:
-        page = Base64Page();
-        break;
-      case 5:
-        page = CsvVisualizerPage();
-        break;
-      default:
-        page = StartPage(
-          onSelectIndex: (i) => setState(() => selectedIndex = i),
-        );
-    }
+    Widget page = switch (selectedIndex) {
+      1 => const FormatConverterPage(),
+      2 => const FileVerifierPage(),
+      3 => const RequestTesterPage(),
+      4 => const Base64Page(),
+      5 => const CsvVisualizerPage(),
+      _ => StartPage(onSelectIndex: (i) => setState(() => selectedIndex = i)),
+    };
 
     return PopScope(
       canPop: selectedIndex == 0,
