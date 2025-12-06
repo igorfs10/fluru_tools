@@ -22,7 +22,7 @@ class StartPage extends StatelessWidget {
           final crossAxisCount = isWide ? 3 : (isMedium ? 2 : 1);
 
           return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Column(
@@ -45,7 +45,7 @@ class StartPage extends StatelessWidget {
                               size: 40,
                               color: color.onPrimaryContainer,
                             ),
-                            SizedBox(width: 12),
+                            const SizedBox(width: 12),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,17 +71,17 @@ class StartPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Row(
                           children: [
                             _LocaleSelector(),
-                            SizedBox(width: 8),
-                            Spacer(),
+                            const SizedBox(width: 8),
+                            const Spacer(),
                             _CurrentVersionPill(scheme: color),
                             _LatestVersionPill(scheme: color),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           AppLocalizations.of(context)!.appDescription,
                           style: Theme.of(context).textTheme.bodyMedium
@@ -91,7 +91,7 @@ class StartPage extends StatelessWidget {
                     ),
                   ),
                   // Espaço após cabeçalho
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Grid de atalhos
                   Text(
                     AppLocalizations.of(context)!.quickAccess,
@@ -99,10 +99,10 @@ class StartPage extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   GridView(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: crossAxisCount,
                       crossAxisSpacing: 0,
@@ -191,17 +191,17 @@ class StartPage extends StatelessWidget {
                     ],
                   ),
 
-                  SizedBox(height: 28),
+                  const SizedBox(height: 28),
                   Text(
                     AppLocalizations.of(context)!.hereDocRequestExample,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 12),
-                  _HeredocExample(),
+                  const SizedBox(height: 12),
+                  const _HeredocExample(),
 
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   Center(
                     child: Text(
                       Localizations.of<AppLocalizations>(
@@ -264,7 +264,7 @@ class _LocaleSelector extends StatelessWidget {
         color: scheme.onPrimaryContainer.withValues(alpha: .08),
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 4,
       ), // mesma altura das pílulas
@@ -321,12 +321,12 @@ class _ToolCard extends StatelessWidget {
             BoxShadow(
               color: Colors.black.withValues(alpha: .04),
               blurRadius: 10,
-              offset: Offset(0, 4),
+              offset: const Offset(0, 4),
             ),
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
               Container(
@@ -338,7 +338,7 @@ class _ToolCard extends StatelessWidget {
                 ),
                 child: Icon(icon, color: color),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -352,7 +352,7 @@ class _ToolCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 6),
+                    const SizedBox(height: 6),
                     Text(
                       subtitle,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -388,8 +388,8 @@ class _CurrentVersionPill extends StatelessWidget {
         final version = snapshot.data?.version ?? '...';
         final buildNumber = snapshot.data?.buildNumber ?? '';
         return Container(
-          margin: EdgeInsets.only(right: 8),
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          margin: const EdgeInsets.only(right: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
             color: scheme.onPrimaryContainer.withValues(alpha: .08),
             borderRadius: BorderRadius.circular(12),
@@ -451,12 +451,12 @@ class _LatestVersionPill extends StatelessWidget {
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: scheme.onPrimaryContainer.withValues(alpha: .04),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: SizedBox(
+            child: const SizedBox(
               width: 16,
               height: 16,
               child: CircularProgressIndicator(strokeWidth: 2),
@@ -474,8 +474,8 @@ class _LatestVersionPill extends StatelessWidget {
             ? Colors.red.shade700
             : scheme.onPrimaryContainer;
         return Container(
-          margin: EdgeInsets.only(right: 0),
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          margin: const EdgeInsets.only(right: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
             color: bgColor,
             borderRadius: BorderRadius.circular(12),
@@ -528,14 +528,14 @@ BODY''';
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       color: scheme.surfaceContainerHighest,
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Icon(Icons.integration_instructions, color: scheme.primary),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     AppLocalizations.of(context)!.hereDocRequestInfo,
@@ -546,7 +546,7 @@ BODY''';
                 ),
                 IconButton(
                   tooltip: AppLocalizations.of(context)!.hereDocRequestCopy,
-                  icon: Icon(Icons.copy),
+                  icon: const Icon(Icons.copy),
                   onPressed: () async {
                     await Clipboard.setData(ClipboardData(text: _example));
                     if (context.mounted) {
@@ -562,7 +562,7 @@ BODY''';
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -570,10 +570,10 @@ BODY''';
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: scheme.outlineVariant),
               ),
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               child: SelectableText(
                 _example,
-                style: TextStyle(fontFamily: 'monospace', fontSize: 13),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
               ),
             ),
           ],

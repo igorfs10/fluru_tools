@@ -91,7 +91,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                         Expanded(
                           flex: 45,
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: TextField(
                               controller: _inputCtrl,
                               textAlignVertical: TextAlignVertical.top,
@@ -99,7 +99,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                               minLines: null,
                               maxLines: null,
                               keyboardType: TextInputType.multiline,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                               ),
                             ),
@@ -109,7 +109,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                           flex: 10,
                           child: Center(
                             child: IconButton(
-                              icon: Icon(Icons.arrow_downward),
+                              icon: const Icon(Icons.arrow_downward),
                               onPressed: () => _makeRequest(),
                             ),
                           ),
@@ -117,7 +117,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                         Expanded(
                           flex: 45,
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: TextField(
                               controller: _outputCtrl,
                               textAlignVertical: TextAlignVertical.top,
@@ -126,7 +126,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                               minLines: null,
                               maxLines: null,
                               keyboardType: TextInputType.multiline,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                               ),
                             ),
@@ -150,7 +150,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                       Expanded(
                         flex: 45,
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: TextField(
                             controller: _inputCtrl,
                             textAlignVertical: TextAlignVertical.top,
@@ -158,7 +158,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                             minLines: null,
                             maxLines: null,
                             keyboardType: TextInputType.multiline,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                             ),
                           ),
@@ -168,7 +168,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                         flex: 10,
                         child: Center(
                           child: IconButton(
-                            icon: Icon(Icons.arrow_forward),
+                            icon: const Icon(Icons.arrow_forward),
                             onPressed: () => _makeRequest(),
                           ),
                         ),
@@ -176,7 +176,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                       Expanded(
                         flex: 45,
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: TextField(
                             controller: _outputCtrl,
                             textAlignVertical: TextAlignVertical.top,
@@ -185,7 +185,7 @@ class _RequestTesterPageState extends State<RequestTesterPage> {
                             minLines: null,
                             maxLines: null,
                             keyboardType: TextInputType.multiline,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                             ),
                           ),

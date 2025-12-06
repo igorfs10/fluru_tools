@@ -93,13 +93,13 @@ class _Base64PageState extends State<Base64Page> {
             SizedBox(
               height: 70,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
                     Expanded(
                       child: TextButton.icon(
                         onPressed: _toBase64,
-                        icon: Icon(Icons.folder_open),
+                        icon: const Icon(Icons.folder_open),
                         label: Text(AppLocalizations.of(context)!.openFile),
                       ),
                     ),
@@ -113,7 +113,7 @@ class _Base64PageState extends State<Base64Page> {
                   Expanded(
                     flex: 45,
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         controller: _outputCtrl,
                         textAlignVertical: TextAlignVertical.top,
@@ -122,7 +122,7 @@ class _Base64PageState extends State<Base64Page> {
                         minLines: null,
                         maxLines: null,
                         keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -134,13 +134,13 @@ class _Base64PageState extends State<Base64Page> {
             SizedBox(
               height: 70,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
                     Expanded(
                       child: TextButton.icon(
                         onPressed: _toFile,
-                        icon: Icon(Icons.save),
+                        icon: const Icon(Icons.save),
                         label: Text(AppLocalizations.of(context)!.saveFile),
                       ),
                     ),

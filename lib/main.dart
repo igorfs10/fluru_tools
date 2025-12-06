@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           locale: locale,
-          home: MyHomePage(),
+          home: const MyHomePage(),
         );
       },
     );
@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                       );
                     } else {
-                      return SizedBox.shrink();
+                      return const SizedBox.shrink();
                     }
                   },
                 ),

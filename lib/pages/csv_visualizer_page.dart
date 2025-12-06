@@ -59,7 +59,7 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
             SizedBox(
               height: 70,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
                     Text(
@@ -74,7 +74,7 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                           ).onPrimaryContainer.withValues(alpha: .08),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 10,
                           vertical: 4,
                         ),
@@ -83,7 +83,7 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                             isExpanded: true,
                             isDense: true,
                             value: _delimiterIndex,
-                            items: [
+                            items: const [
                               DropdownMenuItem(value: 0, child: Text(',')),
                               DropdownMenuItem(value: 1, child: Text(';')),
                               DropdownMenuItem(value: 2, child: Text('|')),
@@ -103,13 +103,13 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
             ),
             SizedBox(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
                   children: [
                     Expanded(
                       child: TextButton.icon(
                         onPressed: _pickAndLoadCsv,
-                        icon: Icon(Icons.folder_open),
+                        icon: const Icon(Icons.folder_open),
                         label: Text(AppLocalizations.of(context)!.openFile),
                       ),
                     ),
@@ -122,7 +122,7 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: _rows.isEmpty
                           ? Center(
                               child: Text(

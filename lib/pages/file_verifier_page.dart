@@ -68,7 +68,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
             SizedBox(
               height: 70,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -80,7 +80,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                           ).onPrimaryContainer.withValues(alpha: .08),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 10,
                           vertical: 4,
                         ),
@@ -89,7 +89,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                             isExpanded: true,
                             isDense: true,
                             value: _outputIndex,
-                            items: [
+                            items: const [
                               DropdownMenuItem(value: 0, child: Text('MD5')),
                               DropdownMenuItem(value: 1, child: Text('SHA1')),
                               DropdownMenuItem(value: 2, child: Text('SHA256')),
@@ -107,7 +107,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                       flex: 45,
                       child: TextButton.icon(
                         onPressed: _fileVerify,
-                        icon: Icon(Icons.folder_open),
+                        icon: const Icon(Icons.folder_open),
                         label: Text(AppLocalizations.of(context)!.openFile),
                       ),
                     ),
@@ -120,7 +120,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         controller: _outputCtrl,
                         textAlignVertical: TextAlignVertical.top,
@@ -129,7 +129,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                         minLines: null,
                         maxLines: null,
                         keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                         ),
                       ),
