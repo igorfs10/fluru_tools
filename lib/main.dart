@@ -92,83 +92,79 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         }
       },
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(_navItems[selectedIndex].label(context)),
-              actions: [
-                Builder(
-                  builder: (context) {
-                    if (selectedIndex != 0) {
-                      return IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () {
-                          setState(() {
-                            selectedIndex = 0;
-                          });
-                        },
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_navItems[selectedIndex].label(context)),
+          actions: [
+            Builder(
+              builder: (context) {
+                if (selectedIndex != 0) {
+                  return IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      setState(() {
+                        selectedIndex = 0;
+                      });
+                    },
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
+            ),
+          ],
+          leading: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              );
+            },
+          ),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              SizedBox(
+                height: 65,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Fluru Tools',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                ),
+              ),
+              for (int i = 0; i < _navItems.length; i++)
+                ListTile(
+                  leading: Icon(_navItems[i].icon),
+                  title: Text(_navItems[i].label(context)),
+                  selected: selectedIndex == i,
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = i;
+                    });
+                    Navigator.of(context).pop();
                   },
                 ),
-              ],
-              leading: Builder(
-                builder: (context) {
-                  return IconButton(
-                    icon: const Icon(Icons.menu),
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                  );
-                },
+            ],
+          ),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Container(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: page,
               ),
             ),
-            drawer: Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  SizedBox(
-                    height: 65,
-                    child: DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Fluru Tools',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                    ),
-                  ),
-                  for (int i = 0; i < _navItems.length; i++)
-                    ListTile(
-                      leading: Icon(_navItems[i].icon),
-                      title: Text(_navItems[i].label(context)),
-                      selected: selectedIndex == i,
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = i;
-                        });
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                ],
-              ),
-            ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                    child: page,
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }
