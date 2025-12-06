@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Fluru Tools',
           theme: ThemeData(
-            colorScheme: .fromSeed(seedColor: Colors.lightBlueAccent),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlueAccent),
           ),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
@@ -155,16 +155,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        body: Column(
-          children: [
-            Expanded(
+        body: Expanded(
               child: Container(
                 color: Theme.of(context).colorScheme.primaryContainer,
                 child: page,
               ),
             ),
-          ],
-        ),
       ),
     );
   }

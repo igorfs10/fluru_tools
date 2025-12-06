@@ -105,7 +105,6 @@ class _Base64PageState extends State<Base64Page> {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 45,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: buildTextField(
