@@ -98,42 +98,35 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                 ),
               ),
             ),
-            SizedBox(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextButton.icon(
-                        onPressed: _pickAndLoadCsv,
-                        icon: const Icon(Icons.folder_open),
-                        label: Text(AppLocalizations.of(context)!.openFile),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
                 children: [
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: _rows.isEmpty
-                          ? Center(
-                              child: Text(
-                                '',
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            )
-                          : _CsvPaginatedTable(
-                              rows: _rows,
-                              hController: _hScrollController,
-                            ),
+                    child: TextButton.icon(
+                      onPressed: _pickAndLoadCsv,
+                      icon: const Icon(Icons.folder_open),
+                      label: Text(AppLocalizations.of(context)!.openFile),
                     ),
                   ),
                 ],
+              ),
+            ),
+
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _rows.isEmpty
+                    ? Center(
+                        child: Text(
+                          '',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      )
+                    : _CsvPaginatedTable(
+                        rows: _rows,
+                        hController: _hScrollController,
+                      ),
               ),
             ),
           ],
@@ -171,7 +164,6 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
     _maxColumns = widget.rows
         .map((r) => r.length)
         .fold<int>(0, (p, c) => c > p ? c : p);
-    // Evitar acessar Theme.of(context) em initState
     _source = _CsvDataSource(widget.rows, _maxColumns);
   }
 
@@ -183,7 +175,6 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
           .map((r) => r.length)
           .fold<int>(0, (p, c) => c > p ? c : p);
       _source = _CsvDataSource(widget.rows, _maxColumns);
-      setState(() {});
     }
   }
 
