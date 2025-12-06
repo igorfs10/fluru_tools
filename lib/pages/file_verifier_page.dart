@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:fluru_tools/custom_alert_dialog.dart';
+import 'package:fluru_tools/custom_widgets.dart';
 import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/services/file_verify.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +44,9 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
       // Hash streaming sem acumular todos os bytes.
       final stream = result.files.first.readStream!;
       txtResult = await fileVerifyStream(stream, _outputIndex);
-      if(mounted){
+      if (mounted) {
         Navigator.of(context).pop();
-      }  
+      }
     } catch (e) {
       if (mounted) {
         Navigator.of(context).pop();
@@ -84,22 +85,28 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                           horizontal: 10,
                           vertical: 4,
                         ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            isExpanded: true,
-                            isDense: true,
-                            value: _outputIndex,
-                            items: const [
-                              DropdownMenuItem(value: 0, child: Text('MD5')),
-                              DropdownMenuItem(value: 1, child: Text('SHA1')),
-                              DropdownMenuItem(value: 2, child: Text('SHA256')),
-                            ],
-                            onChanged: (v) {
-                              if (v != null) {
-                                setState(() => _outputIndex = v);
-                              }
-                            },
-                          ),
+                        child: buildFormatDropdown(
+                          context,
+                          _outputIndex,
+                          [
+                            const DropdownMenuItem(
+                              value: 0,
+                              child: Text('MD5'),
+                            ),
+                            const DropdownMenuItem(
+                              value: 1,
+                              child: Text('SHA1'),
+                            ),
+                            const DropdownMenuItem(
+                              value: 2,
+                              child: Text('SHA256'),
+                            ),
+                          ],
+                          (v) {
+                            if (v != null) {
+                              setState(() => _outputIndex = v);
+                            }
+                          },
                         ),
                       ),
                     ),
@@ -121,17 +128,9 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextField(
+                      child: buildTextField(
                         controller: _outputCtrl,
-                        textAlignVertical: TextAlignVertical.top,
                         readOnly: true,
-                        expands: true,
-                        minLines: null,
-                        maxLines: null,
-                        keyboardType: TextInputType.multiline,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                        ),
                       ),
                     ),
                   ),

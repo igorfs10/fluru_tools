@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:fluru_tools/custom_alert_dialog.dart';
+import 'package:fluru_tools/custom_widgets.dart';
 import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/services/base64_up_down.dart';
 import 'package:flutter/material.dart';
@@ -114,17 +115,9 @@ class _Base64PageState extends State<Base64Page> {
                     flex: 45,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextField(
+                      child: buildTextField(
                         controller: _outputCtrl,
-                        textAlignVertical: TextAlignVertical.top,
-                        readOnly: false,
-                        expands: true,
-                        minLines: null,
-                        maxLines: null,
-                        keyboardType: TextInputType.multiline,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                        ),
+                        readOnly: true,
                       ),
                     ),
                   ),
