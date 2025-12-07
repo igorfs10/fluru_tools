@@ -65,31 +65,19 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: ColorScheme.of(
-                            context,
-                          ).onPrimaryContainer.withValues(alpha: .08),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 4,
-                        ),
-                        child: buildFormatDropdown(
-                          context,
-                          _delimiterIndex,
-                          [
-                            const DropdownMenuItem(value: 0, child: Text(',')),
-                            const DropdownMenuItem(value: 1, child: Text(';')),
-                            const DropdownMenuItem(value: 2, child: Text('|')),
-                          ],
-                          (v) {
-                            if (v != null) {
-                              setState(() => _delimiterIndex = v);
-                            }
-                          },
-                        ),
+                      child: buildFormatDropdown(
+                        context,
+                        _delimiterIndex,
+                        [
+                          const DropdownMenuItem(value: 0, child: Text(',')),
+                          const DropdownMenuItem(value: 1, child: Text(';')),
+                          const DropdownMenuItem(value: 2, child: Text('|')),
+                        ],
+                        (v) {
+                          if (v != null) {
+                            setState(() => _delimiterIndex = v);
+                          }
+                        },
                       ),
                     ),
                   ],
@@ -117,7 +105,7 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                 child: _rows.isEmpty
                     ? Center(
                         child: Text(
-                          '',
+                          AppLocalizations.of(context)!.noDataLoaded,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       )
@@ -163,9 +151,7 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
   void initState() {
     super.initState();
     _maxColumns = _getMaxColumns(widget.rows);
-    setState(() {
-      _source = _CsvDataSource(widget.rows, _maxColumns);
-    });
+    _source = _CsvDataSource(widget.rows, _maxColumns);
   }
 
   @override

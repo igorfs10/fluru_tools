@@ -308,6 +308,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delimiter:'**
   String get delimiter;
+
+  /// No description provided for @noDataLoaded.
+  ///
+  /// In en, this message translates to:
+  /// **'No data loaded.'**
+  String get noDataLoaded;
 }
 
 class _AppLocalizationsDelegate

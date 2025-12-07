@@ -124,5 +124,8 @@
   },
 
   "delimiter": "Delimitador:",
-  "@delimiter": {}
+  "@delimiter": {},
+
+  "noDataLoaded": "Nenhum dado carregado.",
+  "@noDataLoaded": {}
 }

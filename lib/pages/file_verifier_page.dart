@@ -66,40 +66,28 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                   children: [
                     Expanded(
                       flex: 65,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: ColorScheme.of(
-                            context,
-                          ).onPrimaryContainer.withValues(alpha: .08),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 4,
-                        ),
-                        child: buildFormatDropdown(
-                          context,
-                          _outputIndex,
-                          [
-                            const DropdownMenuItem(
-                              value: 0,
-                              child: Text('MD5'),
-                            ),
-                            const DropdownMenuItem(
-                              value: 1,
-                              child: Text('SHA1'),
-                            ),
-                            const DropdownMenuItem(
-                              value: 2,
-                              child: Text('SHA256'),
-                            ),
-                          ],
-                          (v) {
-                            if (v != null) {
-                              setState(() => _outputIndex = v);
-                            }
-                          },
-                        ),
+                      child: buildFormatDropdown(
+                        context,
+                        _outputIndex,
+                        [
+                          const DropdownMenuItem(
+                            value: 0,
+                            child: Text('MD5'),
+                          ),
+                          const DropdownMenuItem(
+                            value: 1,
+                            child: Text('SHA1'),
+                          ),
+                          const DropdownMenuItem(
+                            value: 2,
+                            child: Text('SHA256'),
+                          ),
+                        ],
+                        (v) {
+                          if (v != null) {
+                            setState(() => _outputIndex = v);
+                          }
+                        },
                       ),
                     ),
                     Expanded(

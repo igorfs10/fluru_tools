@@ -132,6 +132,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get delimiter => 'Delimitador:';
+
+  @override
+  String get noDataLoaded => 'Nenhum dado carregado.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -262,4 +265,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get delimiter => 'Delimitador:';
+
+  @override
+  String get noDataLoaded => 'Nenhum dado carregado.';
 }

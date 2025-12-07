@@ -131,4 +131,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delimiter => 'Delimiter:';
+
+  @override
+  String get noDataLoaded => 'No data loaded.';
 }
