@@ -103,7 +103,7 @@ class _FileVerifierPageState extends State<FileVerifierPage> {
                       ),
                     ),
                     Expanded(
-                      flex: 45,
+                      flex: 35,
                       child: TextButton.icon(
                         onPressed: _fileVerify,
                         icon: const Icon(Icons.folder_open),

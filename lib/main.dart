@@ -155,12 +155,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        body: Expanded(
-              child: Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: page,
-              ),
-            ),
+        body: Container(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: page,
+        ),
       ),
     );
   }
