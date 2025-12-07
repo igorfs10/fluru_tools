@@ -10,6 +10,13 @@ class FormatConverterPage extends StatefulWidget {
   State<FormatConverterPage> createState() => _FormatConverterPageState();
 }
 
+const List<DropdownMenuItem<int>> dropItens = [
+  DropdownMenuItem(value: 0, child: Text('JSON')),
+  DropdownMenuItem(value: 1, child: Text('CSV')),
+  DropdownMenuItem(value: 2, child: Text('YAML')),
+  DropdownMenuItem(value: 3, child: Text('XML')),
+];
+
 class _FormatConverterPageState extends State<FormatConverterPage> {
   var _inputIndex = 0;
   var _outputIndex = 0;
@@ -73,24 +80,7 @@ class _FormatConverterPageState extends State<FormatConverterPage> {
                           child: buildFormatDropdown(
                             context,
                             _inputIndex,
-                            [
-                              const DropdownMenuItem(
-                                value: 0,
-                                child: Text('JSON'),
-                              ),
-                              const DropdownMenuItem(
-                                value: 1,
-                                child: Text('CSV'),
-                              ),
-                              const DropdownMenuItem(
-                                value: 2,
-                                child: Text('YAML'),
-                              ),
-                              const DropdownMenuItem(
-                                value: 3,
-                                child: Text('XML'),
-                              ),
-                            ],
+                            dropItens,
                             (v) {
                               if (v != null) {
                                 setState(() => _inputIndex = v);
@@ -112,24 +102,7 @@ class _FormatConverterPageState extends State<FormatConverterPage> {
                           child: buildFormatDropdown(
                             context,
                             _outputIndex,
-                            [
-                              const DropdownMenuItem(
-                                value: 0,
-                                child: Text('JSON'),
-                              ),
-                              const DropdownMenuItem(
-                                value: 1,
-                                child: Text('CSV'),
-                              ),
-                              const DropdownMenuItem(
-                                value: 2,
-                                child: Text('YAML'),
-                              ),
-                              const DropdownMenuItem(
-                                value: 3,
-                                child: Text('XML'),
-                              ),
-                            ],
+                            dropItens,
                             (v) {
                               if (v != null) {
                                 setState(() => _outputIndex = v);

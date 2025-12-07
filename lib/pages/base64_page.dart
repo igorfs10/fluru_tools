@@ -102,18 +102,12 @@ class _Base64PageState extends State<Base64Page> {
               ),
             ),
             Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: buildTextField(
-                        controller: _outputCtrl,
-                        readOnly: true,
-                      ),
-                    ),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: buildTextField(
+                  controller: _outputCtrl,
+                  readOnly: true,
+                ),
               ),
             ),
             SizedBox(

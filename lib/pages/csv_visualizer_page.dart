@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:file_picker/file_picker.dart';
 import 'package:fluru_tools/custom_alert_dialog.dart';
+import 'package:fluru_tools/custom_widgets.dart';
 import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/services/csv_loader.dart';
 import 'package:flutter/material.dart';
@@ -75,22 +76,19 @@ class _CsvVisualizerPageState extends State<CsvVisualizerPage> {
                           horizontal: 10,
                           vertical: 4,
                         ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            isExpanded: true,
-                            isDense: true,
-                            value: _delimiterIndex,
-                            items: const [
-                              DropdownMenuItem(value: 0, child: Text(',')),
-                              DropdownMenuItem(value: 1, child: Text(';')),
-                              DropdownMenuItem(value: 2, child: Text('|')),
-                            ],
-                            onChanged: (v) {
-                              if (v != null) {
-                                setState(() => _delimiterIndex = v);
-                              }
-                            },
-                          ),
+                        child: buildFormatDropdown(
+                          context,
+                          _delimiterIndex,
+                          [
+                            const DropdownMenuItem(value: 0, child: Text(',')),
+                            const DropdownMenuItem(value: 1, child: Text(';')),
+                            const DropdownMenuItem(value: 2, child: Text('|')),
+                          ],
+                          (v) {
+                            if (v != null) {
+                              setState(() => _delimiterIndex = v);
+                            }
+                          },
                         ),
                       ),
                     ),
@@ -158,23 +156,27 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
   int _rowsPerPage = 10;
   final ScrollController _vController = ScrollController();
 
+  int _getMaxColumns(List<List<String>> rows) =>
+      rows.map((r) => r.length).fold<int>(0, (p, c) => c > p ? c : p);
+
   @override
   void initState() {
     super.initState();
-    _maxColumns = widget.rows
-        .map((r) => r.length)
-        .fold<int>(0, (p, c) => c > p ? c : p);
-    _source = _CsvDataSource(widget.rows, _maxColumns);
+    _maxColumns = _getMaxColumns(widget.rows);
+    setState(() {
+      _source = _CsvDataSource(widget.rows, _maxColumns);
+    });
   }
 
   @override
   void didUpdateWidget(covariant _CsvPaginatedTable oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!identical(oldWidget.rows, widget.rows)) {
-      _maxColumns = widget.rows
-          .map((r) => r.length)
-          .fold<int>(0, (p, c) => c > p ? c : p);
-      _source = _CsvDataSource(widget.rows, _maxColumns);
+      _maxColumns = _getMaxColumns(widget.rows);
+
+      setState(() {
+        _source = _CsvDataSource(widget.rows, _maxColumns);
+      });
     }
   }
 
