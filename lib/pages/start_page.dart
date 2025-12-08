@@ -66,11 +66,10 @@ class StartPage extends StatelessWidget {
                                       const Spacer(),
                                       IconButton(
                                         icon: Icon(
-                                          appTheme.value == ThemeMode.dark
+                                          Theme.of(context).brightness == Brightness.dark
                                               ? Icons.light_mode
                                               : Icons.dark_mode,
                                         ),
-                                        tooltip: 'Alternar tema',
                                         onPressed: () => toggleTheme(),
                                       ),
                                     ],

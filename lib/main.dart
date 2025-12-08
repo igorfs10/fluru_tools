@@ -9,7 +9,15 @@ import 'package:flutter/material.dart';
 import 'locale_state.dart';
 import 'l10n/app_localizations.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Carregar preferências salvas
+  await Future.wait([
+    loadSavedTheme(),
+    loadSavedLocale(),
+  ]);
+
   runApp(const MyApp());
 }
 
