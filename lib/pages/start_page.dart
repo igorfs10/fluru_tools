@@ -1,5 +1,6 @@
 import 'package:fluru_tools/l10n/app_localizations.dart';
 import 'package:fluru_tools/locale_state.dart';
+import 'package:fluru_tools/theme_state.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -52,17 +53,25 @@ class StartPage extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      Expanded(
-                                        child: Text(
-                                          'Fluru Tools',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall
-                                              ?.copyWith(
-                                                color: color.onPrimaryContainer,
-                                                fontWeight: FontWeight.w700,
-                                              ),
+                                      Text(
+                                        'Fluru Tools',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall
+                                            ?.copyWith(
+                                              color: color.onPrimaryContainer,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                      ),
+                                      const Spacer(),
+                                      IconButton(
+                                        icon: Icon(
+                                          appTheme.value == ThemeMode.dark
+                                              ? Icons.light_mode
+                                              : Icons.dark_mode,
                                         ),
+                                        tooltip: 'Alternar tema',
+                                        onPressed: () => toggleTheme(),
                                       ),
                                     ],
                                   ),
@@ -468,18 +477,16 @@ class _LatestVersionPill extends StatelessWidget {
         final currentVersion = pkg.version.trim();
         final different = latest != null && latest != currentVersion;
         final bgColor = different
-            ? Colors.red.withValues(alpha: .14)
+            ? scheme.onPrimary.withValues(alpha: .14)
             : scheme.onPrimaryContainer.withValues(alpha: .08);
-        final textColor = different
-            ? Colors.red.shade700
-            : scheme.onPrimaryContainer;
+        final textColor = different ? scheme.error : scheme.onPrimaryContainer;
         return Container(
           margin: const EdgeInsets.only(right: 0),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
             color: bgColor,
             borderRadius: BorderRadius.circular(12),
-            border: different ? Border.all(color: Colors.red.shade400) : null,
+            border: different ? Border.all(color: scheme.error) : null,
           ),
           child: Text(
             latest == null

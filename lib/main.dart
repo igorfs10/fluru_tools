@@ -4,6 +4,7 @@ import 'package:fluru_tools/pages/file_verifier_page.dart';
 import 'package:fluru_tools/pages/format_converter_page.dart';
 import 'package:fluru_tools/pages/request_tester.dart';
 import 'package:fluru_tools/pages/start_page.dart';
+import 'package:fluru_tools/theme_state.dart';
 import 'package:flutter/material.dart';
 import 'locale_state.dart';
 import 'l10n/app_localizations.dart';
@@ -20,15 +21,30 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder<Locale?>(
       valueListenable: appLocale,
       builder: (context, locale, _) {
-        return MaterialApp(
-          title: 'Fluru Tools',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlueAccent),
-          ),
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: locale,
-          home: const MyHomePage(),
+        return ValueListenableBuilder(
+          valueListenable: appTheme,
+          builder: (context, theme, _) {
+            return MaterialApp(
+              title: 'Fluru Tools',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: Colors.lightBlueAccent,
+                  brightness: Brightness.light,
+                ),
+              ),
+              darkTheme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: Colors.lightBlueAccent,
+                  brightness: Brightness.dark,
+                ),
+              ),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: locale,
+              themeMode: theme,
+              home: const MyHomePage(),
+            );
+          },
         );
       },
     );
