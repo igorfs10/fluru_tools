@@ -395,7 +395,7 @@ class _CurrentVersionPill extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
-            'v$version${buildNumber.isNotEmpty ? '+$buildNumber' : ''}',
+            'v$version${buildNumber.isNotEmpty ? '+$buildNumber'.replaceAll("+1", "") : ''}',
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
               color: scheme.onPrimaryContainer,
               fontWeight: FontWeight.w600,
