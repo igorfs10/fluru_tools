@@ -64,13 +64,20 @@ class StartPage extends StatelessWidget {
                                             ),
                                       ),
                                       const Spacer(),
-                                      IconButton(
-                                        icon: Icon(
-                                          Theme.of(context).brightness == Brightness.dark
-                                              ? Icons.light_mode
-                                              : Icons.dark_mode,
-                                        ),
-                                        onPressed: () => toggleTheme(),
+                                      ValueListenableBuilder(
+                                        valueListenable: appTheme,
+                                        builder: (context, themeMode, _) {
+                                          return IconButton(
+                                            icon: Icon(
+                                              themeMode == ThemeMode.system
+                                                  ? Icons.computer
+                                                  : themeMode == ThemeMode.light
+                                                  ? Icons.light_mode
+                                                  : Icons.dark_mode,
+                                            ),
+                                            onPressed: toggleTheme,
+                                          );
+                                        },
                                       ),
                                     ],
                                   ),

@@ -9,14 +9,11 @@ import 'package:flutter/material.dart';
 import 'locale_state.dart';
 import 'l10n/app_localizations.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Carregar preferências salvas
-  await Future.wait([
-    loadSavedTheme(),
-    loadSavedLocale(),
-  ]);
+  await Future.wait([loadSavedTheme(), loadSavedLocale()]);
 
   runApp(const MyApp());
 }
@@ -26,7 +23,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Locale?>(
+    return ValueListenableBuilder(
       valueListenable: appLocale,
       builder: (context, locale, _) {
         return ValueListenableBuilder(
