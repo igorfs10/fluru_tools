@@ -22,7 +22,7 @@
   "webVersionTitle": "Versão Web",
   "@webVersionTitle": {},
 
-  "downloadAppTitle": "Download Versão Desktop",
+  "downloadAppTitle": "Download Versão Desktop/Mobile",
   "@downloadAppTitle": {},
 
   "sourceCodeTitle": "Código Fonte",
@@ -46,7 +46,7 @@
   "webVersionDescription": "Acesse a versão web do Fluru Tools.",
   "@webVersionDescription": {},
 
-  "downloadAppDescription": "Baixe a versão desktop do Fluru Tools.",
+  "downloadAppDescription": "Baixe a versão desktop ou mobile do Fluru Tools.",
   "@downloadAppDescription": {},
 
   "sourceCodeDescription": "Explore o código fonte do Fluru Tools no GitHub.",

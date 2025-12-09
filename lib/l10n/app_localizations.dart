@@ -144,7 +144,7 @@ abstract class AppLocalizations {
   /// No description provided for @downloadAppTitle.
   ///
   /// In en, this message translates to:
-  /// **'Download Desktop App'**
+  /// **'Download Desktop/Mobile App'**
   String get downloadAppTitle;
 
   /// No description provided for @sourceCodeTitle.
@@ -192,7 +192,7 @@ abstract class AppLocalizations {
   /// No description provided for @downloadAppDescription.
   ///
   /// In en, this message translates to:
-  /// **'Download the desktop application for Fluru Tools.'**
+  /// **'Download the desktop or mobile version of Fluru Tools.'**
   String get downloadAppDescription;
 
   /// No description provided for @sourceCodeDescription.

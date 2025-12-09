@@ -30,7 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get webVersionTitle => 'Web Version';
 
   @override
-  String get downloadAppTitle => 'Download Desktop App';
+  String get downloadAppTitle => 'Download Desktop/Mobile App';
 
   @override
   String get sourceCodeTitle => 'Source Code';
@@ -60,7 +60,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get downloadAppDescription =>
-      'Download the desktop application for Fluru Tools.';
+      'Download the desktop or mobile version of Fluru Tools.';
 
   @override
   String get sourceCodeDescription =>

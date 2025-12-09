@@ -30,7 +30,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get webVersionTitle => 'Versão Web';
 
   @override
-  String get downloadAppTitle => 'Download Versão Desktop';
+  String get downloadAppTitle => 'Download Versão Desktop/Mobile';
 
   @override
   String get sourceCodeTitle => 'Código Fonte';
@@ -59,7 +59,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get webVersionDescription => 'Acesse a versão web do Fluru Tools.';
 
   @override
-  String get downloadAppDescription => 'Baixe a versão desktop do Fluru Tools.';
+  String get downloadAppDescription =>
+      'Baixe a versão desktop ou mobile do Fluru Tools.';
 
   @override
   String get sourceCodeDescription =>
@@ -163,7 +164,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get webVersionTitle => 'Versão Web';
 
   @override
-  String get downloadAppTitle => 'Download Versão Desktop';
+  String get downloadAppTitle => 'Download Versão Desktop/Mobile';
 
   @override
   String get sourceCodeTitle => 'Código Fonte';
@@ -192,7 +193,8 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get webVersionDescription => 'Acesse a versão web do Fluru Tools.';
 
   @override
-  String get downloadAppDescription => 'Baixe a versão desktop do Fluru Tools.';
+  String get downloadAppDescription =>
+      'Baixe a versão desktop ou mobile do Fluru Tools.';
 
   @override
   String get sourceCodeDescription =>
