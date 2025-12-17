@@ -65,7 +65,7 @@ jobs:
       - name: Tar Linux build
         run: |
           tar -czf ${{ env.APP_NAME }}-linux-${{ env.VERSION }}.tar.gz \
-            -C build/linux/x64/release bundle
+            -C build/linux/x64/release/bundle .
 
       - uses: actions/upload-artifact@v4
         with:
@@ -131,7 +131,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build/web
-          publish_branch: web-build
+          publish_branch: web
           force_orphan: true
   release:
     name: Create GitHub Release
