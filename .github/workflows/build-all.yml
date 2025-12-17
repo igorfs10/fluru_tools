@@ -1,0 +1,136 @@
+name: Release Flutter (Tag)
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  APP_NAME: app
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version
+        shell: bash
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - run: flutter config --enable-windows-desktop
+      - run: flutter pub get
+      - run: flutter build windows --release
+
+      - name: Zip Windows build
+        run: |
+          powershell Compress-Archive `
+            -Path build/windows/x64/runner/Release/* `
+            -DestinationPath ${{ env.APP_NAME }}-windows-${{ env.VERSION }}.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: ${{ env.APP_NAME }}-windows-${{ env.VERSION }}.zip
+
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - run: |
+          sudo apt update
+          sudo apt install -y \
+            clang cmake ninja-build pkg-config libgtk-3-dev
+
+      - run: flutter config --enable-linux-desktop
+      - run: flutter pub get
+      - run: flutter build linux --release
+
+      - name: Tar Linux build
+        run: |
+          tar -czf ${{ env.APP_NAME }}-linux-${{ env.VERSION }}.tar.gz \
+            -C build/linux/x64/release bundle
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: ${{ env.APP_NAME }}-linux-${{ env.VERSION }}.tar.gz
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+      - run: flutter build apk --release
+
+      - name: Rename APK
+        run: |
+          mv build/app/outputs/flutter-apk/app-release.apk \
+             ${{ env.APP_NAME }}-android-${{ env.VERSION }}.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: ${{ env.APP_NAME }}-android-${{ env.VERSION }}.apk
+  build-web:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+      - run: flutter build web --release --wasm --base-href /fluru_tools/
+
+      - name: Deploy web to branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/web
+          publish_branch: web-build
+          force_orphan: true
+  release:
+    name: Create GitHub Release
+    needs: [build-windows, build-linux, build-android]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/**/*
+          generate_release_notes: true
