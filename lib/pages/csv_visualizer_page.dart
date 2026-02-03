@@ -159,7 +159,6 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
     super.didUpdateWidget(oldWidget);
     if (!identical(oldWidget.rows, widget.rows)) {
       _maxColumns = _getMaxColumns(widget.rows);
-
       setState(() {
         _source = _CsvDataSource(widget.rows, _maxColumns);
       });
@@ -167,10 +166,18 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
   }
 
   @override
+  void dispose() {
+    _vController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final hasHeader = widget.rows.isNotEmpty;
     final header = hasHeader ? widget.rows.first : const <String>[];
+    final fontSize = theme.textTheme.bodyMedium?.fontSize ?? 14.0;
+    final charWidth = fontSize * 0.6;
 
     final columns = List.generate(
       _maxColumns,
@@ -210,13 +217,25 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
           ),
         );
 
-        // Largura finita estimada para evitar BoxConstraints infinitos.
-        // Se o conteúdo for maior que a viewport, o scroll horizontal entra em ação.
-        final estimatedPerColumn = 160.0; // padding + texto médio + spacing
-        final contentWidth = math.max(
-          constraints.maxWidth,
-          _maxColumns * estimatedPerColumn,
+        final maxLens = List<int>.filled(_maxColumns, 0);
+        final sampleRows = widget.rows.take(200);
+        for (final row in sampleRows) {
+          for (var i = 0; i < _maxColumns; i++) {
+            final value = i < row.length ? row[i] : '';
+            if (value.length > maxLens[i]) maxLens[i] = value.length;
+          }
+        }
+
+        final perColumnWidths = List<double>.generate(
+          _maxColumns,
+          (i) => math.max(140.0, maxLens[i] * charWidth + 24.0),
         );
+        final totalColumnsWidth = perColumnWidths.fold<double>(
+          0,
+          (p, c) => p + c,
+        );
+        final totalWidth =
+          (12.0 * 2) + totalColumnsWidth + (24.0 * (_maxColumns - 1));
 
         final scrollable = Scrollbar(
           controller: widget.hController,
@@ -224,19 +243,33 @@ class _CsvPaginatedTableState extends State<_CsvPaginatedTable> {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             controller: widget.hController,
-            child: SizedBox(width: contentWidth, child: table),
+            child: SizedBox(
+              width: math.max(constraints.maxWidth, totalWidth),
+              child: table,
+            ),
           ),
         );
 
-        return Material(type: MaterialType.transparency, child: scrollable);
+        final verticalScrollable = Scrollbar(
+          controller: _vController,
+          thumbVisibility: true,
+          child: SingleChildScrollView(
+            controller: _vController,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: scrollable,
+            ),
+          ),
+        );
+
+        return Material(
+          type: MaterialType.transparency,
+          child: verticalScrollable,
+        );
       },
     );
 
-    return Scrollbar(
-      controller: _vController,
-      thumbVisibility: true,
-      child: SingleChildScrollView(controller: _vController, child: content),
-    );
+    return content;
   }
 }
 
