@@ -151,7 +151,7 @@ String jsonToCsv(String input) {
     rows.add(['value']);
     rows.add([_valueToCell(decoded)]);
   }
-  return const ListToCsvConverter().convert(rows);
+  return CsvCodec().encode(rows);
 }
 
 String jsonToYaml(String input) {
@@ -196,7 +196,7 @@ String jsonToXml(String input) {
 
 // ========= CSV =========
 String csvToJson(String input) {
-  final rows = const CsvToListConverter().convert(input);
+  final rows = CsvCodec().decode(input);
   if (rows.isEmpty) return '[]';
   final headers = rows.first.map((e) => e.toString()).toList();
   final out = <Map<String, dynamic>>[];

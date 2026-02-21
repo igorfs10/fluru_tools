@@ -6,8 +6,6 @@ import 'package:csv/csv.dart';
 Future<List<List<String>>> loadCsvFromStream(
   Stream<List<int>> stream, {
   String delimiter = ',',
-  String textDelimiter = '"',
-  bool shouldParseNumbers = false,
 }) async {
   // Acumula bytes inteiros para evitar quebra de caracteres multibyte entre chunks
   final builder = BytesBuilder(copy: false);
@@ -27,13 +25,10 @@ Future<List<List<String>>> loadCsvFromStream(
   // Normaliza EOL para o conversor
   raw = raw.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
 
-  final converter = CsvToListConverter(
+  final converter = CsvCodec(
     fieldDelimiter: delimiter,
-    textDelimiter: textDelimiter,
-    shouldParseNumbers: shouldParseNumbers,
-    eol: '\n',
   );
 
-  final data = converter.convert(raw);
+  final data = converter.decode(raw);
   return data.map((row) => row.map((v) => v?.toString() ?? '').toList()).toList();
 }
